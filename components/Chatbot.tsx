@@ -83,7 +83,8 @@ const Chatbot = () => {
   return (
     <>
       {/* Toggle Button with Ripple Effect */}
-      <div className={`fixed bottom-24 md:bottom-6 right-6 z-[90] group`}>
+      {/* CHANGED: bottom-24 -> bottom-32 on mobile to clear the sticky CTA */}
+      <div className={`fixed bottom-32 md:bottom-6 right-6 z-[90] group`}>
         {/* Pulse Effect */}
         <div className={`absolute inset-0 rounded-full bg-brand-orange/40 animate-ping opacity-75 ${isOpen ? 'hidden' : 'block'}`}></div>
         

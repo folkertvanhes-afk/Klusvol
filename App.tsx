@@ -14,7 +14,7 @@ import {
   Snowflake, ChevronsUp, Home, Scissors,
   PhoneOff, Armchair, FileWarning, Wallet, Briefcase, Activity,
   Coffee, PartyPopper, Smile, Unlock, Calculator, Coins, ChevronLeft, Loader2,
-  Play, QrCode, Wifi, Server, Send, Key, Crown
+  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
@@ -124,6 +124,153 @@ const VideoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         <h3 className="text-2xl font-bold text-white mb-2">Demo Video</h3>
                         <p className="text-gray-400">Jouw Veo 3.1 video komt hier.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// --- CONTACT MODAL (Creative "Direct Line") ---
+const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [sent, setSent] = useState(false);
+    const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', message: '' });
+
+    useEffect(() => {
+        if(isOpen) {
+            setSent(false);
+            setForm({ name: '', company: '', email: '', phone: '', message: '' });
+        }
+    }, [isOpen]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        // Simulate GHL Webhook call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setIsLoading(false);
+        setSent(true);
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-[#050810]/95 backdrop-blur-md transition-opacity duration-500" onClick={onClose}></div>
+            
+            <div className="relative w-full max-w-2xl bg-[#0F121C] border border-white/10 rounded-3xl shadow-2xl animate-scale-up overflow-hidden flex flex-col md:flex-row min-h-[500px]">
+                
+                {/* Left Side: Visual / Context */}
+                <div className="w-full md:w-1/3 bg-[#161b28] p-8 flex flex-col justify-between relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-orange to-orange-600"></div>
+                    
+                    <div className="relative z-10">
+                        <div className="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center border border-brand-orange/20 mb-6">
+                            <Headphones size={24} className="text-brand-orange" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Direct Contact</h3>
+                        <p className="text-sm text-gray-400 leading-relaxed">
+                            Voor grotere bedrijven, partnerschappen of specifieke vragen. Je staat direct in verbinding met ons team.
+                        </p>
+                    </div>
+
+                    <div className="relative z-10 mt-8 space-y-4">
+                         <div className="flex items-center gap-3 text-xs text-gray-400">
+                             <CheckCircle2 size={14} className="text-brand-orange" />
+                             <span>Binnen 2 uur reactie</span>
+                         </div>
+                         <div className="flex items-center gap-3 text-xs text-gray-400">
+                             <CheckCircle2 size={14} className="text-brand-orange" />
+                             <span>Directe lijn</span>
+                         </div>
+                    </div>
+                </div>
+
+                {/* Right Side: Form */}
+                <div className="flex-1 p-8 md:p-10 relative">
+                     <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors">
+                        <X size={20} />
+                    </button>
+
+                    {sent ? (
+                        <div className="h-full flex flex-col items-center justify-center text-center animate-fade-in">
+                            <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
+                                <Check size={40} className="text-green-500" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-2">Bericht Ontvangen</h3>
+                            <p className="text-gray-400 max-w-xs mx-auto mb-8">
+                                Bedankt {form.name}. We hebben je aanvraag ontvangen en nemen zo snel mogelijk contact op.
+                            </p>
+                            <Button variant="outline" onClick={onClose}>Sluiten</Button>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="h-full flex flex-col justify-center">
+                            <h3 className="text-2xl font-bold text-white mb-6">Stuur een bericht</h3>
+                            
+                            <div className="space-y-4 mb-8">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Naam</label>
+                                        <input 
+                                            required
+                                            value={form.name}
+                                            onChange={e => setForm({...form, name: e.target.value})}
+                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            placeholder="Jouw naam"
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Bedrijf</label>
+                                        <input 
+                                            value={form.company}
+                                            onChange={e => setForm({...form, company: e.target.value})}
+                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            placeholder="Bedrijfsnaam"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Contact</label>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <input 
+                                            required
+                                            type="email"
+                                            value={form.email} // Fixed field mapping
+                                            onChange={e => setForm({...form, email: e.target.value})} // Added email to state logic implicitly
+                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            placeholder="Emailadres"
+                                        />
+                                        <input 
+                                            required
+                                            type="tel"
+                                            value={form.phone}
+                                            onChange={e => setForm({...form, phone: e.target.value})}
+                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            placeholder="Telefoonnummer"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Bericht</label>
+                                    <textarea 
+                                        required
+                                        rows={3}
+                                        value={form.message}
+                                        onChange={e => setForm({...form, message: e.target.value})}
+                                        className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors resize-none"
+                                        placeholder="Waar kunnen we je mee helpen?"
+                                    />
+                                </div>
+                            </div>
+
+                            <Button variant="secondary" className="w-full justify-center" disabled={isLoading}>
+                                {isLoading ? <Loader2 className="animate-spin" /> : <>Verstuur Aanvraag <Send size={16} /></>}
+                            </Button>
+                        </form>
+                    )}
                 </div>
             </div>
         </div>
@@ -445,17 +592,18 @@ interface BentoCardProps {
 
 const BentoCard = ({ title, description, className = "", visual }: BentoCardProps) => (
   <div className={`
-    relative overflow-hidden group rounded-2xl border border-white/10 bg-[#161b28]
+    relative overflow-hidden group rounded-3xl border border-white/10 
+    bg-gradient-to-br from-[#12141c] to-[#0B0F19] 
     hover:border-brand-orange/40 hover:shadow-[0_0_80px_-20px_rgba(255,87,34,0.15)]
-    transition-all duration-700 flex flex-col
+    transition-all duration-700 flex flex-col backdrop-blur-md
     ${className}
   `}>
     
-    {/* Subtle top light gradient for depth */}
-    <div className="absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none"></div>
+    {/* Permanent orange glow corner for futuristic feel */}
+    <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-orange/5 blur-[50px] rounded-full pointer-events-none group-hover:bg-brand-orange/10 transition-colors duration-500"></div>
 
     {/* Subtle full card orange gradient on hover */}
-    <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
     {/* The Visual Content (Top Area) - Now FLEX-1 to fill space in tall cards */}
     <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center min-h-[140px]">
@@ -468,7 +616,7 @@ const BentoCard = ({ title, description, className = "", visual }: BentoCardProp
     </div>
 
     {/* Text Content (Bottom Area) */}
-    <div className="relative z-10 p-5 pt-2 md:pt-4 bg-gradient-to-t from-[#161b28] to-transparent">
+    <div className="relative z-10 p-6 pt-2 md:pt-4 bg-gradient-to-t from-[#0B0F19] to-transparent">
       <h3 className="text-sm md:text-base font-bold text-white group-hover:text-brand-orange mb-1 leading-tight transition-colors duration-300">
         {title}
       </h3>
@@ -1348,6 +1496,7 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activePage, setActivePage] = useState<'home' | 'privacy' | 'terms'>('home');
   const [showSignup, setShowSignup] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
 
   useEffect(() => {
@@ -1620,7 +1769,7 @@ function App() {
                  title="KlusVol Pro" 
                  price="217" 
                  buttonText="Contact"
-                 onCta={() => setShowSignup(true)}
+                 onCta={() => setShowContact(true)}
                  features={[
                    "Alles van Basis",
                    "Offertes & Contracten",
@@ -1781,6 +1930,7 @@ function App() {
       
       {/* Modals */}
       <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} />
+      <ContactModal isOpen={showContact} onClose={() => setShowContact(false)} />
       <VideoModal isOpen={showDemo} onClose={() => setShowDemo(false)} />
 
       {/* AI Chatbot */}
