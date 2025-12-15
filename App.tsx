@@ -93,7 +93,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
 
      {/* Fallback Icon (wordt getoond als logo.svg mist) */}
      <div id="fallback-logo" className="hidden w-10 h-10 bg-brand-orange rounded-xl items-center justify-center text-white shadow-[0_0_15px_rgba(255,87,34,0.5)] group-hover:scale-110 transition-transform duration-300">
-        <Zap size={20} fill="currentColor" className="text-white" />
+        <Hammer size={20} fill="currentColor" className="text-white" />
      </div>
      
      <span className="text-white text-2xl group-hover:text-brand-orange transition-colors duration-300">KlusVol</span>
