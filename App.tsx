@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import InteractivePhoneHero from './components/InteractivePhoneHero';
 import Chatbot from './components/Chatbot';
+import BlogPage from './components/BlogPage';
 import { 
   CheckCircle2, ArrowRight, XCircle, Clock, Calendar, MessageSquare, 
   CreditCard, Star, Menu, X, ChevronDown, ChevronUp, Phone, Mail, 
@@ -14,7 +15,7 @@ import {
   Snowflake, ChevronsUp, Home, Scissors,
   PhoneOff, Armchair, FileWarning, Wallet, Briefcase, Activity,
   Coffee, PartyPopper, Smile, Unlock, Calculator, Coins, ChevronLeft, Loader2,
-  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones
+  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones, Rocket
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
@@ -82,7 +83,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
      */}
      <img 
         src="/logo.svg" 
-        alt="KlusVol" 
+        alt="Klusvol" 
         className="h-10 w-10 object-contain rounded-xl" 
         onError={(e) => {
             e.currentTarget.style.display = 'none';
@@ -96,7 +97,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
         <Hammer size={20} fill="currentColor" className="text-white" />
      </div>
      
-     <span className="text-white text-2xl group-hover:text-brand-orange transition-colors duration-300">KlusVol</span>
+     <span className="text-white text-2xl group-hover:text-brand-orange transition-colors duration-300">Klusvol</span>
   </div>
 );
 
@@ -130,7 +131,7 @@ const VideoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     );
 };
 
-// --- CONTACT MODAL (Creative "Direct Line") ---
+// --- CONTACT MODAL (VIP Strategy Session) ---
 const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [sent, setSent] = useState(false);
@@ -156,90 +157,113 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-[#050810]/95 backdrop-blur-md transition-opacity duration-500" onClick={onClose}></div>
+            <div className="absolute inset-0 bg-[#000000]/95 backdrop-blur-2xl transition-opacity duration-500" onClick={onClose}></div>
             
-            <div className="relative w-full max-w-2xl bg-[#0F121C] border border-white/10 rounded-3xl shadow-2xl animate-scale-up overflow-hidden flex flex-col md:flex-row min-h-[500px]">
-                
-                {/* Left Side: Visual / Context */}
-                <div className="w-full md:w-1/3 bg-[#161b28] p-8 flex flex-col justify-between relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-orange to-orange-600"></div>
+            <div className="relative w-full max-w-5xl bg-[#050810] border border-white/10 rounded-[2.5rem] shadow-[0_0_100px_rgba(234,179,8,0.1)] animate-scale-up overflow-hidden flex flex-col md:flex-row min-h-[650px] group">
+                {/* Gold Border Glow */}
+                <div className="absolute inset-0 border border-yellow-500/20 rounded-[2.5rem] pointer-events-none"></div>
+
+                {/* Left Side: Premium Context */}
+                <div className="w-full md:w-[45%] bg-[#0B0F19] p-10 md:p-12 flex flex-col justify-between relative overflow-hidden">
+                    {/* Background Effects */}
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay"></div>
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-orange/10 blur-[100px] rounded-full pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-yellow-600/10 blur-[100px] rounded-full pointer-events-none"></div>
                     
                     <div className="relative z-10">
-                        <div className="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center border border-brand-orange/20 mb-6">
-                            <Headphones size={24} className="text-brand-orange" />
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-950/30 border border-yellow-500/30 backdrop-blur-md mb-10 shadow-[0_0_20px_rgba(234,179,8,0.1)]">
+                             <Crown size={14} className="text-yellow-500 fill-yellow-500" />
+                             <span className="text-[11px] font-bold text-yellow-200 uppercase tracking-widest">Klusvol Pro</span>
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Direct Contact</h3>
-                        <p className="text-sm text-gray-400 leading-relaxed">
-                            Voor grotere bedrijven, partnerschappen of specifieke vragen. Je staat direct in verbinding met ons team.
+                        
+                        <h3 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+                            Geen tool,<br/>
+                            maar een <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-700">Partner.</span>
+                        </h3>
+                        <p className="text-gray-400 leading-relaxed font-light text-lg">
+                            We werken exclusief met vakmensen die hun plafond hebben bereikt en daar doorheen willen breken.
                         </p>
                     </div>
 
-                    <div className="relative z-10 mt-8 space-y-4">
-                         <div className="flex items-center gap-3 text-xs text-gray-400">
-                             <CheckCircle2 size={14} className="text-brand-orange" />
-                             <span>Binnen 2 uur reactie</span>
+                    <div className="relative z-10 mt-12 space-y-8">
+                         <div className="flex items-start gap-5 group/item">
+                             <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-yellow-500/10 group-hover/item:border-yellow-500/30 transition-all duration-300">
+                                 <Rocket size={24} className="text-gray-400 group-hover/item:text-yellow-500 transition-colors" />
+                             </div>
+                             <div>
+                                 <div className="text-white font-bold text-base mb-1">Priority Onboarding</div>
+                                 <div className="text-sm text-gray-500 leading-relaxed">Wij richten alles in. Jij hoeft nergens naar om te kijken.</div>
+                             </div>
                          </div>
-                         <div className="flex items-center gap-3 text-xs text-gray-400">
-                             <CheckCircle2 size={14} className="text-brand-orange" />
-                             <span>Directe lijn</span>
+                         
+                         <div className="flex items-start gap-5 group/item">
+                             <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-yellow-500/10 group-hover/item:border-yellow-500/30 transition-all duration-300">
+                                 <Headphones size={24} className="text-gray-400 group-hover/item:text-yellow-500 transition-colors" />
+                             </div>
+                             <div>
+                                 <div className="text-white font-bold text-base mb-1">Directe Lijn</div>
+                                 <div className="text-sm text-gray-500 leading-relaxed">Je eigen accountmanager op WhatsApp. Geen wachtrijen.</div>
+                             </div>
                          </div>
                     </div>
                 </div>
 
                 {/* Right Side: Form */}
-                <div className="flex-1 p-8 md:p-10 relative">
-                     <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors">
-                        <X size={20} />
+                <div className="flex-1 p-8 md:p-12 relative flex flex-col justify-center bg-[#050810]">
+                     <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/5 text-gray-500 hover:text-white transition-colors z-50">
+                        <X size={24} />
                     </button>
 
                     {sent ? (
-                        <div className="h-full flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
-                                <Check size={40} className="text-green-500" />
+                        <div className="flex flex-col items-center justify-center text-center animate-fade-in h-full">
+                            <div className="w-24 h-24 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-full flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(234,179,8,0.3)]">
+                                <Check size={48} className="text-white" strokeWidth={3} />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Bericht Ontvangen</h3>
-                            <p className="text-gray-400 max-w-xs mx-auto mb-8">
-                                Bedankt {form.name}. We hebben je aanvraag ontvangen en nemen zo snel mogelijk contact op.
+                            <h3 className="text-3xl font-bold text-white mb-4">Aanvraag Ontvangen</h3>
+                            <p className="text-gray-400 max-w-xs mx-auto mb-10 text-lg">
+                                Bedankt {form.name}. Je staat op de lijst. We bellen je binnen 4 uur voor de intake.
                             </p>
-                            <Button variant="outline" onClick={onClose}>Sluiten</Button>
+                            <Button variant="outline" onClick={onClose} className="w-full max-w-xs border-white/10 hover:bg-white/5">Sluiten</Button>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="h-full flex flex-col justify-center">
-                            <h3 className="text-2xl font-bold text-white mb-6">Stuur een bericht</h3>
+                        <form onSubmit={handleSubmit} className="flex flex-col h-full justify-center max-w-md mx-auto w-full">
+                            <div className="mb-10">
+                                <h3 className="text-2xl font-bold text-white mb-2">Plan Strategie Sessie</h3>
+                                <p className="text-gray-400">We kijken samen of Klusvol Pro bij jouw groeifase past.</p>
+                            </div>
                             
-                            <div className="space-y-4 mb-8">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Naam</label>
+                            <div className="space-y-6 mb-10">
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Naam</label>
                                         <input 
                                             required
                                             value={form.name}
                                             onChange={e => setForm({...form, name: e.target.value})}
-                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
                                             placeholder="Jouw naam"
                                         />
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Bedrijf</label>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Bedrijf</label>
                                         <input 
                                             value={form.company}
                                             onChange={e => setForm({...form, company: e.target.value})}
-                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
                                             placeholder="Bedrijfsnaam"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Contact</label>
-                                    <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Direct Contact</label>
+                                    <div className="grid grid-cols-2 gap-6">
                                         <input 
                                             required
                                             type="email"
-                                            value={form.email} // Fixed field mapping
-                                            onChange={e => setForm({...form, email: e.target.value})} // Added email to state logic implicitly
-                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
+                                            value={form.email}
+                                            onChange={e => setForm({...form, email: e.target.value})}
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
                                             placeholder="Emailadres"
                                         />
                                         <input 
@@ -247,28 +271,32 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                                             type="tel"
                                             value={form.phone}
                                             onChange={e => setForm({...form, phone: e.target.value})}
-                                            className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors"
-                                            placeholder="Telefoonnummer"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                            placeholder="06-nummer"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Bericht</label>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Grootste Uitdaging</label>
                                     <textarea 
                                         required
-                                        rows={3}
+                                        rows={2}
                                         value={form.message}
                                         onChange={e => setForm({...form, message: e.target.value})}
-                                        className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange transition-colors resize-none"
-                                        placeholder="Waar kunnen we je mee helpen?"
+                                        className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all resize-none placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                        placeholder="Bijv: Ik wil personeel aannemen maar..."
                                     />
                                 </div>
                             </div>
 
-                            <Button variant="secondary" className="w-full justify-center" disabled={isLoading}>
-                                {isLoading ? <Loader2 className="animate-spin" /> : <>Verstuur Aanvraag <Send size={16} /></>}
+                            <Button variant="secondary" className="w-full justify-center text-base py-5 bg-gradient-to-r from-yellow-600 to-brand-orange border-none shadow-[0_0_30px_rgba(234,179,8,0.2)] hover:shadow-[0_0_50px_rgba(234,179,8,0.4)]" disabled={isLoading}>
+                                {isLoading ? <Loader2 className="animate-spin" /> : <>Vraag Strategie Sessie Aan <ArrowRight size={18} /></>}
                             </Button>
+                            
+                            <p className="text-center text-xs text-gray-600 mt-5 flex items-center justify-center gap-1.5">
+                                <Lock size={10} /> 100% Vertrouwelijk.
+                            </p>
                         </form>
                     )}
                 </div>
@@ -494,7 +522,7 @@ const SignupModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                                             <Zap size={20} className="text-white fill-white" />
                                          </div>
                                          <div>
-                                             <div className="text-white font-bold text-lg leading-none tracking-tight">KlusVol</div>
+                                             <div className="text-white font-bold text-lg leading-none tracking-tight">Klusvol</div>
                                              <div className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Member</div>
                                          </div>
                                     </div>
@@ -859,7 +887,7 @@ const reviews = [
     {
         name: "Erik Visser",
         role: "Schildersbedrijf Visser",
-        text: "Sinds ik KlusVol gebruik, belt mijn vrouw niet meer boos op dat ik tijdens het eten de telefoon opneem. Top spul.",
+        text: "Sinds ik Klusvol gebruik, belt mijn vrouw niet meer boos op dat ik tijdens het eten de telefoon opneem. Top spul.",
         stars: 5,
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces"
     },
@@ -1022,7 +1050,7 @@ const ComparisonSection = () => {
                         <div className="relative z-10 p-8 md:p-12 flex flex-col h-full">
                             <div className="mb-8 md:text-right flex flex-col md:items-end">
                                 <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4 transition-all duration-500 backdrop-blur-md shadow-[0_0_15px_rgba(52,211,153,0.2)] ${hoveredSide === 'right' ? 'scale-100 border-emerald-400/50 bg-emerald-500/20 text-emerald-300' : 'scale-90 opacity-70'}`}>
-                                    <CheckCircle2 size={14} /> Met KlusVol
+                                    <CheckCircle2 size={14} /> Met Klusvol
                                 </div>
                                 <h3 className={`text-3xl md:text-5xl font-extrabold text-white transition-all duration-500 leading-tight drop-shadow-lg ${hoveredSide === 'left' ? 'blur-[2px] opacity-30' : ''}`}>
                                     De Controle
@@ -1116,7 +1144,7 @@ const stepsData = [
     { 
         title: "Aanvragen", 
         desc: "Meld je aan.",
-        fullDesc: "Vul je gegevens in. Wij checken of KlusVol geschikt is voor jouw bedrijf.",
+        fullDesc: "Vul je gegevens in. Wij checken of Klusvol geschikt is voor jouw bedrijf.",
         icon: MousePointerClick
     },
     { 
@@ -1474,7 +1502,7 @@ const StickyMobileCTA = ({ onCta }: { onCta: () => void }) => {
                 {/* The 'Island' Content */}
                 <div className="relative bg-[#0F121C]/80 backdrop-blur-xl rounded-3xl p-4 pl-5 flex items-center justify-between shadow-2xl">
                     <div className="flex-1">
-                        <div className="text-white font-bold text-base leading-tight tracking-tight">KlusVol Proberen?</div>
+                        <div className="text-white font-bold text-base leading-tight tracking-tight">Klusvol Proberen?</div>
                         <div className="text-gray-400 text-xs mt-0.5 font-medium">Wij richten alles voor je in.</div>
                     </div>
                     <button 
@@ -1494,7 +1522,7 @@ const StickyMobileCTA = ({ onCta }: { onCta: () => void }) => {
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activePage, setActivePage] = useState<'home' | 'privacy' | 'terms'>('home');
+  const [activePage, setActivePage] = useState<'home' | 'privacy' | 'terms' | 'blog'>('home');
   const [showSignup, setShowSignup] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
@@ -1507,7 +1535,7 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigateTo = (page: 'home' | 'privacy' | 'terms', sectionId?: string) => {
+  const navigateTo = (page: 'home' | 'privacy' | 'terms' | 'blog', sectionId?: string) => {
       setActivePage(page);
       setMobileMenuOpen(false);
       
@@ -1517,6 +1545,9 @@ function App() {
               if (el) el.scrollIntoView({ behavior: 'smooth' });
           }, 100);
       } else if (page === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+          // Scroll to top for new pages like Blog
           window.scrollTo({ top: 0, behavior: 'smooth' });
       }
   };
@@ -1550,6 +1581,7 @@ function App() {
             <button onClick={() => navigateTo('home', 'voordelen')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Voordelen</button>
             <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Hoe het werkt</button>
             <button onClick={() => navigateTo('home', 'prijzen')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Prijzen</button>
+            <button onClick={() => navigateTo('blog')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Blog</button>
             <Button onClick={() => setShowSignup(true)} variant="primary" className="py-2.5 px-6 text-xs uppercase tracking-widest font-bold">Start Setup</Button>
           </div>
 
@@ -1564,6 +1596,7 @@ function App() {
             <button onClick={() => navigateTo('home', 'voordelen')} className="text-gray-300 text-lg font-medium text-left">Voordelen</button>
             <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-gray-300 text-lg font-medium text-left">Hoe het werkt</button>
             <button onClick={() => navigateTo('home', 'prijzen')} className="text-gray-300 text-lg font-medium text-left">Prijzen</button>
+            <button onClick={() => navigateTo('blog')} className="text-gray-300 text-lg font-medium text-left">Blog</button>
             <Button onClick={() => { setMobileMenuOpen(false); setShowSignup(true); }} variant="secondary" className="w-full justify-center py-4">Start Setup</Button>
           </div>
         )}
@@ -1738,7 +1771,7 @@ function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
                <PricingCard 
-                 title="KlusVol Start" 
+                 title="Klusvol Start" 
                  price="97" 
                  buttonText="Start Gratis Setup"
                  onCta={() => setShowSignup(true)}
@@ -1751,7 +1784,7 @@ function App() {
                  missingFeatures={["Agenda & Booking", "Website", "Offertes"]}
                />
                <PricingCard 
-                 title="KlusVol Basis" 
+                 title="Klusvol Basis" 
                  price="147" 
                  isPopular={true}
                  buttonText="Start Gratis Setup"
@@ -1766,9 +1799,9 @@ function App() {
                  missingFeatures={["Offertes & Facturen"]}
                />
                <PricingCard 
-                 title="KlusVol Pro" 
+                 title="Klusvol Pro" 
                  price="217" 
-                 buttonText="Contact"
+                 buttonText="Vraag Gesprek Aan"
                  onCta={() => setShowContact(true)}
                  features={[
                    "Alles van Basis",
@@ -1834,6 +1867,8 @@ function App() {
              </div>
           </section>
         </>
+      ) : activePage === 'blog' ? (
+        <BlogPage onBack={() => navigateTo('home')} />
       ) : activePage === 'privacy' ? (
         <LegalPage 
             title="Privacybeleid" 
@@ -1841,7 +1876,7 @@ function App() {
             content={
                 <>
                     <p>Laatst bijgewerkt: 24 mei 2024</p>
-                    <p>Bij KlusVol nemen we uw privacy serieus. Dit beleid beschrijft hoe wij uw gegevens verzamelen, gebruiken en beschermen.</p>
+                    <p>Bij Klusvol nemen we uw privacy serieus. Dit beleid beschrijft hoe wij uw gegevens verzamelen, gebruiken en beschermen.</p>
                     <h3>1. Gegevensverzameling</h3>
                     <p>Wij verzamelen informatie die u ons verstrekt bij het aanmaken van een account, zoals naam, e-mailadres en telefoonnummer.</p>
                     <h3>2. Gebruik van gegevens</h3>
@@ -1857,13 +1892,13 @@ function App() {
             onBack={() => navigateTo('home')}
             content={
                 <>
-                    <p>Welkom bij KlusVol. Door gebruik te maken van onze diensten gaat u akkoord met de volgende voorwaarden.</p>
+                    <p>Welkom bij Klusvol. Door gebruik te maken van onze diensten gaat u akkoord met de volgende voorwaarden.</p>
                     <h3>1. Dienstverlening</h3>
-                    <p>KlusVol biedt software voor het automatiseren van klantcontact voor vakmensen. Wij garanderen een inspanningsverplichting voor de beschikbaarheid van het platform.</p>
+                    <p>Klusvol biedt software voor het automatiseren van klantcontact voor vakmensen. Wij garanderen een inspanningsverplichting voor de beschikbaarheid van het platform.</p>
                     <h3>2. Betaling</h3>
                     <p>Abonnementen worden maandelijks gefactureerd. U kunt uw abonnement op elk moment opzeggen met inachtneming van een opzegtermijn van één maand.</p>
                     <h3>3. Aansprakelijkheid</h3>
-                    <p>KlusVol is niet aansprakelijk voor indirecte schade of gevolgschade voortvloeiend uit het gebruik van onze diensten.</p>
+                    <p>Klusvol is niet aansprakelijk voor indirecte schade of gevolgschade voortvloeiend uit het gebruik van onze diensten.</p>
                 </>
             } 
         />
@@ -1898,6 +1933,7 @@ function App() {
                     <li><button onClick={() => navigateTo('home', 'voordelen')} className="hover:text-brand-orange transition-colors">Voordelen</button></li>
                     <li><button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="hover:text-brand-orange transition-colors">Hoe het werkt</button></li>
                     <li><button onClick={() => navigateTo('home', 'prijzen')} className="hover:text-brand-orange transition-colors">Prijzen</button></li>
+                    <li><button onClick={() => navigateTo('blog')} className="hover:text-brand-orange transition-colors">Blog</button></li>
                     <li><button onClick={handleLoginClick} className="hover:text-brand-orange transition-colors">Inloggen</button></li>
                 </ul>
             </div>
@@ -1914,14 +1950,14 @@ function App() {
             <div>
                 <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Contact</h4>
                 <ul className="space-y-3">
-                    <li className="flex items-center gap-2"><Mail size={16} /> hallo@klusvol.nl</li>
-                    <li className="flex items-center gap-2"><Phone size={16} /> 020 - 123 45 67</li>
-                    <li className="flex items-start gap-2"><MapPin size={16} className="mt-1" /> Keizersgracht 123<br/>1015 CJ Amsterdam</li>
+                    <li className="flex items-center gap-2"><Mail size={16} /> info@klusvol.nl</li>
+                    <li className="flex items-center gap-2"><Phone size={16} /> 06 - 43 41 14 27</li>
+                    <li className="flex items-start gap-2"><MapPin size={16} className="mt-1" /> Onnerweg 55<br/>9751 VB Haren</li>
                 </ul>
             </div>
          </div>
          <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 text-center text-xs opacity-40">
-            &copy; {new Date().getFullYear()} KlusVol B.V. Alle rechten voorbehouden.
+            &copy; {new Date().getFullYear()} Klusvol B.V. Alle rechten voorbehouden.
          </div>
       </footer>
 
