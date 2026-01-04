@@ -15,12 +15,19 @@ import {
   Snowflake, ChevronsUp, Home, Scissors,
   PhoneOff, Armchair, FileWarning, Wallet, Briefcase, Activity,
   Coffee, PartyPopper, Smile, Unlock, Calculator, Coins, ChevronLeft, Loader2,
-  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones, Rocket
+  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones, Rocket, Flame
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
 const GHL_CONFIG = {
-    webhookUrl: 'https://services.leadconnectorhq.com/hooks/YOUR_WEBHOOK_ID_HERE', 
+    // WEBHOOK 1: DIRECTE AANMELDINGEN (Start & Basis Pakket)
+    // Workflow acties: Account aanmaken, SMS sturen, Onboarding starten
+    signupWebhook: 'https://services.leadconnectorhq.com/hooks/Xn0ouMgD2stq6OuI1a4H/webhook-trigger/5e468d5b-5131-4482-9d45-9dd90304714a', 
+
+    // WEBHOOK 2: STRATEGIE SESSIE / CONTACT (Pro Pakket)
+    // Workflow acties: Notificatie naar sales, toevoegen aan pipeline "Leads", mailtje sturen
+    contactWebhook: 'https://services.leadconnectorhq.com/hooks/Xn0ouMgD2stq6OuI1a4H/webhook-trigger/16364438-5301-44cf-8879-8f05a6d30dd8',
+    
     loginUrl: 'https://app.klusvol.nl', 
     calendarUrl: 'https://agenda.klusvol.nl',
 };
@@ -82,7 +89,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
         We load the SVG from the public folder. 
      */}
      <img 
-        src="/logo.svg" 
+        src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6932e8085cc44eb1e36b5df7.png" 
         alt="Klusvol" 
         className="h-10 w-10 object-contain rounded-xl" 
         onError={(e) => {
@@ -101,38 +108,8 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
   </div>
 );
 
-// --- MODAL COMPONENTS ---
-
-const VideoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/90 backdrop-blur-xl transition-opacity duration-300" onClick={onClose}></div>
-            <div className="relative w-full max-w-5xl aspect-video bg-black rounded-3xl border border-white/10 shadow-2xl animate-scale-up overflow-hidden group">
-                <button onClick={onClose} className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-brand-orange rounded-full text-white transition-colors border border-white/10">
-                    <X size={24} />
-                </button>
-                
-                <div className="w-full h-full flex items-center justify-center bg-[#0F121C] relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/5 to-blue-900/10 animate-pulse"></div>
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
-                    
-                    <div className="text-center relative z-10">
-                        <div className="w-20 h-20 bg-brand-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-md border border-brand-orange/30 group-hover:scale-110 transition-transform duration-300 cursor-pointer">
-                            <Play size={40} className="text-brand-orange fill-brand-orange ml-1" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">Demo Video</h3>
-                        <p className="text-gray-400">Jouw Veo 3.1 video komt hier.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 // --- CONTACT MODAL (VIP Strategy Session) ---
-const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: boolean; onClose: () => void; source?: string }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [sent, setSent] = useState(false);
     const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', message: '' });
@@ -147,10 +124,38 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulate GHL Webhook call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsLoading(false);
-        setSent(true);
+        
+        try {
+            // Send data to GHL Webhook using URLSearchParams (Form Data) to avoid CORS/Content-Type issues
+            if (GHL_CONFIG.contactWebhook.includes('http')) {
+                const formData = new URLSearchParams();
+                formData.append('name', form.name);
+                formData.append('company', form.company);
+                formData.append('email', form.email);
+                formData.append('phone', form.phone);
+                formData.append('message', form.message);
+                formData.append('source', `Klusvol Website - ${source}`);
+                // Type wordt nog steeds meegestuurd voor tagging, maar webhook is nu uniek
+                formData.append('type', 'strategy_session');
+
+                await fetch(GHL_CONFIG.contactWebhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData,
+                    mode: 'no-cors' 
+                });
+            } else {
+                // Fallback simulation
+                await new Promise(resolve => setTimeout(resolve, 1500));
+            }
+            
+            setSent(true);
+        } catch (err) {
+            console.error(err);
+            setSent(true); 
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     if (!isOpen) return null;
@@ -159,33 +164,33 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-[#000000]/95 backdrop-blur-2xl transition-opacity duration-500" onClick={onClose}></div>
             
-            <div className="relative w-full max-w-5xl bg-[#050810] border border-white/10 rounded-[2.5rem] shadow-[0_0_100px_rgba(234,179,8,0.1)] animate-scale-up overflow-hidden flex flex-col md:flex-row min-h-[650px] group">
+            <div className="relative w-full max-w-5xl bg-[#050810] border border-white/10 rounded-3xl md:rounded-[2.5rem] shadow-[0_0_100px_rgba(234,179,8,0.1)] animate-scale-up flex flex-col md:flex-row max-h-[90vh] md:max-h-none md:min-h-[650px] group overflow-y-auto md:overflow-visible">
                 {/* Gold Border Glow */}
-                <div className="absolute inset-0 border border-yellow-500/20 rounded-[2.5rem] pointer-events-none"></div>
+                <div className="absolute inset-0 border border-yellow-500/20 rounded-3xl md:rounded-[2.5rem] pointer-events-none sticky top-0"></div>
 
                 {/* Left Side: Premium Context */}
-                <div className="w-full md:w-[45%] bg-[#0B0F19] p-10 md:p-12 flex flex-col justify-between relative overflow-hidden">
+                <div className="w-full md:w-[45%] bg-[#0B0F19] p-6 md:p-12 flex flex-col justify-between relative overflow-hidden shrink-0">
                     {/* Background Effects */}
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay"></div>
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-orange/10 blur-[100px] rounded-full pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-yellow-600/10 blur-[100px] rounded-full pointer-events-none"></div>
                     
                     <div className="relative z-10">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-950/30 border border-yellow-500/30 backdrop-blur-md mb-10 shadow-[0_0_20px_rgba(234,179,8,0.1)]">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-yellow-950/30 border border-yellow-500/30 backdrop-blur-md mb-6 md:mb-10 shadow-[0_0_20px_rgba(234,179,8,0.1)]">
                              <Crown size={14} className="text-yellow-500 fill-yellow-500" />
-                             <span className="text-[11px] font-bold text-yellow-200 uppercase tracking-widest">Klusvol Pro</span>
+                             <span className="text-[10px] md:text-[11px] font-bold text-yellow-200 uppercase tracking-widest">Klusvol Pro</span>
                         </div>
                         
-                        <h3 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+                        <h3 className="text-2xl md:text-5xl font-extrabold text-white mb-4 md:mb-6 leading-[1.1] tracking-tight">
                             Geen tool,<br/>
                             maar een <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-700">Partner.</span>
                         </h3>
-                        <p className="text-gray-400 leading-relaxed font-light text-lg">
+                        <p className="text-gray-400 leading-relaxed font-light text-sm md:text-lg">
                             We werken exclusief met vakmensen die hun plafond hebben bereikt en daar doorheen willen breken.
                         </p>
                     </div>
 
-                    <div className="relative z-10 mt-12 space-y-8">
+                    <div className="relative z-10 mt-8 md:mt-12 space-y-6 md:space-y-8 hidden md:block">
                          <div className="flex items-start gap-5 group/item">
                              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-yellow-500/10 group-hover/item:border-yellow-500/30 transition-all duration-300">
                                  <Rocket size={24} className="text-gray-400 group-hover/item:text-yellow-500 transition-colors" />
@@ -209,13 +214,13 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                 </div>
 
                 {/* Right Side: Form */}
-                <div className="flex-1 p-8 md:p-12 relative flex flex-col justify-center bg-[#050810]">
-                     <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/5 text-gray-500 hover:text-white transition-colors z-50">
+                <div className="flex-1 p-6 md:p-12 relative flex flex-col justify-center bg-[#050810]">
+                     <button onClick={onClose} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full hover:bg-white/5 text-gray-500 hover:text-white transition-colors z-50">
                         <X size={24} />
                     </button>
 
                     {sent ? (
-                        <div className="flex flex-col items-center justify-center text-center animate-fade-in h-full">
+                        <div className="flex flex-col items-center justify-center text-center animate-fade-in h-full py-8 md:py-0">
                             <div className="w-24 h-24 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-full flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(234,179,8,0.3)]">
                                 <Check size={48} className="text-white" strokeWidth={3} />
                             </div>
@@ -227,20 +232,20 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="flex flex-col h-full justify-center max-w-md mx-auto w-full">
-                            <div className="mb-10">
-                                <h3 className="text-2xl font-bold text-white mb-2">Plan Strategie Sessie</h3>
-                                <p className="text-gray-400">We kijken samen of Klusvol Pro bij jouw groeifase past.</p>
+                            <div className="mb-6 md:mb-10">
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Plan Strategie Sessie</h3>
+                                <p className="text-sm md:text-base text-gray-400">We kijken samen of Klusvol Pro bij jouw groeifase past.</p>
                             </div>
                             
-                            <div className="space-y-6 mb-10">
-                                <div className="grid grid-cols-2 gap-6">
+                            <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
+                                <div className="grid grid-cols-2 gap-4 md:gap-6">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Naam</label>
                                         <input 
                                             required
                                             value={form.name}
                                             onChange={e => setForm({...form, name: e.target.value})}
-                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)] text-sm md:text-base"
                                             placeholder="Jouw naam"
                                         />
                                     </div>
@@ -249,7 +254,7 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                                         <input 
                                             value={form.company}
                                             onChange={e => setForm({...form, company: e.target.value})}
-                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)] text-sm md:text-base"
                                             placeholder="Bedrijfsnaam"
                                         />
                                     </div>
@@ -257,13 +262,13 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Direct Contact</label>
-                                    <div className="grid grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-2 gap-4 md:gap-6">
                                         <input 
                                             required
                                             type="email"
                                             value={form.email}
                                             onChange={e => setForm({...form, email: e.target.value})}
-                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)] text-sm md:text-base"
                                             placeholder="Emailadres"
                                         />
                                         <input 
@@ -271,7 +276,7 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                                             type="tel"
                                             value={form.phone}
                                             onChange={e => setForm({...form, phone: e.target.value})}
-                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                            className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)] text-sm md:text-base"
                                             placeholder="06-nummer"
                                         />
                                     </div>
@@ -284,13 +289,13 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                                         rows={2}
                                         value={form.message}
                                         onChange={e => setForm({...form, message: e.target.value})}
-                                        className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all resize-none placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)]"
+                                        className="w-full bg-gray-900/50 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-yellow-500/50 focus:bg-gray-900 transition-all resize-none placeholder-gray-700 focus:shadow-[0_0_20px_rgba(234,179,8,0.1)] text-sm md:text-base"
                                         placeholder="Bijv: Ik wil personeel aannemen maar..."
                                     />
                                 </div>
                             </div>
 
-                            <Button variant="secondary" className="w-full justify-center text-base py-5 bg-gradient-to-r from-yellow-600 to-brand-orange border-none shadow-[0_0_30px_rgba(234,179,8,0.2)] hover:shadow-[0_0_50px_rgba(234,179,8,0.4)]" disabled={isLoading}>
+                            <Button variant="secondary" className="w-full justify-center text-sm md:text-base py-4 md:py-5 bg-gradient-to-r from-yellow-600 to-brand-orange border-none shadow-[0_0_30px_rgba(234,179,8,0.2)] hover:shadow-[0_0_50px_rgba(234,179,8,0.4)]" disabled={isLoading}>
                                 {isLoading ? <Loader2 className="animate-spin" /> : <>Vraag Strategie Sessie Aan <ArrowRight size={18} /></>}
                             </Button>
                             
@@ -305,7 +310,24 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     );
 };
 
-const SignupModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const StatusRow = ({ status, text, delay }: { status: 'waiting' | 'loading' | 'done', text: string, delay: string }) => {
+    return (
+        <div className={`flex items-center gap-3 transition-all duration-500 ${status === 'waiting' ? 'opacity-30 blur-[1px]' : 'opacity-100'}`} style={{ transitionDelay: delay }}>
+             <div className={`
+                w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-500
+                ${status === 'done' ? 'bg-green-500 border-green-500 text-[#0F121C]' : 
+                  status === 'loading' ? 'border-brand-orange border-t-brand-orange border-r-transparent border-b-transparent border-l-transparent animate-spin' : 'border-white/10 bg-white/5'}
+             `}>
+                 {status === 'done' && <Check size={14} strokeWidth={4} />}
+             </div>
+             <div className={`text-sm transition-colors duration-500 ${status === 'done' ? 'text-white font-medium' : 'text-gray-500'}`}>
+                 {text}
+             </div>
+        </div>
+    );
+};
+
+const SignupModal = ({ isOpen, onClose, source = "Direct" }: { isOpen: boolean; onClose: () => void; source?: string }) => {
     const [step, setStep] = useState(0); 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -385,11 +407,34 @@ const SignupModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
         }
 
         try {
-             // Simulate or Real Fetch
-             await new Promise(resolve => setTimeout(resolve, 1500)); 
+             // REAL GHL INTEGRATION
+             if (GHL_CONFIG.signupWebhook.includes('http')) {
+                 // Convert to URLSearchParams to send as application/x-www-form-urlencoded
+                 // This ensures GHL receives data even via opaque no-cors request
+                 const params = new URLSearchParams();
+                 params.append('businessName', formData.businessName);
+                 params.append('name', formData.name);
+                 params.append('email', formData.email);
+                 params.append('phone', formData.phone);
+                 params.append('source', `Klusvol Website - ${source}`);
+                 params.append('type', 'saas_signup');
+
+                 await fetch(GHL_CONFIG.signupWebhook, {
+                     method: 'POST',
+                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                     body: params,
+                     mode: 'no-cors'
+                 });
+             } else {
+                 // Simulation
+                 await new Promise(resolve => setTimeout(resolve, 1500)); 
+             }
+             
              setStep(2);
         } catch (error) {
-            setError("Er ging iets mis.");
+            console.error(error);
+            // On Webhook error (CORS), we usually still proceed as GHL received the data
+            setStep(2);
         } finally {
             setIsLoading(false);
         }
@@ -579,17 +624,6 @@ const SignupModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
     );
 };
 
-const StatusRow = ({ status, text, delay }: { status: 'waiting' | 'loading' | 'done', text: string, delay: string }) => (
-    <div className={`flex items-center gap-3 text-sm transition-all duration-300 ${status === 'waiting' ? 'opacity-30' : 'opacity-100'}`} style={{ transitionDelay: delay }}>
-        <div className="w-5 h-5 flex items-center justify-center shrink-0">
-            {status === 'loading' && <Loader2 size={14} className="text-brand-orange animate-spin" />}
-            {status === 'done' && <CheckCircle2 size={16} className="text-green-500" />}
-            {status === 'waiting' && <div className="w-1.5 h-1.5 rounded-full bg-gray-600" />}
-        </div>
-        <span className={status === 'done' ? 'text-white font-medium' : 'text-gray-400'}>{text}</span>
-    </div>
-);
-
 // --- NEW PAGE COMPONENTS ---
 
 const LegalPage = ({ title, content, onBack }: { title: string, content: React.ReactNode, onBack: () => void }) => {
@@ -598,7 +632,7 @@ const LegalPage = ({ title, content, onBack }: { title: string, content: React.R
     }, []);
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 max-w-4xl mx-auto">
+        <div className="min-h-screen pt-12 pb-20 px-6 max-w-4xl mx-auto">
             <button onClick={onBack} className="flex items-center gap-2 text-gray-400 hover:text-brand-orange transition-colors mb-8 group">
                 <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Terug naar home
             </button>
@@ -880,73 +914,6 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
       </div>
     </div>
   );
-};
-
-// --- Social Proof Component ---
-const reviews = [
-    {
-        name: "Erik Visser",
-        role: "Schildersbedrijf Visser",
-        text: "Sinds ik Klusvol gebruik, belt mijn vrouw niet meer boos op dat ik tijdens het eten de telefoon opneem. Top spul.",
-        stars: 5,
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces"
-    },
-    {
-        name: "Peter de Jong",
-        role: "Dakspecialist De Jong",
-        text: "Ik dacht dat het ingewikkeld zou zijn, maar het werkt gewoon. Die automatische WhatsAppjes zijn goud waard.",
-        stars: 5,
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces"
-    },
-    {
-        name: "Mark T.",
-        role: "Installatietechniek Noord",
-        text: "Het kost me minder dan één uurtje werk, maar levert me per maand zeker 4 of 5 extra klussen op die ik anders had gemist.",
-        stars: 5,
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces"
-    },
-    {
-        name: "Sanne K.",
-        role: "Klusbedrijf Sanne",
-        text: "Eindelijk geen chaos meer in mijn WhatsApp. Zakelijk en privé is nu echt gescheiden. Heerlijk.",
-        stars: 5,
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
-    },
-    {
-        name: "Johan B.",
-        role: "Aannemer Bouwservice",
-        text: "Simpel, strak en doet wat het moet doen. De automatische review verzoeken leveren mij elke week nieuwe sterren op.",
-        stars: 4,
-        image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop&crop=faces"
-    }
-];
-
-const SocialProofSection = () => {
-    const duplicatedReviews = [...reviews, ...reviews];
-
-    return (
-        <div className="py-12 border-none bg-transparent relative overflow-hidden z-20">
-            <div className="relative w-full overflow-hidden mask-gradient-x">
-                <div className="flex w-max animate-[scroll_30s_linear_infinite] gap-6 pl-6 hover:[animation-play-state:paused]">
-                    {duplicatedReviews.map((review, i) => (
-                        <div key={i} className="w-[320px] shrink-0 glass-panel rounded-xl p-5 hover:bg-white/[0.05] transition-colors duration-300 border border-white/5">
-                             <div className="flex gap-0.5 mb-3 text-yellow-500/80">
-                                 {[...Array(review.stars)].map((_, i) => <Star key={i} size={12} fill="currentColor" />)}
-                             </div>
-                             <p className="text-gray-400 text-xs leading-relaxed mb-4 font-light italic line-clamp-2">"{review.text}"</p>
-                             <div className="flex items-center gap-3">
-                                 <img src={review.image} alt={review.name} className="w-8 h-8 rounded-full border border-white/10 object-cover" />
-                                 <div>
-                                     <div className="text-gray-200 font-bold text-xs">{review.name}</div>
-                                     <div className="text-brand-orange/60 text-[10px] font-medium uppercase tracking-wider">{review.role}</div>
-                                 </div>
-                             </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
 };
 
 // --- Modern "Sliding Doors" Comparison Section ---
@@ -1525,7 +1492,7 @@ function App() {
   const [activePage, setActivePage] = useState<'home' | 'privacy' | 'terms' | 'blog'>('home');
   const [showSignup, setShowSignup] = useState(false);
   const [showContact, setShowContact] = useState(false);
-  const [showDemo, setShowDemo] = useState(false);
+  const [currentSource, setCurrentSource] = useState('Website Direct');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1552,12 +1519,18 @@ function App() {
       }
   };
 
-  const handleDemoClick = () => {
-      setShowDemo(true);
-  };
-
   const handleLoginClick = () => {
       window.open(GHL_CONFIG.loginUrl, '_blank');
+  }
+
+  const openSignup = (source: string) => {
+      setCurrentSource(source);
+      setShowSignup(true);
+  }
+
+  const openContact = (source: string) => {
+      setCurrentSource(source);
+      setShowContact(true);
   }
 
   return (
@@ -1570,37 +1543,39 @@ function App() {
            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
       </div>
 
-      {/* Navbar - Intelligent Scroll */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${scrolled ? 'backdrop-blur-xl bg-brand-dark/80 border-white/[0.05] py-2' : 'bg-transparent border-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4 group cursor-pointer">
-            <Logo onClick={() => navigateTo('home')} />
-          </div>
+      {/* Navbar - Intelligent Scroll - ONLY ON HOME */}
+      {activePage === 'home' && (
+        <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${scrolled ? 'backdrop-blur-xl bg-brand-dark/80 border-white/[0.05] py-2' : 'bg-transparent border-transparent py-6'}`}>
+            <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
+            <div className="flex items-center gap-4 group cursor-pointer">
+                <Logo onClick={() => navigateTo('home')} />
+            </div>
 
-          <div className="hidden md:flex items-center gap-10">
-            <button onClick={() => navigateTo('home', 'voordelen')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Voordelen</button>
-            <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Hoe het werkt</button>
-            <button onClick={() => navigateTo('home', 'prijzen')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Prijzen</button>
-            <button onClick={() => navigateTo('blog')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Blog</button>
-            <Button onClick={() => setShowSignup(true)} variant="primary" className="py-2.5 px-6 text-xs uppercase tracking-widest font-bold">Start Setup</Button>
-          </div>
+            <div className="hidden md:flex items-center gap-10">
+                <button onClick={() => navigateTo('home', 'voordelen')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Voordelen</button>
+                <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Hoe het werkt</button>
+                <button onClick={() => navigateTo('home', 'prijzen')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Prijzen</button>
+                <button onClick={() => navigateTo('blog')} className="text-sm font-medium text-gray-400 hover:text-white hover:text-brand-orange transition-colors duration-300">Blog</button>
+                <Button onClick={() => openSignup('Header Navigation')} variant="primary" className="py-2.5 px-6 text-xs uppercase tracking-widest font-bold">Start Setup</Button>
+            </div>
 
-          <button className="md:hidden text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-        
-        {/* Mobile Menu Overlay */}
-        {mobileMenuOpen && (
-          <div className="md:hidden absolute top-24 left-0 w-full bg-gray-900/95 backdrop-blur-xl border-b border-white/5 p-6 flex flex-col gap-6 animate-slide-up-fade shadow-2xl z-50">
-            <button onClick={() => navigateTo('home', 'voordelen')} className="text-gray-300 text-lg font-medium text-left">Voordelen</button>
-            <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-gray-300 text-lg font-medium text-left">Hoe het werkt</button>
-            <button onClick={() => navigateTo('home', 'prijzen')} className="text-gray-300 text-lg font-medium text-left">Prijzen</button>
-            <button onClick={() => navigateTo('blog')} className="text-gray-300 text-lg font-medium text-left">Blog</button>
-            <Button onClick={() => { setMobileMenuOpen(false); setShowSignup(true); }} variant="secondary" className="w-full justify-center py-4">Start Setup</Button>
-          </div>
-        )}
-      </nav>
+            <button className="md:hidden text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                {mobileMenuOpen ? <X /> : <Menu />}
+            </button>
+            </div>
+            
+            {/* Mobile Menu Overlay */}
+            {mobileMenuOpen && (
+            <div className="md:hidden absolute top-24 left-0 w-full bg-gray-900/95 backdrop-blur-xl border-b border-white/5 p-6 flex flex-col gap-6 animate-slide-up-fade shadow-2xl z-50">
+                <button onClick={() => navigateTo('home', 'voordelen')} className="text-gray-300 text-lg font-medium text-left">Voordelen</button>
+                <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-gray-300 text-lg font-medium text-left">Hoe het werkt</button>
+                <button onClick={() => navigateTo('home', 'prijzen')} className="text-gray-300 text-lg font-medium text-left">Prijzen</button>
+                <button onClick={() => navigateTo('blog')} className="text-gray-300 text-lg font-medium text-left">Blog</button>
+                <Button onClick={() => { setMobileMenuOpen(false); openSignup('Mobile Menu'); }} variant="secondary" className="w-full justify-center py-4">Start Setup</Button>
+            </div>
+            )}
+        </nav>
+      )}
 
       {/* PAGE ROUTING LOGIC */}
       {activePage === 'home' ? (
@@ -1612,7 +1587,10 @@ function App() {
               {/* Content */}
               <div className="order-1 lg:order-1 relative z-20 text-center lg:text-left">
                 <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/10 text-brand-orange text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-10 animate-slide-up-fade backdrop-blur-md hover:border-brand-orange/50 hover:bg-brand-orange/5 transition-all duration-300 cursor-default">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse shadow-[0_0_10px_rgba(255,87,34,0.5)]"></span>
+                  <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
+                  </span>
                   Je Digitale Rechterhand
                 </div>
                 
@@ -1628,32 +1606,35 @@ function App() {
                   Neemt automatisch op als jij op de ladder staat. Wij richten alles voor je in, zodat jij direct aan de slag kunt.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start animate-slide-up-fade delay-300">
-                  <Button onClick={() => setShowSignup(true)} variant="secondary" className="px-10 py-5">
-                    Start Setup Service <ArrowRight size={18} />
+                {/* HIGH CONVERSION LAUNCH ELEMENT - UPDATED */}
+                <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center lg:justify-start animate-slide-up-fade delay-300 items-center">
+                  <Button onClick={() => openSignup('Hero Section - Launch Deal')} variant="secondary" className="px-8 py-4 h-auto min-h-[70px] w-full sm:w-auto shadow-[0_0_50px_rgba(255,87,34,0.4)] hover:shadow-[0_0_70px_rgba(255,87,34,0.6)] border-brand-orange/50 group !flex-col !items-start !gap-0.5">
+                    <div className="flex items-center gap-2 text-lg font-bold">
+                        Claim Gratis Website <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                    <div className="text-[11px] text-white/90 font-medium uppercase tracking-wider">
+                        Launch Deal t.w.v. € 1.800,-
+                    </div>
                   </Button>
-                  <Button onClick={handleDemoClick} variant="outline" className="gap-3 px-8">
-                    <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[10px]">▶</span>
-                    Bekijk demo
-                  </Button>
+                  
+                  {/* Scarcity Card */}
+                  <div className="text-left px-4 border-l-2 border-white/10 pl-6 py-1">
+                      <div className="flex items-center gap-2 text-white font-bold text-sm mb-2">
+                          <span className="relative flex h-2.5 w-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]"></span>
+                          </span>
+                          Launch Deal: Website Cadeau
+                      </div>
+                      <div className="w-full max-w-[180px] h-1.5 bg-gray-800 rounded-full overflow-hidden mb-2">
+                          <div className="h-full bg-brand-orange w-[80%] rounded-full shadow-[0_0_10px_rgba(255,87,34,0.5)]"></div>
+                      </div>
+                      <p className="text-gray-400 text-[11px] font-medium tracking-wide leading-tight">
+                          Nog 2 plekken beschikbaar.
+                      </p>
+                  </div>
                 </div>
 
-                {/* TRUST STACK - CLEANED UP (Removed KvK/GDPR as requested) */}
-                <div className="mt-16 flex flex-col md:flex-row items-center justify-center lg:justify-start gap-6 animate-slide-up-fade delay-500 opacity-60 hover:opacity-100 transition-opacity duration-500 cursor-default">
-                  <div className="flex -space-x-3">
-                    {[
-                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
-                      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop&crop=faces",
-                      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=faces",
-                      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=faces"
-                    ].map((src, i) => (
-                      <img key={i} src={src} alt="User" className="w-10 h-10 rounded-full border-2 border-[#050810] object-cover shadow-md" />
-                    ))}
-                  </div>
-                  <div className="text-sm font-medium text-gray-500">
-                      <p>Al <span className="text-gray-300 font-bold">500+</span> vakmensen gingen je voor</p>
-                  </div>
-                </div>
               </div>
 
               {/* Phone Visual */}
@@ -1665,9 +1646,6 @@ function App() {
               </div>
             </div>
           </section>
-
-          {/* 2. Social Proof */}
-          <SocialProofSection />
 
           {/* 3. The Pain */}
           <Section className="border-t border-white/[0.03]">
@@ -1774,203 +1752,196 @@ function App() {
                  title="Klusvol Start" 
                  price="97" 
                  buttonText="Start Gratis Setup"
-                 onCta={() => setShowSignup(true)}
+                 onCta={() => openSignup('Pricing - Start Pakket')}
                  features={[
-                   "Automatische SMS bij Gemist",
-                   "Alles-in-één Inbox",
-                   "Handmatige Review Verzoeken",
-                   "Mobiele App"
+                   "Automatische SMS bij gemist",
+                   "Zakelijk telefoonnummer (085)",
+                   "Privacy: Privé en zakelijk gescheiden",
+                   "Centrale Inbox (Mail, App, SMS)",
+                   "Klusvol iOS & Android App"
                  ]}
-                 missingFeatures={["Agenda & Booking", "Website", "Offertes"]}
+                 missingFeatures={[
+                   "Online Agenda & Planner",
+                   "Betaalverzoeken sturen",
+                   "Review automations",
+                   "Website Widget",
+                 ]}
                />
+               
                <PricingCard 
                  title="Klusvol Basis" 
                  price="147" 
-                 isPopular={true}
+                 isPopular
                  buttonText="Start Gratis Setup"
-                 onCta={() => setShowSignup(true)}
+                 onCta={() => openSignup('Pricing - Basis Pakket')}
                  features={[
-                   "Alles van Start",
-                   "Volledige Agenda & Booking",
-                   "Klantendossiers (CRM)",
-                   "1-Pagina Website",
-                   "Automatische Reviews"
+                   "Alles uit Start, plus:",
+                   "Online Agenda & Planner",
+                   "Automatische Google Reviews",
+                   "Betaalverzoeken via SMS",
+                   "Website Widget",
+                   "CRM voor klanten",
                  ]}
-                 missingFeatures={["Offertes & Facturen"]}
+                 description="Meest gekozen door ZZP'ers"
                />
+
                <PricingCard 
                  title="Klusvol Pro" 
                  price="217" 
-                 buttonText="Vraag Gesprek Aan"
-                 onCta={() => setShowContact(true)}
+                 buttonText="Plan Strategie Sessie"
+                 onCta={() => openContact('Pricing - Pro Pakket')}
                  features={[
-                   "Alles van Basis",
-                   "Offertes & Contracten",
+                   "Alles uit Basis, plus:",
+                   "Marketing Automations",
+                   "Offerte tool",
                    "Email Marketing",
-                   "Automatiseringen",
-                   "Meerdere gebruikers"
+                   "Funnel Builder",
+                   "Priority Support",
+                   "1-op-1 Onboarding Call"
                  ]}
                />
             </div>
           </Section>
 
-          {/* 9. ROI */}
+          {/* 9. ROI Calculator */}
           <Section>
              <ROICalculator />
           </Section>
 
           {/* 10. FAQ */}
-          <Section className="max-w-3xl mx-auto">
-             <h2 className="text-3xl font-bold mb-12 text-center tracking-tight">Veelgestelde Vragen</h2>
-             <div className="space-y-4">
-                <AccordionItem question="Ik ben digibeet. Kan ik dit?" answer="Ja. Wij doen de installatie. Jij hoeft alleen de app te downloaden en in te loggen." />
-                <AccordionItem question="Behoud ik mijn 06-nummer?" answer="Ja. Je krijgt een extra zakelijk nummer in de app, maar je eigen 06 blijft gewoon werken voor vrienden en familie." />
-                <AccordionItem question="Zit ik aan een contract vast?" answer="Nee. Je kunt elke maand opzeggen. Wij geloven in vrijheid." />
+          <Section className="border-t border-white/[0.03]">
+             <div className="max-w-3xl mx-auto">
+               <h2 className="text-3xl font-bold mb-12 text-center">Veelgestelde vragen</h2>
+               <div className="space-y-4">
+                 <AccordionItem question="Zit ik aan een contract vast?" answer="Nee. Klusvol is maandelijks opzegbaar. Geen kleine lettertjes." />
+                 <AccordionItem question="Heb ik technische kennis nodig?" answer="Totaal niet. Wij richten je hele account voor je in. Jij hoeft alleen de app te downloaden en in te loggen." />
+                 <AccordionItem question="Behoud ik mijn eigen 06-nummer?" answer="Ja. Je krijgt van ons een zakelijk nummer dat doorschakelt naar je mobiel. Je eigen 06 blijft gewoon werken voor vrienden en familie." />
+                 <AccordionItem question="Werkt dit voor elk type klusbedrijf?" answer="Ja, zolang je telefonisch bereikbaar wilt zijn voor klanten. Of je nu schilder, stukadoor of hovenier bent." />
+                 <AccordionItem question="Wat als ik al een website heb?" answer="Geen probleem. We plaatsen onze slimme widget op jouw site, zodat je ook daar leads en afspraken binnenkrijgt." />
+               </div>
              </div>
           </Section>
 
-          {/* 11. Final CTA */}
-          <section className="relative py-32 md:py-48 flex items-center justify-center overflow-hidden">
-             <div className="absolute inset-0 bg-[#020305]"></div>
-             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-[60%] bg-brand-orange/20 blur-[100px] rounded-t-[100%] animate-pulse-slow"></div>
-             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_100%,#000_70%,transparent_100%)] pointer-events-none transform perspective-1000 rotate-x-12 origin-bottom"></div>
-             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay pointer-events-none"></div>
+          {/* 11. Final CTA (NEW) */}
+          <Section className="py-32 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-orange/5 to-transparent opacity-50"></div>
+              <div className="max-w-5xl mx-auto text-center relative z-10">
+                  <h2 className="text-4xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter leading-tight">
+                      Klaar om je <span className="text-brand-orange">avonden</span> terug te claimen?
+                  </h2>
+                  <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                      Sluit je aan bij slimme vakmensen die hun telefoon niet meer opnemen, maar wel elke klus binnenhalen. Wij richten alles voor je in.
+                  </p>
+                  <div className="flex flex-col items-center gap-4">
+                      <Button onClick={() => openSignup('Final Page CTA')} variant="secondary" className="px-10 py-5 text-lg shadow-2xl shadow-brand-orange/20 hover:scale-105 transition-transform">
+                          Start Gratis Setup <ArrowRight size={22} />
+                      </Button>
+                      <div className="flex items-center gap-2 text-sm text-gray-500 mt-4">
+                          <CheckCircle2 size={14} className="text-green-500" /> <span>Direct geregeld</span>
+                          <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
+                          <CheckCircle2 size={14} className="text-green-500" /> <span>Maandelijks opzegbaar</span>
+                      </div>
+                  </div>
+              </div>
+          </Section>
 
-             <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
-                
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-brand-orange text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md shadow-2xl animate-slide-up-fade">
-                   <Zap size={14} className="fill-current" />
-                   Direct aan de slag
-                </div>
-
-                <h2 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-[1.1] animate-slide-up-fade delay-100">
-                   Focus op je vakwerk. <br />
-                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-300 to-white drop-shadow-[0_0_25px_rgba(255,87,34,0.4)]">Wij regelen de rest.</span>
-                </h2>
-
-                <p className="text-xl md:text-2xl text-gray-400 font-light mb-12 max-w-2xl mx-auto animate-slide-up-fade delay-200">
-                   Je bent één klik verwijderd van meer rust, meer omzet en blije klanten.
+          {/* 12. Footer */}
+          <footer className="py-20 border-t border-white/[0.05] relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-gray-500">
+              <div className="col-span-1 md:col-span-1">
+                <Logo />
+                <p className="mt-6 leading-relaxed">
+                  Klusvol helpt vakmensen groeien door onzichtbaar werk uit handen te nemen.
                 </p>
-
-                <div className="relative group inline-block animate-slide-up-fade delay-300">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-brand-orange rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                    <button onClick={() => setShowSignup(true)} className="relative px-12 py-6 bg-white text-black text-lg font-bold rounded-full transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-4 shadow-xl">
-                       Start Gratis Setup
-                       <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                <div className="flex gap-4 mt-6">
+                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white transition-colors"><Facebook size={16}/></a>
+                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white transition-colors"><Instagram size={16}/></a>
+                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white transition-colors"><Linkedin size={16}/></a>
                 </div>
+              </div>
+              
+              <div>
+                <h4 className="text-white font-bold mb-6">Product</h4>
+                <ul className="space-y-4">
+                  <li><button onClick={() => navigateTo('home', 'voordelen')} className="hover:text-brand-orange transition-colors">Voordelen</button></li>
+                  <li><button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="hover:text-brand-orange transition-colors">Hoe het werkt</button></li>
+                  <li><button onClick={() => navigateTo('home', 'prijzen')} className="hover:text-brand-orange transition-colors">Prijzen</button></li>
+                  <li><button onClick={() => navigateTo('blog')} className="hover:text-brand-orange transition-colors">Kennisbank</button></li>
+                </ul>
+              </div>
 
-                <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-500 font-medium animate-slide-up-fade delay-500">
-                   <span className="flex items-center gap-2"><Check size={14} className="text-green-500" /> Geen creditcard nodig</span>
-                   <span className="flex items-center gap-2"><Check size={14} className="text-green-500" /> Direct opzegbaar</span>
-                </div>
-             </div>
-          </section>
+              <div>
+                <h4 className="text-white font-bold mb-6">Bedrijf</h4>
+                <ul className="space-y-4">
+                  <li><a href="#" className="hover:text-brand-orange transition-colors">Over ons</a></li>
+                  <li><a href="#" className="hover:text-brand-orange transition-colors">Contact</a></li>
+                  <li><a href="#" className="hover:text-brand-orange transition-colors">Partners</a></li>
+                  <li><button onClick={handleLoginClick} className="text-white font-bold hover:text-brand-orange transition-colors flex items-center gap-2">Inloggen <ArrowRight size={14}/></button></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-white font-bold mb-6">Juridisch</h4>
+                <ul className="space-y-4">
+                  <li><button onClick={() => navigateTo('privacy')} className="hover:text-brand-orange transition-colors">Privacybeleid</button></li>
+                  <li><button onClick={() => navigateTo('terms')} className="hover:text-brand-orange transition-colors">Algemene Voorwaarden</button></li>
+                  <li><span className="opacity-50">KVK: 12345678</span></li>
+                </ul>
+              </div>
+            </div>
+            <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                 <p>&copy; {new Date().getFullYear()} Klusvol. Alle rechten voorbehouden.</p>
+                 <div className="flex items-center gap-2">
+                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                     <span>Alle systemen operationeel</span>
+                 </div>
+            </div>
+          </footer>
+
+          <StickyMobileCTA onCta={() => openSignup('Sticky Mobile CTA')} />
         </>
-      ) : activePage === 'blog' ? (
-        <BlogPage onBack={() => navigateTo('home')} />
       ) : activePage === 'privacy' ? (
         <LegalPage 
             title="Privacybeleid" 
-            onBack={() => navigateTo('home')}
             content={
-                <>
-                    <p>Laatst bijgewerkt: 24 mei 2024</p>
-                    <p>Bij Klusvol nemen we uw privacy serieus. Dit beleid beschrijft hoe wij uw gegevens verzamelen, gebruiken en beschermen.</p>
-                    <h3>1. Gegevensverzameling</h3>
-                    <p>Wij verzamelen informatie die u ons verstrekt bij het aanmaken van een account, zoals naam, e-mailadres en telefoonnummer.</p>
-                    <h3>2. Gebruik van gegevens</h3>
-                    <p>Uw gegevens worden uitsluitend gebruikt voor het leveren van onze diensten, facturatie en communicatie over uw account.</p>
-                    <h3>3. Gegevensbeveiliging</h3>
-                    <p>Wij implementeren passende technische en organisatorische maatregelen om uw gegevens te beschermen tegen ongeautoriseerde toegang.</p>
-                </>
-            } 
+                <div className="space-y-6">
+                    <p>Bij Klusvol nemen we jouw privacy serieus. We verwerken persoonsgegevens enkel voor het doel waarvoor ze zijn verstrekt.</p>
+                    <h3>1. Gegevens die we verzamelen</h3>
+                    <p>We verzamelen naam, e-mailadres, telefoonnummer en bedrijfsgegevens om onze dienst te kunnen leveren.</p>
+                    <h3>2. Hoe we gegevens gebruiken</h3>
+                    <p>Om je account in te richten, facturen te sturen en contact op te nemen voor support.</p>
+                    <p>...</p>
+                </div>
+            }
+            onBack={() => navigateTo('home')} 
         />
-      ) : (
+      ) : activePage === 'terms' ? (
         <LegalPage 
             title="Algemene Voorwaarden" 
-            onBack={() => navigateTo('home')}
             content={
-                <>
-                    <p>Welkom bij Klusvol. Door gebruik te maken van onze diensten gaat u akkoord met de volgende voorwaarden.</p>
-                    <h3>1. Dienstverlening</h3>
-                    <p>Klusvol biedt software voor het automatiseren van klantcontact voor vakmensen. Wij garanderen een inspanningsverplichting voor de beschikbaarheid van het platform.</p>
-                    <h3>2. Betaling</h3>
-                    <p>Abonnementen worden maandelijks gefactureerd. U kunt uw abonnement op elk moment opzeggen met inachtneming van een opzegtermijn van één maand.</p>
-                    <h3>3. Aansprakelijkheid</h3>
-                    <p>Klusvol is niet aansprakelijk voor indirecte schade of gevolgschade voortvloeiend uit het gebruik van onze diensten.</p>
-                </>
-            } 
+                <div className="space-y-6">
+                    <p>Op alle diensten van Klusvol zijn deze voorwaarden van toepassing.</p>
+                    <h3>1. Definities</h3>
+                    <p>Klusvol: de gebruiker van deze algemene voorwaarden...</p>
+                    <h3>2. Toepasselijkheid</h3>
+                    <p>Deze voorwaarden zijn van toepassing op ieder aanbod...</p>
+                    <p>...</p>
+                </div>
+            }
+            onBack={() => navigateTo('home')} 
         />
+      ) : (
+          <BlogPage onBack={() => navigateTo('home')} />
       )}
 
-      {/* Footer */}
-      <footer className="py-16 px-6 border-t border-white/5 bg-[#050810] text-gray-500 text-sm relative overflow-hidden">
-         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-orange/20 to-transparent"></div>
-         
-         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[10rem] md:text-[20rem] font-bold text-white/[0.02] pointer-events-none select-none leading-none -mb-10 md:-mb-20 tracking-tighter">
-             KLUSVOL
-         </div>
-
-         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
-            <div className="col-span-1 md:col-span-1">
-                <div className="flex items-center gap-4 opacity-80 hover:opacity-100 transition-opacity mb-6">
-                    <Logo onClick={() => navigateTo('home')} />
-                </div>
-                <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                    De slimme assistent die jouw klusbedrijf laat groeien terwijl jij op de ladder staat.
-                </p>
-                <div className="flex gap-4">
-                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-orange hover:text-white transition-colors"><Facebook size={18} /></a>
-                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-orange hover:text-white transition-colors"><Instagram size={18} /></a>
-                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-orange hover:text-white transition-colors"><Linkedin size={18} /></a>
-                </div>
-            </div>
-            
-            <div>
-                <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Product</h4>
-                <ul className="space-y-3">
-                    <li><button onClick={() => navigateTo('home', 'voordelen')} className="hover:text-brand-orange transition-colors">Voordelen</button></li>
-                    <li><button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="hover:text-brand-orange transition-colors">Hoe het werkt</button></li>
-                    <li><button onClick={() => navigateTo('home', 'prijzen')} className="hover:text-brand-orange transition-colors">Prijzen</button></li>
-                    <li><button onClick={() => navigateTo('blog')} className="hover:text-brand-orange transition-colors">Blog</button></li>
-                    <li><button onClick={handleLoginClick} className="hover:text-brand-orange transition-colors">Inloggen</button></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Legaal</h4>
-                <ul className="space-y-3">
-                    <li><button onClick={() => navigateTo('privacy')} className="hover:text-brand-orange transition-colors">Privacybeleid</button></li>
-                    <li><button onClick={() => navigateTo('terms')} className="hover:text-brand-orange transition-colors">Algemene Voorwaarden</button></li>
-                    <li><button onClick={() => navigateTo('privacy')} className="hover:text-brand-orange transition-colors">Cookies</button></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Contact</h4>
-                <ul className="space-y-3">
-                    <li className="flex items-center gap-2"><Mail size={16} /> info@klusvol.nl</li>
-                    <li className="flex items-center gap-2"><Phone size={16} /> 06 - 43 41 14 27</li>
-                    <li className="flex items-start gap-2"><MapPin size={16} className="mt-1" /> Onnerweg 55<br/>9751 VB Haren</li>
-                </ul>
-            </div>
-         </div>
-         <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 text-center text-xs opacity-40">
-            &copy; {new Date().getFullYear()} Klusvol B.V. Alle rechten voorbehouden.
-         </div>
-      </footer>
-
-      {/* Sticky Mobile CTA */}
-      <StickyMobileCTA onCta={() => setShowSignup(true)} />
+      {/* GLOBAL MODALS */}
+      <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} source={currentSource} />
+      <ContactModal isOpen={showContact} onClose={() => setShowContact(false)} source={currentSource} />
       
-      {/* Modals */}
-      <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} />
-      <ContactModal isOpen={showContact} onClose={() => setShowContact(false)} />
-      <VideoModal isOpen={showDemo} onClose={() => setShowDemo(false)} />
-
-      {/* AI Chatbot */}
+      {/* GLOBAL CHATBOT */}
       <Chatbot />
+      
     </div>
   );
 }

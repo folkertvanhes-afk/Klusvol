@@ -1,696 +1,608 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, ChevronLeft, User, ArrowRight, Search, Coffee, Play, Pause, Share2, Download, Calculator, Headphones, Music2, Check, Loader2, X, Linkedin, Link as LinkIcon, Twitter, Send, AlertCircle, Euro, FileText, MessageCircle } from 'lucide-react';
+import { 
+  Calendar, ChevronLeft, User, ArrowRight, Search, Coffee, Play, Pause, 
+  Share2, Calculator, Headphones, Music2, Check, Loader2, X, Linkedin, 
+  Link as LinkIcon, Twitter, MessageCircle, BookOpen, Layers, Target, 
+  TrendingUp, Anchor, ArrowUpRight, HelpCircle, ChevronDown, List, Hammer
+} from 'lucide-react';
 
-interface BlogPost {
+// =================================================================================================
+// DEEL 1: CONFIGURATIE & CONTENT (HIER PAS JE DE BLOGS AAN)
+// =================================================================================================
+
+/* 
+   -------------------------------------------------------------------------------------------------
+   HOE VOEG JE EEN NIEUW BLOG TOE?
+   -------------------------------------------------------------------------------------------------
+   Kopieer het onderstaande blok en plak het in de 'ARTICLES' lijst hieronder.
+   
+   {
+    id: 'unieke-naam-voor-url',
+    type: 'cluster', // of 'monster' voor een hoofdartikel
+    pillarId: 'finance', // Kies uit: 'finance', 'clients', of 'efficiency'
+    title: "Titel van je blog",
+    excerpt: "Korte samenvatting voor op de kaartjes.",
+    coverImage: "PLAATS_HIER_AFBEELDING_LINK", 
+    plainText: "...", // Mag leeg blijven voor nu
+    lastUpdated: "24 Mei 2024",
+    author: "Jouw Naam",
+    readTime: 5, // Aantal minuten
+    relatedIds: ['finance-monster'], // Link naar andere blogs
+    summaryPoints: [
+      "Belangrijk punt 1",
+      "Belangrijk punt 2"
+    ],
+    content: (
+      <>
+        <p className="lead text-xl text-gray-300 mb-8 font-light">
+           Hier je introductie tekst...
+        </p>
+        
+        <h2 id="tussenkopje" className="text-2xl font-bold text-white mt-12 mb-6">
+            Tussenkopje
+        </h2>
+        <p className="mb-6 text-gray-400">
+            Je normale tekst alinea.
+        </p>
+
+        <img 
+            src="LINK_NAAR_PLAATJE_IN_TEKST" 
+            className="w-full rounded-xl border border-white/10 my-8" 
+        />
+      </>
+    )
+  },
+*/
+
+// --- TYPES (NIET AANPASSEN) ---
+
+type ArticleType = 'monster' | 'cluster';
+type PillarId = 'finance' | 'clients' | 'efficiency';
+
+interface Article {
   id: string;
+  type: ArticleType;
+  pillarId: PillarId;
   title: string;
   excerpt: string;
-  plainText: string; // Added for TTS
+  coverImage: string;
+  plainText: string; 
   content: React.ReactNode;
-  category: string;
   author: string;
-  date: string;
-  coffeeCups: number;
-  image: string;
+  lastUpdated: string; 
+  readTime: number; 
+  relatedIds: string[]; 
+  summaryPoints: string[]; 
+  faq?: { q: string; a: string }[]; 
 }
 
-const BLOG_POSTS: BlogPost[] = [
+interface Pillar {
+  id: PillarId;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  monsterBlogId: string;
+}
+
+// --- DE INHOUD (DATABASE) ---
+
+const PILLARS: Record<PillarId, Pillar> = {
+  finance: {
+    id: 'finance',
+    title: "Bedrijfsvoering & Winst",
+    description: "Stop met geld laten liggen. Optimaliseer je tarieven en cashflow.",
+    icon: <TrendingUp size={24} />,
+    monsterBlogId: 'finance-monster'
+  },
+  clients: {
+    id: 'clients',
+    title: "Klantrelaties & Reputatie",
+    description: "Van lastige klanten naar 5-sterren ambassadeurs.",
+    icon: <Target size={24} />,
+    monsterBlogId: 'clients-monster'
+  },
+  efficiency: {
+    id: 'efficiency',
+    title: "Efficiency & Rust",
+    description: "Meer werk verzetten in minder tijd, zonder stress.",
+    icon: <Layers size={24} />,
+    monsterBlogId: 'efficiency-monster'
+  }
+};
+
+const ARTICLES: Article[] = [
+  // -----------------------------------------------------------------------------------------------
+  // PILAAR 1: FINANCE
+  // -----------------------------------------------------------------------------------------------
   {
-    id: '1',
-    title: "Waarom je 's avonds niet meer moet offreren",
-    excerpt: "Nog tot 23:00 uur facturen tikken? Het is de nummer 1 reden voor burn-outs in de bouw. Zo doe je het anders.",
-    plainText: "Het is een klassiek beeld: overdag sta je op de steiger of lig je onder een vloer, en 's avonds zit je achter de laptop. Offertes uitwerken, facturen sturen en mailtjes beantwoorden. Veel vakmensen rekenen hun administratie-uren niet mee. Dat hoort erbij, zeggen ze. Maar als je die uren zou delen door je uurtarief, schrik je je rot. De oplossing is simpel: gebruik tools waarmee je de factuur verstuurt nog voordat je de bus start.",
-    category: "Ondernemen",
+    id: 'finance-monster',
+    type: 'monster',
+    pillarId: 'finance',
+    title: "De Ultieme Gids voor een Winstgevend Klusbedrijf",
+    excerpt: "Waarom hard werken niet genoeg is. Een compleet systeem om je uurtarief te bepalen, je cashflow te managen en je administratie te automatiseren.",
+    coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2672&auto=format&fit=crop",
+    plainText: "Dit is de ultieme gids...",
+    lastUpdated: "14 Mei 2024",
     author: "Mark de Jong",
-    date: "12 Mei 2024",
-    coffeeCups: 1,
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    readTime: 12,
+    relatedIds: ['finance-1', 'finance-2'],
+    summaryPoints: [
+      "De meeste vakmensen rekenen 20% te weinig door verborgen kosten.",
+      "Factureren voor de start van de motor bespaart 4 uur admin per week.",
+      "Vaste prijzen winnen het van uurtje-factuurtje in 80% van de gevallen."
+    ],
+    faq: [
+      { q: "Wat is een gezond uurtarief voor een ZZP'er in de bouw?", a: "Dit hangt af van je kosten, maar mik minimaal op €55-€65 ex BTW om pensioen en risico te dekken." },
+      { q: "Moet ik voorrijkosten rekenen?", a: "Ja, of verwerk ze in je starttarief. Gratis reizen bestaat niet." }
+    ],
     content: (
       <>
-        <p className="mb-8 first-letter:text-5xl first-letter:font-bold first-letter:text-brand-orange first-letter:mr-3 first-letter:float-left">
-          Het is een klassiek beeld: overdag sta je op de steiger of lig je onder een vloer, en 's avonds zit je achter de laptop. 
-          Offertes uitwerken, facturen sturen en mailtjes beantwoorden. Je partner zit op de bank, maar jij bent "nog even bezig".
+        <p className="lead text-xl text-gray-300 mb-8 font-light">
+          Je bent vakman geworden om mooie dingen te maken, niet om boekhouder te spelen. Toch is grip op je cijfers de enige weg naar echte vrijheid.
         </p>
-        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="w-2 h-8 bg-brand-orange rounded-full"></span>
-            De verborgen kosten
-        </h3>
-        <p className="mb-6">
-          Veel vakmensen rekenen hun administratie-uren niet mee. "Dat hoort erbij," zeggen ze. Maar als je die uren zou delen door je uurtarief, 
-          schrik je je rot. Bovendien kost het je energie die je de volgende dag nodig hebt voor je vakwerk.
+        
+        <h2 id="uurtarief" className="text-2xl font-bold text-white mt-12 mb-6 group flex items-center gap-2">
+            1. Het Uurtarief Misverstand
+        </h2>
+        <p className="mb-6 text-gray-400">
+            Veel ondernemers kijken naar wat de buurman vraagt. Fout. Je buurman is misschien wel bijna failliet. 
+            Je tarief moet gebaseerd zijn op jouw gewenste netto inkomen, gedeeld door je <em>facturabele</em> uren (niet je werkuren).
         </p>
-        <div className="my-10 p-8 bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-3xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 blur-[50px] rounded-full group-hover:bg-brand-orange/20 transition-colors"></div>
-            <h4 className="text-lg font-bold text-white mb-2 relative z-10">Pro Tip:</h4>
-            <p className="text-gray-400 italic relative z-10">"Doe het direct. Stuur de factuur nog in de bus, voordat je de motor start. Het bespaart je gemiddeld 6 uur per week."</p>
+        
+        {/* Functional Visual: Cost Breakdown */}
+        <div className="my-8 bg-[#12141c] border border-white/10 rounded-2xl p-6">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Waar gaat je €60 per uur heen?</h4>
+            <div className="flex h-4 w-full rounded-full overflow-hidden mb-4">
+                <div className="w-[30%] bg-red-500"></div>
+                <div className="w-[20%] bg-orange-500"></div>
+                <div className="w-[15%] bg-yellow-500"></div>
+                <div className="w-[35%] bg-green-500"></div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 text-xs text-gray-400">
+                <div className="flex items-center gap-2"><div className="w-3 h-3 bg-red-500 rounded-full"></div> Belastingen & Verzekering (30%)</div>
+                <div className="flex items-center gap-2"><div className="w-3 h-3 bg-orange-500 rounded-full"></div> Bedrijfskosten & Bus (20%)</div>
+                <div className="flex items-center gap-2"><div className="w-3 h-3 bg-yellow-500 rounded-full"></div> Pensioen & Buffer (15%)</div>
+                <div className="flex items-center gap-2"><div className="w-3 h-3 bg-green-500 rounded-full text-white font-bold">Jouw Netto Loon (35%)</div></div>
+            </div>
         </div>
-        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="w-2 h-8 bg-brand-orange rounded-full"></span>
-            Directe winst
-        </h3>
-        <p className="mb-6">
-          De oplossing is simpel, maar vergt discipline. Met moderne tools kun je een factuur sturen zodra je de deur dichttrekt bij de klant. 
-        </p>
-        <ul className="grid grid-cols-1 gap-4 mb-6">
-            <li className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-orange/30 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center">✓</div>
-                <span className="text-gray-300">Klant tevreden (direct duidelijkheid)</span>
-            </li>
-            <li className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-orange/30 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center">✓</div>
-                <span className="text-gray-300">Jij tevreden (hoofd leeg)</span>
-            </li>
-            <li className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/5 hover:border-brand-orange/30 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center">✓</div>
-                <span className="text-gray-300">Snellere betaling (werk vers in geheugen)</span>
-            </li>
-        </ul>
-      </>
-    )
-  },
-  {
-    id: '2',
-    title: "3 Manieren om meer reviews te krijgen",
-    excerpt: "Mond-tot-mondreclame is goud, maar online reviews zijn diamant. Hoe krijg je die 5 sterren zonder te smeken?",
-    plainText: "Je hebt prachtig werk geleverd. De klant is blij. Maar de kans dat die klant uit zichzelf een review schrijft is bijna nul. Timing is alles. Vraag het direct bij oplevering.",
-    category: "Marketing",
-    author: "Sanne Visser",
-    date: "28 April 2024",
-    coffeeCups: 1,
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
-    content: (
-      <>
-        <p className="mb-6">
-          Je hebt prachtig werk geleverd. De klant is blij. Je drinkt nog een bak koffie en gaat weg. 
-          De kans dat die klant uit zichzelf Google opent om een review te schrijven? Vrijwel nul.
-        </p>
-        <h3 className="text-xl font-bold text-white mb-4">Timing is alles</h3>
-        <p className="mb-6">
-          Het beste moment om een review te vragen is direct bij oplevering, of maximaal 1 uur daarna. 
-          Het 'wow-gevoel' is dan nog vers.
+
+        <h2 id="vaste-prijzen" className="text-2xl font-bold text-white mt-12 mb-6">2. Uurtje-factuurtje vs. Aannemen</h2>
+        <p className="mb-6 text-gray-400">
+            Klaar met discussies over je koffiepauze? Stap over op vaste prijzen. 
+            De klant koopt zekerheid ("Het kost €500"), jij koopt efficiëntie. Als jij het in 3 uur doet in plaats van 5, is die winst voor jou.
         </p>
       </>
     )
   },
   {
-    id: '3',
-    title: "WhatsApp Zakelijk vs. Privé",
-    excerpt: "Waarom je nooit je 06-nummer op je bus moet zetten. Scheid je werk en privé voor meer rust.",
-    plainText: "Het lijkt handig: één telefoon voor alles. Maar als zondagochtend om 8 uur een klant appt, ben je mentaal direct weer aan het werk. Neem een 085 nummer. Dat straalt professionaliteit uit.",
-    category: "Tools",
-    author: "Erik de Vries",
-    date: "15 April 2024",
-    coffeeCups: 2,
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-    content: (
-      <>
-        <p className="mb-6">
-          Het lijkt handig: één telefoon voor alles. Maar als zondagochtend om 08:00 uur een klant appt, ben je mentaal direct weer aan het werk.
-        </p>
-        <h3 className="text-xl font-bold text-white mb-4">Neem een 085 nummer</h3>
-        <p className="mb-6">
-          Een zakelijk nummer straalt professionaliteit uit. Het zegt: "Ik ben een bedrijf, geen hobbyist."
-        </p>
-      </>
-    )
-  },
-  {
-    id: '4',
-    title: "Stoppen met uurtje-factuurtje?",
-    excerpt: "Waarom aannemen van klussen vaak winstgevender is dan per uur werken, en hoe je dat berekent.",
-    plainText: "Veel vakmensen durven geen vaste prijs te noemen uit angst dat het tegenzit. Maar wat als het meezit? Verkoop resultaat, geen uren.",
-    category: "Ondernemen",
+    id: 'finance-1',
+    type: 'cluster',
+    pillarId: 'finance',
+    title: "Waarom je 's avonds niet meer moet offreren",
+    excerpt: "De #1 reden voor burn-outs: administratie in de privétijd. Zo automatiseer je dit weg.",
+    coverImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2670&auto=format&fit=crop",
+    plainText: "...",
+    lastUpdated: "10 Mei 2024",
     author: "Mark de Jong",
-    date: "02 April 2024",
-    coffeeCups: 2,
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
+    readTime: 5,
+    relatedIds: ['finance-monster'],
+    summaryPoints: ["Administratie in de avond kost energie.", "Gebruik tools in de bus."],
+    content: <p>Cluster content...</p>
+  },
+  {
+    id: 'finance-2',
+    type: 'cluster',
+    pillarId: 'finance',
+    title: "Facturen die 3x sneller betaald worden",
+    excerpt: "Psychologische trucs en technische tools om je geld sneller op de rekening te hebben.",
+    coverImage: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=2670&auto=format&fit=crop",
+    plainText: "...",
+    lastUpdated: "02 Mei 2024",
+    author: "Mark de Jong",
+    readTime: 4,
+    relatedIds: ['finance-monster'],
+    summaryPoints: ["Stuur betaalverzoeken via SMS.", "Wees duidelijk in omschrijvingen."],
+    content: <p>Cluster content...</p>
+  },
+
+  // -----------------------------------------------------------------------------------------------
+  // PILAAR 2: CLIENTS
+  // -----------------------------------------------------------------------------------------------
+  {
+    id: 'clients-monster',
+    type: 'monster',
+    pillarId: 'clients',
+    title: "Het Handboek Klantcommunicatie voor Vakmensen",
+    excerpt: "Hoe je 'nee' zegt tegen slechte klanten, 'ja' krijgt op offertes en automatisch 5-sterren reviews verzamelt.",
+    coverImage: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2669&auto=format&fit=crop",
+    plainText: "...",
+    lastUpdated: "20 April 2024",
+    author: "Sanne Visser",
+    readTime: 15,
+    relatedIds: ['clients-1'],
+    summaryPoints: [
+      "Communicatie is 50% van het werk in de ogen van de klant.",
+      "Bereikbaarheid hoeft niet 24/7 te zijn, als het maar duidelijk is.",
+      "Reviews zijn je krachtigste marketingtool."
+    ],
+    faq: [
+        {q: "Hoe ga ik om met klanten die steeds de prijs omlaag praten?", a: "Wees beleefd maar ferm. Leg uit dat kwaliteit geld kost. Als ze blijven zeuren: niet aannemen."}
+    ],
     content: (
         <>
-          <p className="mb-6">
-            Veel vakmensen durven geen vaste prijs te noemen. "Wat als het tegenzit?" is de angst. 
-            Maar wat als het meezit?
-          </p>
-          <h3 className="text-xl font-bold text-white mb-4">Verkoop resultaat</h3>
-          <p className="mb-6">
-            Een klant betaalt niet voor 8 uur zagen. Een klant betaalt voor een strak plafond. 
-          </p>
+            <p className="lead text-xl text-gray-300 mb-8 font-light">
+                Je bent een vakman, geen helpdeskmedewerker. Toch verwachten klanten dat je altijd bereikbaar bent. Hoe los je dat op?
+            </p>
+            <h2 id="grenzen" className="text-2xl font-bold text-white mt-12 mb-6">1. Grenzen stellen</h2>
+            <p className="mb-6 text-gray-400">
+                Het begint bij duidelijkheid. Een klant die om 22:00 appt, verwacht niet per se direct antwoord, tenzij je direct antwoordt.
+                Dan schep je een precedent.
+            </p>
         </>
-      )
+    )
+  },
+  {
+    id: 'clients-1',
+    type: 'cluster',
+    pillarId: 'clients',
+    title: "3 Manieren om meer reviews te krijgen",
+    excerpt: "Vraag het op het juiste moment. Timing is alles voor die 5 sterren.",
+    coverImage: "https://images.unsplash.com/photo-1512314889357-e157c22f938d?q=80&w=2671&auto=format&fit=crop",
+    plainText: "...",
+    lastUpdated: "12 April 2024",
+    author: "Sanne Visser",
+    readTime: 6,
+    relatedIds: ['clients-monster'],
+    summaryPoints: ["Vraag direct bij oplevering.", "Maak het makkelijk met een link."],
+    content: <p>Cluster content...</p>
+  },
+
+  // -----------------------------------------------------------------------------------------------
+  // PILAAR 3: EFFICIENCY
+  // -----------------------------------------------------------------------------------------------
+  {
+    id: 'efficiency-monster',
+    type: 'monster',
+    pillarId: 'efficiency',
+    title: "De Silent Admin Methode: Nooit meer kantoorwerk",
+    excerpt: "Een radicaal andere manier van werken waarbij je administratie zichzelf doet terwijl jij op de klus bent.",
+    coverImage: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2670&auto=format&fit=crop",
+    plainText: "...",
+    lastUpdated: "01 Mei 2024",
+    author: "Erik de Vries",
+    readTime: 10,
+    relatedIds: ['efficiency-1'],
+    summaryPoints: ["Gebruik je reistijd nuttig.", "Digitaliseer bonnen direct."],
+    content: <p>Monster content...</p>
+  },
+  {
+    id: 'efficiency-1',
+    type: 'cluster',
+    pillarId: 'efficiency',
+    title: "WhatsApp Zakelijk vs. Privé",
+    excerpt: "Waarom een 06-nummer op je bus een fout is.",
+    coverImage: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?q=80&w=2670&auto=format&fit=crop",
+    plainText: "...",
+    lastUpdated: "15 April 2024",
+    author: "Erik de Vries",
+    readTime: 4,
+    relatedIds: ['efficiency-monster'],
+    summaryPoints: ["Neem een 085 nummer.", "Scheid werk en privé."],
+    content: <p>Cluster content...</p>
   }
 ];
 
-// --- Audio Player Component (With Real TTS) ---
-const AudioPlayer = ({ text }: { text: string }) => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+// =================================================================================================
+// DEEL 2: DE LOGICA & COMPONENTEN (HIER HOEF JE NIETS AAN TE PASSEN)
+// =================================================================================================
 
-    useEffect(() => {
-        // Cancel speech when component unmounts
-        return () => {
-            window.speechSynthesis.cancel();
-        };
-    }, []);
+// --- HELPER COMPONENTS ---
 
-    const togglePlay = () => {
-        if (isPlaying) {
-            window.speechSynthesis.cancel();
-            setIsPlaying(false);
-            setProgress(0);
-        } else {
-            const ut = new SpeechSynthesisUtterance(text);
-            ut.lang = 'nl-NL'; // Set to Dutch
-            ut.rate = 0.95; // Slightly slower for better clarity
-            
-            ut.onend = () => {
-                setIsPlaying(false);
-                setProgress(100);
-                setTimeout(() => setProgress(0), 1000);
-            };
-
-            // Simple boundary event to simulate progress bar (not perfect percentage but visual feedback)
-            ut.onboundary = (event) => {
-                // Rough estimate: character index / length
-                const percent = Math.min(100, (event.charIndex / text.length) * 100);
-                setProgress(percent);
-            };
-
-            utteranceRef.current = ut;
-            window.speechSynthesis.speak(ut);
-            setIsPlaying(true);
-        }
-    };
-    
+const TocSidebar = ({ content }: { content: React.ReactNode }) => {
+    // In a real app, this would parse headings from the content markdown/HTML
     return (
-        <div className="w-full bg-[#1A1F2E] border border-white/10 rounded-2xl p-4 flex items-center gap-4 mb-8 shadow-xl relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-orange/5 to-transparent opacity-50"></div>
-            
-            {/* Play Button */}
-            <button 
-                onClick={togglePlay}
-                className={`relative z-10 w-12 h-12 rounded-full text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg ${isPlaying ? 'bg-gray-700' : 'bg-brand-orange shadow-brand-orange/20'}`}
-            >
-                {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
-            </button>
-            
-            <div className="flex-1 z-10">
-                <div className="flex justify-between items-center mb-1">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand-orange flex items-center gap-1.5">
-                        {isPlaying ? <Music2 size={10} className="animate-bounce" /> : <Headphones size={10} />}
-                        {isPlaying ? 'Aan het lezen...' : 'Luister Artikel'}
-                    </span>
-                    <span className="text-[10px] text-gray-400 font-mono">AI Voice</span>
-                </div>
-                
-                {/* Visualizer / Progress */}
-                <div className="h-8 flex items-center gap-0.5 relative">
-                    {/* Background bars */}
-                    <div className="absolute inset-0 flex items-center gap-0.5 opacity-20">
-                         {[...Array(40)].map((_, i) => (
-                            <div key={i} className="w-1 bg-gray-500 rounded-full" style={{ height: `${20 + Math.random() * 40}%` }}></div>
-                         ))}
-                    </div>
+        <div className="hidden lg:block sticky top-32 space-y-8">
+            <div className="bg-[#12141c] border border-white/5 rounded-2xl p-6">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4 flex items-center gap-2">
+                    <List size={14} /> In dit artikel
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-400">
+                    {/* Note: This is currently hardcoded for demo purposes. Ideally, use a markdown parser */}
+                    <li><a href="#" className="hover:text-brand-orange transition-colors flex items-center gap-2"><span className="text-white/20">01</span> Introductie</a></li>
+                    <li><a href="#" className="hover:text-brand-orange transition-colors flex items-center gap-2"><span className="text-white/20">02</span> Kern van het verhaal</a></li>
+                    <li><a href="#" className="hover:text-brand-orange transition-colors flex items-center gap-2"><span className="text-white/20">03</span> Conclusie</a></li>
+                </ul>
+            </div>
 
-                    {/* Active bars (animated when playing) */}
-                    {isPlaying ? (
-                        <div className="flex items-center gap-0.5 w-full h-full">
-                            {[...Array(40)].map((_, i) => (
-                                <div 
-                                    key={i} 
-                                    className="w-1 bg-brand-orange rounded-full animate-pulse"
-                                    style={{ 
-                                        height: `${20 + Math.random() * 80}%`,
-                                        animationDuration: `${0.5 + Math.random() * 0.5}s`,
-                                        opacity: i / 40 < progress / 100 ? 0.3 : 1 // Dim played parts slightly or fancy effect
-                                    }}
-                                ></div>
+            {/* Soft Sell Component */}
+            <div className="bg-gradient-to-br from-brand-orange/10 to-orange-900/10 border border-brand-orange/20 rounded-2xl p-6 relative overflow-hidden">
+                <div className="relative z-10">
+                    <h4 className="text-white font-bold mb-2">Geen zin in gedoe?</h4>
+                    <p className="text-xs text-gray-400 mb-4">Klusvol automatiseert alles waar je over leest.</p>
+                    <button className="text-xs font-bold bg-brand-orange text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors w-full">
+                        Probeer Gratis
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const KeyTakeaways = ({ points }: { points: string[] }) => (
+    <div className="bg-gradient-to-r from-blue-900/10 to-transparent border-l-4 border-blue-500 p-6 my-8 rounded-r-xl">
+        <h4 className="text-blue-400 font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2">
+            <BookOpen size={14} /> TL;DR - Samenvatting
+        </h4>
+        <ul className="space-y-2">
+            {points.map((point, i) => (
+                <li key={i} className="flex items-start gap-3 text-gray-300 text-sm font-medium">
+                    <CheckCircle2 size={16} className="text-blue-500 mt-0.5 shrink-0" />
+                    {point}
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
+const CheckCircle2 = ({size, className}: {size: number, className?: string}) => (
+    <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+);
+
+const FaqSection = ({ items }: { items: { q: string, a: string }[] }) => (
+    <section id="faq" className="mt-16 pt-8 border-t border-white/10">
+        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <HelpCircle size={20} className="text-brand-orange" /> Veelgestelde vragen
+        </h3>
+        <div className="space-y-4">
+            {items.map((item, i) => (
+                <details key={i} className="group bg-white/5 rounded-xl border border-white/5 open:bg-white/10 transition-colors">
+                    <summary className="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-200 list-none">
+                        {item.q}
+                        <ChevronDown size={16} className="group-open:rotate-180 transition-transform text-gray-500" />
+                    </summary>
+                    <div className="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-white/5 pt-4">
+                        {item.a}
+                    </div>
+                </details>
+            ))}
+        </div>
+    </section>
+);
+
+// --- MAIN COMPONENTS ---
+
+const ArticleView = ({ article, onBack, onNavigate }: { article: Article, onBack: () => void, onNavigate: (id: string) => void }) => {
+    const pillar = PILLARS[article.pillarId];
+    
+    // Get related articles (Cluster logic)
+    const relatedArticles = ARTICLES.filter(a => article.relatedIds.includes(a.id) || (a.pillarId === article.pillarId && a.id !== article.id)).slice(0, 3);
+
+    return (
+        <div className="min-h-screen pt-12 pb-20 px-4 md:px-6 max-w-7xl mx-auto animate-fade-in relative z-10">
+            {/* Breadcrumbs */}
+            <nav className="flex items-center gap-2 text-xs text-gray-500 mb-8 overflow-x-auto whitespace-nowrap">
+                <button onClick={onBack} className="hover:text-white transition-colors">Kennisbank</button>
+                <span className="text-white/20">/</span>
+                <span className="text-brand-orange font-bold">{pillar.title}</span>
+                <span className="text-white/20">/</span>
+                <span className="text-gray-300 truncate max-w-[200px]">{article.title}</span>
+            </nav>
+
+            {/* HERO IMAGE */}
+            <div className="w-full h-48 md:h-80 relative rounded-3xl overflow-hidden mb-10 border border-white/10 shadow-2xl">
+                <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-transparent to-transparent opacity-80"></div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                {/* Main Content Column */}
+                <main className="lg:col-span-8">
+                    {/* Header */}
+                    <header className="mb-10">
+                        {article.type === 'monster' && (
+                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 border border-brand-orange/20 text-brand-orange rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
+                                <Anchor size={12} /> Masterclass
+                            </div>
+                        )}
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6">
+                            {article.title}
+                        </h1>
+                        <div className="flex items-center gap-6 text-sm text-gray-500 border-b border-white/10 pb-8">
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold text-white">MJ</div>
+                                <span>{article.author}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Calendar size={14} />
+                                <span>Bijgewerkt: {article.lastUpdated}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Coffee size={14} />
+                                <span>{article.readTime} min leestijd</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* AI/GEO Summary */}
+                    <KeyTakeaways points={article.summaryPoints} />
+
+                    {/* The Content */}
+                    <article className="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed prose-headings:text-white prose-a:text-brand-orange hover:prose-a:text-white prose-strong:text-white prose-blockquote:border-l-brand-orange prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic">
+                        {article.content}
+                    </article>
+
+                    {/* FAQ (Schema Ready) */}
+                    {article.faq && <FaqSection items={article.faq} />}
+
+                    {/* Related Articles (Internal Linking) */}
+                    <div className="mt-20 pt-10 border-t border-white/10">
+                        <h3 className="text-white font-bold mb-6">Verder lezen in {pillar.title}</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {relatedArticles.map(rel => (
+                                <div key={rel.id} onClick={() => onNavigate(rel.id)} className="group cursor-pointer bg-[#12141c] border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all flex items-start gap-4">
+                                    <img src={rel.coverImage} alt={rel.title} className="w-16 h-16 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all" />
+                                    <div>
+                                        <h4 className="font-bold text-white mb-2 group-hover:text-brand-orange transition-colors line-clamp-2 text-sm">{rel.title}</h4>
+                                        <div className="flex items-center gap-2 text-[10px] text-gray-600 font-bold uppercase tracking-wider">
+                                            <ArrowUpRight size={10} />
+                                            {rel.readTime} min
+                                        </div>
+                                    </div>
+                                </div>
                             ))}
                         </div>
-                    ) : (
-                        // Static bars when paused
-                         <div className="flex items-center gap-0.5 w-full h-full opacity-50">
-                             <div className="w-full h-0.5 bg-gray-700 rounded-full overflow-hidden">
-                                 <div className="h-full bg-brand-orange" style={{ width: `${progress}%` }}></div>
-                             </div>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// --- Calculator Modal Component ---
-const CalculatorModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-    const [step, setStep] = useState(1); // 1: Input, 2: Lead Capture, 3: Result
-    const [inputs, setInputs] = useState({
-        income: 60000,
-        expenses: 15000,
-        hours: 1200
-    });
-    const [email, setEmail] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    
-    // Quick calculation for preview
-    const calculatedRate = Math.round((inputs.income + inputs.expenses) / inputs.hours);
-
-    useEffect(() => {
-        if(isOpen) setStep(1);
-    }, [isOpen]);
-
-    const handleNext = (e: React.FormEvent) => {
-        e.preventDefault();
-        setStep(2);
-    };
-
-    const handleFinalize = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if(!email.includes('@')) return;
-        
-        setIsLoading(true);
-        // Simulate API
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsLoading(false);
-        setStep(3);
-    };
-
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity duration-300" onClick={onClose}></div>
-            <div className="relative w-full max-w-md bg-[#0F121C] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-scale-up">
-                
-                {/* Header */}
-                <div className="p-6 border-b border-white/5 bg-[#12141c] flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange">
-                            <Calculator size={20} />
-                        </div>
-                        <div>
-                            <h3 className="font-bold text-white">Uurtarief Calculator</h3>
-                            <p className="text-xs text-gray-500">Bereken jouw ideale tarief</p>
-                        </div>
                     </div>
-                    <button onClick={onClose} className="text-gray-500 hover:text-white"><X size={20} /></button>
-                </div>
+                </main>
 
-                <div className="p-6">
-                    {step === 1 && (
-                        <form onSubmit={handleNext} className="space-y-6 animate-slide-up-fade">
-                             <div className="space-y-4">
-                                <div>
-                                    <label className="text-xs text-gray-400 uppercase font-bold mb-2 block">Gewenst Netto Jaarinkomen</label>
-                                    <div className="relative">
-                                        <Euro size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
-                                        <input 
-                                            type="number" 
-                                            value={inputs.income}
-                                            onChange={e => setInputs({...inputs, income: Number(e.target.value)})}
-                                            className="w-full bg-gray-900 border border-gray-700 rounded-xl py-3 pl-10 pr-4 text-white font-bold focus:border-brand-orange focus:outline-none"
-                                        />
-                                    </div>
-                                    <input 
-                                        type="range" min="30000" max="150000" step="1000" 
-                                        value={inputs.income} onChange={e => setInputs({...inputs, income: Number(e.target.value)})}
-                                        className="w-full mt-3 accent-brand-orange h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-                                    />
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="text-xs text-gray-400 uppercase font-bold mb-2 block">Jaarlijkse Kosten</label>
-                                        <input 
-                                            type="number" 
-                                            value={inputs.expenses}
-                                            onChange={e => setInputs({...inputs, expenses: Number(e.target.value)})}
-                                            className="w-full bg-gray-900 border border-gray-700 rounded-xl py-3 px-4 text-white font-bold text-sm focus:border-brand-orange focus:outline-none"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs text-gray-400 uppercase font-bold mb-2 block">Facturabele Uren</label>
-                                        <input 
-                                            type="number" 
-                                            value={inputs.hours}
-                                            onChange={e => setInputs({...inputs, hours: Number(e.target.value)})}
-                                            className="w-full bg-gray-900 border border-gray-700 rounded-xl py-3 px-4 text-white font-bold text-sm focus:border-brand-orange focus:outline-none"
-                                        />
-                                    </div>
-                                </div>
-                             </div>
-
-                             <div className="bg-brand-orange/10 p-4 rounded-xl border border-brand-orange/20 text-center">
-                                 <div className="text-xs text-brand-orange uppercase font-bold mb-1">Indicatief Uurtarief</div>
-                                 <div className="text-3xl font-extrabold text-white">€ {calculatedRate},-</div>
-                             </div>
-
-                             <button type="submit" className="w-full bg-white text-black py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors">
-                                 Bekijk Gedetailleerd Rapport <ArrowRight size={16} />
-                             </button>
-                        </form>
-                    )}
-
-                    {step === 2 && (
-                        <form onSubmit={handleFinalize} className="space-y-6 animate-slide-up-fade">
-                            <div className="text-center mb-6">
-                                <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500">
-                                    <FileText size={32} />
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-2">Je rapport staat klaar</h3>
-                                <p className="text-gray-400 text-sm">Waar mogen we de uitgebreide berekening en de Excel-template heen sturen?</p>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 uppercase font-bold ml-1">Zakelijk Emailadres</label>
-                                <input 
-                                    type="email" 
-                                    required
-                                    placeholder="naam@bedrijf.nl"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    className="w-full bg-gray-900 border border-gray-700 rounded-xl py-4 px-5 text-white focus:border-brand-orange focus:outline-none"
-                                />
-                            </div>
-
-                            <button type="submit" disabled={isLoading} className="w-full bg-brand-orange text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-orange-600 transition-colors disabled:opacity-50">
-                                {isLoading ? <Loader2 className="animate-spin" /> : 'Stuur mij de berekening'}
-                            </button>
-                            
-                            <p className="text-[10px] text-center text-gray-600">We sturen je geen spam. Beloofd.</p>
-                        </form>
-                    )}
-
-                    {step === 3 && (
-                        <div className="text-center py-8 animate-pop-in">
-                            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500 border border-green-500/30">
-                                <Check size={40} strokeWidth={3} />
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Verzonden!</h3>
-                            <p className="text-gray-400 text-sm mb-8">
-                                Check je inbox ({email}). We hebben de Excel-tool en je persoonlijke rapport verstuurd.
-                            </p>
-                            <button onClick={onClose} className="bg-white/10 text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-white/20 transition-colors">
-                                Sluiten
-                            </button>
-                        </div>
-                    )}
-                </div>
+                {/* Sidebar Column */}
+                <aside className="lg:col-span-4 relative">
+                    <TocSidebar content={article.content} />
+                </aside>
             </div>
         </div>
     );
 };
 
-// --- Sidebar Lead Magnet (Updated to trigger Modal) ---
-const Sidebar = ({ onOpenCalculator }: { onOpenCalculator: () => void }) => {
-    
-    // Modern Share Buttons
-    const handleShare = (platform: string) => {
-        const url = "https://klusvol.nl/blog";
-        const text = "Interessant artikel voor vakmensen:";
-        
-        if (platform === 'whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-        if (platform === 'linkedin') window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-        if (platform === 'twitter') window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
-        if (platform === 'copy') {
-            navigator.clipboard.writeText(url);
-            alert("Link gekopieerd!");
-        }
-    };
-
+const BlogHome = ({ onNavigate, onBack }: { onNavigate: (id: string) => void, onBack: () => void }) => {
     return (
-        <div className="space-y-6 sticky top-28">
-            {/* Lead Magnet Card */}
-            <div className="bg-gradient-to-b from-[#1A1F2E] to-[#0B0F19] p-6 rounded-3xl border border-white/10 text-center relative overflow-hidden group">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-orange to-orange-600"></div>
-                <div className="absolute -right-10 -top-10 w-32 h-32 bg-brand-orange/10 blur-[40px] rounded-full group-hover:bg-brand-orange/20 transition-colors"></div>
-                
-                <div className="w-16 h-16 mx-auto bg-gray-800 rounded-2xl flex items-center justify-center mb-4 border border-white/5 shadow-inner">
-                    <Calculator size={32} className="text-brand-orange" />
+        <div className="min-h-screen pt-12 pb-20 px-4 md:px-6 max-w-7xl mx-auto">
+            
+            {/* Custom Header with simple Back button instead of Logo */}
+            <button onClick={onBack} className="flex items-center gap-2 text-gray-400 hover:text-brand-orange transition-colors mb-12 group">
+                <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Terug naar home
+            </button>
+
+            {/* Knowledge Base Header */}
+            <div className="text-center max-w-3xl mx-auto mb-20">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md">
+                   <BookOpen size={12} /> Kennisbank
                 </div>
-                
-                <h3 className="text-lg font-bold text-white mb-2">Uurtarief Calculator</h3>
-                <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-                    Reken jij wel genoeg? Gebruik onze interactieve tool om direct je ideale tarief te bepalen.
+                <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
+                    Jouw bedrijf,<br/>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">maar dan beter.</span>
+                </h1>
+                <p className="text-lg text-gray-400 font-light leading-relaxed">
+                    Geen losse tips, maar complete systemen om te groeien. Kies een onderwerp om te starten.
                 </p>
-                
-                <button 
-                    onClick={onOpenCalculator}
-                    className="w-full py-3 bg-white text-black rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-brand-orange hover:text-white transition-all shadow-lg active:scale-95"
-                >
-                    <Calculator size={16} /> Open Calculator
-                </button>
             </div>
 
-            {/* Subtle Share Row */}
-            <div className="bg-[#12141c] p-4 rounded-2xl border border-white/5">
-                <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-3 text-center">Deel dit artikel</div>
-                <div className="flex justify-between gap-2">
-                     <button onClick={() => handleShare('linkedin')} className="flex-1 h-10 rounded-lg bg-[#0077b5]/10 text-[#0077b5] flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all"><Linkedin size={18} /></button>
-                     <button onClick={() => handleShare('twitter')} className="flex-1 h-10 rounded-lg bg-[#1DA1F2]/10 text-[#1DA1F2] flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all"><Twitter size={18} /></button>
-                     <button onClick={() => handleShare('whatsapp')} className="flex-1 h-10 rounded-lg bg-[#25D366]/10 text-[#25D366] flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all"><MessageCircle size={18} /></button>
-                     <button onClick={() => handleShare('copy')} className="flex-1 h-10 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center hover:bg-white hover:text-black transition-all"><LinkIcon size={18} /></button>
-                </div>
+            {/* Pillar Grid */}
+            <div className="space-y-24">
+                {Object.values(PILLARS).map((pillar) => {
+                    const monster = ARTICLES.find(a => a.id === pillar.monsterBlogId);
+                    const cluster = ARTICLES.filter(a => a.pillarId === pillar.id && a.id !== pillar.monsterBlogId);
+
+                    return (
+                        <section key={pillar.id} className="relative">
+                            {/* Pillar Header */}
+                            <div className="flex items-center gap-4 mb-8 border-b border-white/10 pb-4">
+                                <div className="p-3 bg-brand-orange/10 rounded-xl text-brand-orange">
+                                    {pillar.icon}
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-white">{pillar.title}</h2>
+                                    <p className="text-sm text-gray-400">{pillar.description}</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                                {/* Monster Blog Card (Hero for this pillar) */}
+                                <div 
+                                    onClick={() => monster && onNavigate(monster.id)}
+                                    className="lg:col-span-7 bg-[#12141c] border border-white/10 rounded-[2.5rem] p-0 relative overflow-hidden group cursor-pointer hover:border-brand-orange/40 transition-all duration-500 flex flex-col h-[500px]"
+                                >
+                                    {/* Background Image with Overlay */}
+                                    <div className="absolute inset-0 z-0">
+                                        <img 
+                                            src={monster?.coverImage} 
+                                            alt={monster?.title} 
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                                    </div>
+                                    
+                                    <div className="relative z-10 flex-1 p-8 md:p-10 flex flex-col justify-end">
+                                        <div className="inline-flex self-start items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold uppercase tracking-widest text-white mb-6">
+                                            <Anchor size={12} className="text-brand-orange" />
+                                            Start Hier
+                                        </div>
+                                        <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight group-hover:text-brand-orange transition-colors drop-shadow-lg">
+                                            {monster?.title}
+                                        </h3>
+                                        <p className="text-gray-300 text-lg font-light leading-relaxed mb-8 drop-shadow-md">
+                                            {monster?.excerpt}
+                                        </p>
+                                        
+                                        <div className="flex items-center justify-between pt-6 border-t border-white/20">
+                                            <div className="flex items-center gap-3 text-xs text-gray-300 font-bold uppercase tracking-wider">
+                                                <span>{monster?.readTime} min leestijd</span>
+                                                <span className="w-1 h-1 rounded-full bg-gray-500"></span>
+                                                <span>Masterclass</span>
+                                            </div>
+                                            <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                <ArrowRight size={18} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Cluster Articles List */}
+                                <div className="lg:col-span-5 flex flex-col gap-4">
+                                    {cluster.map((article) => (
+                                        <div 
+                                            key={article.id} 
+                                            onClick={() => onNavigate(article.id)}
+                                            className="flex-1 bg-[#12141c] border border-white/5 rounded-3xl p-4 cursor-pointer hover:bg-white/[0.02] hover:border-white/20 transition-all group/item flex items-center gap-5"
+                                        >
+                                            <div className="w-24 h-24 rounded-2xl overflow-hidden shrink-0 border border-white/5">
+                                                <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover grayscale group-hover/item:grayscale-0 transition-all duration-500" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-bold text-white mb-2 group-hover/item:text-brand-orange transition-colors line-clamp-2">
+                                                    {article.title}
+                                                </h4>
+                                                <div className="flex items-center gap-2 text-[10px] text-gray-600 font-bold uppercase tracking-wider">
+                                                    <ArrowUpRight size={12} />
+                                                    Lees in {article.readTime} min
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {/* Placeholder for more */}
+                                    <div className="p-6 rounded-3xl border border-dashed border-white/10 flex items-center justify-center text-gray-600 text-xs font-medium hover:text-gray-400 hover:border-white/20 transition-all cursor-default">
+                                        Meer artikelen in aantocht...
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    );
+                })}
             </div>
         </div>
     );
 };
 
 const BlogPage = ({ onBack }: { onBack: () => void }) => {
-  const [activeCategory, setActiveCategory] = useState('Alles');
-  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
-  const [showCalculator, setShowCalculator] = useState(false);
+  const [activeArticleId, setActiveArticleId] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [selectedPost]);
+  }, [activeArticleId]);
 
-  const categories = ['Alles', 'Ondernemen', 'Marketing', 'Tools', 'Efficiency'];
-  
-  const filteredPosts = activeCategory === 'Alles' 
-    ? BLOG_POSTS 
-    : BLOG_POSTS.filter(post => post.category === activeCategory);
+  const activeArticle = ARTICLES.find(a => a.id === activeArticleId);
 
-  // --- SINGLE POST VIEW ---
-  if (selectedPost) {
-    return (
-        <div className="min-h-screen pt-32 pb-20 px-4 md:px-6 max-w-7xl mx-auto animate-fade-in relative z-10">
-            {/* Modal */}
-            <CalculatorModal isOpen={showCalculator} onClose={() => setShowCalculator(false)} />
-
-            {/* Top Navigation Bar */}
-            <div className="flex justify-between items-center mb-8">
-                <button 
-                    onClick={() => setSelectedPost(null)} 
-                    className="flex items-center gap-2 text-gray-400 hover:text-brand-orange transition-colors group px-4 py-2 rounded-full border border-white/5 hover:bg-white/5 hover:border-white/10"
-                >
-                    <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> 
-                    <span className="font-medium text-sm">Terug naar kennisbank</span>
-                </button>
-                <span className="text-xs font-bold text-gray-500 uppercase tracking-widest hidden md:block">
-                    {selectedPost.category}
-                </span>
-            </div>
-
-            {/* Hero Image */}
-            <div className="relative w-full h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden mb-12 shadow-2xl border border-white/10 group">
-                <img src={selectedPost.image} alt={selectedPost.title} className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-[1.5s]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-[#050810]/50 to-transparent"></div>
-                
-                <div className="absolute bottom-0 left-0 w-full p-6 md:p-16">
-                    <div className="max-w-4xl">
-                        <div className="flex items-center gap-3 mb-6 animate-slide-up">
-                            <span className="bg-brand-orange/20 backdrop-blur-md text-brand-orange border border-brand-orange/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                                {selectedPost.category}
-                            </span>
-                            <span className="text-gray-300 text-xs font-medium flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                                <Calendar size={12} /> {selectedPost.date}
-                            </span>
-                        </div>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 shadow-black drop-shadow-lg animate-slide-up delay-100">
-                            {selectedPost.title}
-                        </h1>
-                        
-                        <div className="flex items-center gap-4 animate-slide-up delay-200">
-                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gray-700 border-2 border-brand-orange overflow-hidden">
-                                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces" className="w-full h-full object-cover" />
-                                </div>
-                                <div className="text-sm">
-                                    <div className="text-white font-bold">{selectedPost.author}</div>
-                                    <div className="text-gray-500 text-xs">Auteur</div>
-                                </div>
-                             </div>
-                             <div className="w-px h-8 bg-white/10"></div>
-                             <div className="flex items-center gap-2 text-gray-300 bg-white/5 px-3 py-2 rounded-xl border border-white/5">
-                                 <Coffee size={16} className="text-brand-orange" />
-                                 <span className="text-xs font-bold">{selectedPost.coffeeCups} {selectedPost.coffeeCups === 1 ? 'bak' : 'bakken'} koffie</span>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Content Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                
-                {/* Article Content */}
-                <div className="lg:col-span-8">
-                    <AudioPlayer text={selectedPost.plainText} />
-                    
-                    <div className="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed prose-headings:text-white prose-a:text-brand-orange hover:prose-a:text-white prose-strong:text-white prose-blockquote:border-l-brand-orange prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic">
-                        {selectedPost.content}
-                    </div>
-
-                    {/* Author Footer */}
-                    <div className="mt-16 pt-8 border-t border-white/10">
-                        <h4 className="text-gray-500 uppercase tracking-widest text-xs font-bold mb-6">Over de auteur</h4>
-                        <div className="flex items-start gap-6 bg-[#12141c] p-6 rounded-3xl border border-white/5">
-                             <div className="w-16 h-16 rounded-2xl bg-gray-700 overflow-hidden shrink-0">
-                                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces" alt="Author" className="w-full h-full object-cover" />
-                            </div>
-                            <div>
-                                <h4 className="text-white font-bold text-lg mb-1">{selectedPost.author}</h4>
-                                <p className="text-gray-400 text-sm leading-relaxed">
-                                    Oprichter van Klusvol. Ik help vakmensen om minder tijd aan randzaken te besteden en meer winst over te houden.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Sidebar */}
-                <div className="lg:col-span-4">
-                    <Sidebar onOpenCalculator={() => setShowCalculator(true)} />
-                </div>
-            </div>
-        </div>
-    );
+  if (activeArticle) {
+      return (
+          <ArticleView 
+            article={activeArticle} 
+            onBack={() => setActiveArticleId(null)} 
+            onNavigate={setActiveArticleId} 
+          />
+      );
   }
 
-  // --- GRID VIEW ---
-  return (
-    <div className="min-h-screen pt-32 pb-20 px-4 md:px-6 max-w-7xl mx-auto">
-        
-        {/* Added Back Button for Main View */}
-        <button onClick={onBack} className="flex items-center gap-2 text-gray-400 hover:text-brand-orange transition-colors mb-8 group">
-             <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Terug naar home
-        </button>
-
-        {/* Modern Header */}
-        <div className="relative mb-20 p-8 md:p-16 rounded-[3rem] overflow-hidden bg-gradient-to-br from-[#12141c] to-black border border-white/5 shadow-2xl animate-slide-up-fade">
-             {/* Abstract Background Shapes */}
-             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-orange/5 blur-[100px] rounded-full pointer-events-none"></div>
-             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none"></div>
-             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] mix-blend-overlay"></div>
-
-             <div className="relative z-10 text-center max-w-2xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md">
-                   <Music2 size={12} /> Kennisbank
-                </div>
-                <h1 className="text-4xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">
-                    Slimmer werken,<br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">niet harder.</span>
-                </h1>
-                <p className="text-lg text-gray-400 font-light leading-relaxed">
-                    Tips, strategieën en luister-artikelen om jouw klusbedrijf naar het volgende niveau te tillen.
-                </p>
-             </div>
-        </div>
-
-        {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-2 mb-16 animate-slide-up-fade delay-100">
-            {categories.map((cat) => (
-                <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`
-                        px-6 py-3 rounded-2xl text-xs font-bold transition-all duration-300 border uppercase tracking-wide
-                        ${activeCategory === cat 
-                            ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.2)] transform scale-105' 
-                            : 'bg-white/5 text-gray-400 border-white/5 hover:border-white/20 hover:text-white hover:bg-white/10'
-                        }
-                    `}
-                >
-                    {cat}
-                </button>
-            ))}
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up-fade delay-200">
-            {filteredPosts.map((post) => (
-                <div 
-                    key={post.id} 
-                    onClick={() => setSelectedPost(post)}
-                    className="group relative bg-[#12141c] border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-brand-orange/40 transition-all duration-500 cursor-pointer flex flex-col h-full hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]"
-                >
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-brand-orange/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                    {/* Image Area */}
-                    <div className="h-64 relative overflow-hidden p-3">
-                        <div className="w-full h-full rounded-[2rem] overflow-hidden relative">
-                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 duration-500"></div>
-                             <img 
-                                src={post.image} 
-                                alt={post.title} 
-                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
-                            />
-                             <div className="absolute top-4 left-4 z-20">
-                                <span className="bg-white/10 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-xl border border-white/10 uppercase tracking-wider shadow-lg">
-                                    {post.category}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Content Area */}
-                    <div className="p-8 pt-4 flex-1 flex flex-col relative z-20">
-                        <div className="flex items-center gap-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">
-                            <span>{post.date}</span>
-                            <span className="w-1 h-1 rounded-full bg-gray-700"></span>
-                            <span className="flex items-center gap-1.5 text-brand-orange"><Coffee size={12} /> {post.coffeeCups} {post.coffeeCups === 1 ? 'bak' : 'bakken'}</span>
-                        </div>
-                        
-                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-brand-orange transition-colors leading-tight">
-                            {post.title}
-                        </h3>
-                        
-                        <p className="text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3 flex-1 font-light">
-                            {post.excerpt}
-                        </p>
-
-                        <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                             <div className="flex items-center gap-2">
-                                <div className="w-6 h-6 rounded-full bg-gray-700 border border-white/10 overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces" className="w-full h-full object-cover"/>
-                                </div>
-                                <span className="text-xs font-bold text-gray-400">{post.author}</span>
-                             </div>
-                             <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-brand-orange group-hover:text-white transition-all">
-                                 <ArrowRight size={14} />
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-
-        {/* Empty State */}
-        {filteredPosts.length === 0 && (
-            <div className="text-center py-20 animate-fade-in">
-                <div className="bg-white/5 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 border border-white/5">
-                    <Search size={32} className="text-gray-500" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">Geen artikelen gevonden</h3>
-                <p className="text-gray-400 mb-6">Probeer een andere categorie.</p>
-                <button onClick={() => setActiveCategory('Alles')} className="px-6 py-3 bg-brand-orange text-white rounded-xl font-bold text-sm hover:bg-orange-600 transition-colors">
-                    Bekijk alles
-                </button>
-            </div>
-        )}
-    </div>
-  );
+  // Pass onBack to BlogHome so clicking the Logo works as a "Back/Home" button
+  return <BlogHome onNavigate={setActiveArticleId} onBack={onBack} />;
 };
 
 export default BlogPage;
