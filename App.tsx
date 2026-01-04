@@ -5,7 +5,7 @@ import BlogPage from './components/BlogPage';
 import { 
   CheckCircle2, ArrowRight, XCircle, Clock, Calendar, MessageSquare, 
   CreditCard, Star, Menu, X, ChevronDown, ChevronUp, Phone, Mail, 
-  MapPin, Facebook, Instagram, Linkedin, ShieldCheck, Zap, Smartphone,
+  MapPin, ShieldCheck, Zap, Smartphone,
   BarChart3, MousePointerClick, Lock, Download, Check, AlertTriangle,
   ToggleRight, TrendingUp, BellRing, Ghost, Users, FileText, MessageCircle,
   Quote,
@@ -1854,11 +1854,6 @@ function App() {
                 <p className="mt-6 leading-relaxed">
                   Klusvol helpt vakmensen groeien door onzichtbaar werk uit handen te nemen.
                 </p>
-                <div className="flex gap-4 mt-6">
-                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white transition-colors"><Facebook size={16}/></a>
-                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white transition-colors"><Instagram size={16}/></a>
-                    <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white transition-colors"><Linkedin size={16}/></a>
-                </div>
               </div>
               
               <div>
@@ -1886,7 +1881,7 @@ function App() {
                 <ul className="space-y-4">
                   <li><button onClick={() => navigateTo('privacy')} className="hover:text-brand-orange transition-colors">Privacybeleid</button></li>
                   <li><button onClick={() => navigateTo('terms')} className="hover:text-brand-orange transition-colors">Algemene Voorwaarden</button></li>
-                  <li><span className="opacity-50">KVK: 12345678</span></li>
+                  <li><span className="opacity-50">KVK: 94035202</span></li>
                 </ul>
               </div>
             </div>
