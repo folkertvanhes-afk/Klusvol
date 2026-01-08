@@ -868,6 +868,7 @@ const PricingCard = ({ title, price, features, description, isPopular, buttonTex
             <span className="text-5xl font-bold text-white tracking-tighter">€{price}</span>
           </div>
           <p className="text-sm text-gray-500 font-medium">per maand</p>
+          {description && <p className="text-xs text-gray-400 mt-2">{description}</p>}
         </div>
         
         <div className="space-y-5 mb-10 flex-1 relative z-10">
@@ -1328,9 +1329,9 @@ const ROICalculator = () => {
     const [profitPerJob, setProfitPerJob] = useState(450);
     
     const packages = [
-        { name: "Start", price: 97 },
-        { name: "Basis", price: 147 },
-        { name: "Pro", price: 217 },
+        { name: "Slim", price: 29 },
+        { name: "Assistent", price: 69 },
+        { name: "Aannemer", price: 149 },
     ];
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1613,7 +1614,7 @@ function App() {
                         Claim Gratis Website <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                     <div className="text-[11px] text-white/90 font-medium uppercase tracking-wider">
-                        Launch Deal t.w.v. € 1.800,-
+                        Launch Deal t.w.v. € 1.495,-
                     </div>
                   </Button>
                   
@@ -1743,61 +1744,61 @@ function App() {
           {/* 8. Pricing */}
           <Section id="prijzen">
             <div className="text-center max-w-3xl mx-auto mb-24">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Simpele prijzen.</h2>
-              <p className="text-xl text-gray-400 font-light">Geen contracten. Maandelijks opzegbaar.</p>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Eerlijke prijzen. Geen verrassingen.</h2>
+              <p className="text-xl text-gray-400 font-light">Verdien het terug met één factuur. Maandelijks opzegbaar.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
                <PricingCard 
-                 title="Klusvol Start" 
-                 price="97" 
-                 buttonText="Start Gratis Setup"
-                 onCta={() => openSignup('Pricing - Start Pakket')}
+                 title="Klusvol Slim" 
+                 price="29" 
+                 description="Voor de starter die professioneel wil overkomen."
+                 buttonText="Start Gratis (14 Dagen)"
+                 onCta={() => openSignup('Pricing - Slim Pakket')}
                  features={[
-                   "Automatische SMS bij gemist",
-                   "Zakelijk telefoonnummer (085)",
-                   "Privacy: Privé en zakelijk gescheiden",
-                   "Centrale Inbox (Mail, App, SMS)",
-                   "Klusvol iOS & Android App"
+                   "Offertes & Facturatie",
+                   "Klantenbeheer (CRM)",
+                   "Mobiele App",
+                   "iDeal Betaallinks"
                  ]}
                  missingFeatures={[
-                   "Online Agenda & Planner",
-                   "Betaalverzoeken sturen",
-                   "Review automations",
-                   "Website Widget",
+                   "Automatische Agenda",
+                   "Reviews Autopiloot",
+                   "Marketing Funnels",
                  ]}
                />
                
                <PricingCard 
-                 title="Klusvol Basis" 
-                 price="147" 
+                 title="Klusvol Assistent" 
+                 price="69" 
                  isPopular
-                 buttonText="Start Gratis Setup"
-                 onCta={() => openSignup('Pricing - Basis Pakket')}
+                 description="Je digitale secretaresse die nooit slaapt."
+                 buttonText="Probeer de Assistent"
+                 onCta={() => openSignup('Pricing - Assistent Pakket')}
                  features={[
-                   "Alles uit Start, plus:",
-                   "Online Agenda & Planner",
+                   "Alles van Slim, plus:",
+                   "Automatische SMS bij gemist",
+                   "Online Agenda & Booking",
                    "Automatische Google Reviews",
-                   "Betaalverzoeken via SMS",
-                   "Website Widget",
-                   "CRM voor klanten",
+                   "Website Chat Widget",
                  ]}
-                 description="Meest gekozen door ZZP'ers"
+                 missingFeatures={[
+                   "Marketing & Funnels"
+                 ]}
                />
 
                <PricingCard 
-                 title="Klusvol Pro" 
-                 price="217" 
-                 buttonText="Plan Strategie Sessie"
-                 onCta={() => openContact('Pricing - Pro Pakket')}
+                 title="Klusvol Aannemer" 
+                 price="149" 
+                 description="Voor bedrijven die willen schalen."
+                 buttonText="Vraag Demo Aan"
+                 onCta={() => openContact('Pricing - Aannemer Pakket')}
                  features={[
-                   "Alles uit Basis, plus:",
-                   "Marketing Automations",
-                   "Offerte tool",
-                   "Email Marketing",
-                   "Funnel Builder",
-                   "Priority Support",
-                   "1-op-1 Onboarding Call"
+                   "Alles van Assistent, plus:",
+                   "Lead Pagina's (Funnels)",
+                   "Email Marketing Campagnes",
+                   "Automatiseringen op maat",
+                   "Onbeperkt aantal gebruikers"
                  ]}
                />
             </div>
