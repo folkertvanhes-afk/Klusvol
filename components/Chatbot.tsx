@@ -92,7 +92,7 @@ const Chatbot = () => {
             onClick={() => setIsOpen(!isOpen)}
             className={`relative p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center border border-white/10
             ${isOpen 
-                ? 'bg-[#1a1f2e] text-white rotate-90 border-white/20' 
+                ? 'bg-slate-800 text-white rotate-90 border-white/20' 
                 : 'bg-brand-orange text-white shadow-[0_0_20px_rgba(255,87,34,0.5)]'
             }`}
             aria-label="Open Chat"
@@ -103,7 +103,7 @@ const Chatbot = () => {
 
       {/* Modern Glass Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-40 md:bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-[380px] h-[550px] max-h-[65vh] md:max-h-[75vh] bg-[#0B0F19]/90 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden z-[90] animate-slide-up-fade origin-bottom-right ring-1 ring-white/5">
+        <div className="fixed bottom-40 md:bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-[380px] h-[550px] max-h-[65vh] md:max-h-[75vh] bg-brand-dark/90 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden z-[90] animate-slide-up-fade origin-bottom-right ring-1 ring-white/5">
           
           {/* Interactive Background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -122,11 +122,11 @@ const Chatbot = () => {
                 </div>
                 <div>
                     <h3 className="font-bold text-white text-base leading-tight">KlusVol Maatje</h3>
-                    <p className="text-[11px] text-gray-400 font-medium">Altijd bereikbaar</p>
+                    <p className="text-[11px] text-slate-400 font-medium">Altijd bereikbaar</p>
                 </div>
             </div>
             <div className="bg-white/5 p-2 rounded-full cursor-pointer hover:bg-white/10 transition-colors" onClick={() => setIsOpen(false)}>
-                <X size={16} className="text-gray-400" />
+                <X size={16} className="text-slate-400" />
             </div>
           </div>
 
@@ -138,7 +138,7 @@ const Chatbot = () => {
                         max-w-[85%] p-4 text-sm leading-relaxed shadow-md backdrop-blur-sm
                         ${msg.role === 'user' 
                         ? 'bg-brand-orange text-white rounded-2xl rounded-tr-sm font-medium' 
-                        : 'bg-[#1a1f2e]/80 border border-white/5 text-gray-200 rounded-2xl rounded-tl-sm'
+                        : 'bg-slate-800/80 border border-white/5 text-slate-200 rounded-2xl rounded-tl-sm'
                         }
                     `}>
                         {msg.text}
@@ -148,8 +148,8 @@ const Chatbot = () => {
             
             {isLoading && (
                  <div className="flex justify-start animate-pulse">
-                    <div className="bg-[#1a1f2e]/80 border border-white/5 px-4 py-3 rounded-2xl rounded-tl-sm flex items-center gap-2">
-                        <span className="text-xs text-gray-400 font-medium">Even checken...</span>
+                    <div className="bg-slate-800/80 border border-white/5 px-4 py-3 rounded-2xl rounded-tl-sm flex items-center gap-2">
+                        <span className="text-xs text-slate-400 font-medium">Even checken...</span>
                         <div className="flex gap-1">
                             <span className="w-1.5 h-1.5 bg-brand-orange rounded-full animate-bounce"></span>
                             <span className="w-1.5 h-1.5 bg-brand-orange rounded-full animate-bounce delay-100"></span>
@@ -161,7 +161,7 @@ const Chatbot = () => {
           </div>
 
           {/* Input Area */}
-          <div className="p-4 bg-[#12141c]/80 border-t border-white/5 relative z-10 backdrop-blur-md">
+          <div className="p-4 bg-brand-surface/80 border-t border-white/5 relative z-10 backdrop-blur-md">
             <div className="relative flex items-center group">
                 <input
                     type="text"
@@ -170,7 +170,7 @@ const Chatbot = () => {
                     onKeyDown={handleKeyPress}
                     placeholder="Zeg het eens..."
                     disabled={isLoading}
-                    className="w-full bg-[#050810] border border-white/10 rounded-2xl py-4 pl-5 pr-14 text-white placeholder-gray-500 focus:outline-none focus:border-brand-orange/50 focus:bg-[#050810] transition-all text-sm shadow-inner group-hover:border-white/20"
+                    className="w-full bg-brand-dark border border-white/10 rounded-2xl py-4 pl-5 pr-14 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange/50 focus:bg-brand-dark transition-all text-sm shadow-inner group-hover:border-white/20"
                 />
                 <button 
                     onClick={handleSend}

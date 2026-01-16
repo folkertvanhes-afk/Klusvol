@@ -18,10 +18,11 @@
           extend: {
             colors: {
               brand: {
-                orange: '#FF5722',
-                glow: '#FF8A65',
-                dark: '#0B0F19',
-                surface: '#121826',
+                orange: '#F97316', // Bright Orange
+                glow: '#38BDF8',    // Light Blue
+                dark: '#001933',    // Deep Navy (Lighter than black)
+                surface: '#003366', // Requested #003366 (Primary Card Color)
+                text: '#F0F9FF',    // Alice Blue (Lighter Text)
               }
             },
             animation: {
@@ -67,8 +68,8 @@
     </script>
     <style>
       body {
-        background-color: #050810; /* Deeper, richer black/blue */
-        color: #ffffff;
+        background-color: #001933; /* Brand Dark */
+        color: #F0F9FF; /* Brand Text */
       }
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -84,15 +85,15 @@
         transform: translateY(0);
       }
       
-      /* Glassmorphism utilities */
+      /* Glassmorphism utilities - Updated for #003366 theme */
       .glass-panel {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: rgba(0, 51, 102, 0.65); /* #003366 with opacity */
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1); 
       }
       .glass-panel:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 51, 102, 0.85); /* Solid #003366 on hover */
+        border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       /* Gradient Mask for Marquee */

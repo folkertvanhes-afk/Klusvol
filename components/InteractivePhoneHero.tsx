@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { UserPlus, CalendarCheck, Star, ReceiptEuro } from 'lucide-react';
 import { AppState, BadgeData } from '../types';
@@ -97,19 +96,19 @@ const InteractivePhoneHero = () => {
       onMouseLeave={handleMouseLeaveContainer}
     >
       
-      {/* Background Glow Effect - Animate in */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-orange/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none animate-fade-in duration-1000" />
+      {/* Background Glow Effect - Cool/Neutral glow to let orange pop */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none animate-fade-in duration-1000" />
 
       {/* Anchor Container */}
       <div className="relative w-[280px] h-[560px] md:w-[300px] md:h-[600px] shrink-0 z-20 transition-transform duration-500 md:hover:scale-[1.02]">
         
         {/* The Actual iPhone Device 
             UPDATED:
-            - Border Color: #12141c (Midnight Titanium)
+            - Border Color: #002244 (Dark Navy)
             - Shadow: refined to have a subtle orange tint
             - Ring: Added ring-white/10 for metallic edge
         */}
-        <div className="absolute inset-0 bg-black rounded-[3rem] border-[8px] border-[#12141c] shadow-[0_20px_50px_-10px_rgba(255,87,34,0.15)] overflow-hidden ring-1 ring-white/10 z-10 box-border">
+        <div className="absolute inset-0 bg-black rounded-[3rem] border-[8px] border-[#002244] shadow-[0_20px_50px_-10px_rgba(249,115,22,0.15)] overflow-hidden ring-1 ring-white/10 z-10 box-border">
             {/* Dynamic Island / Notch */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-28 md:w-32 bg-black rounded-b-2xl z-50 flex items-center justify-center gap-2">
                 <div className="w-12 md:w-16 h-4 bg-black rounded-full flex items-center justify-end px-2">
@@ -156,7 +155,7 @@ const InteractivePhoneHero = () => {
                             flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 border
                             ${isActive 
                                 ? 'bg-brand-orange text-white border-brand-orange shadow-lg shadow-brand-orange/20 scale-105' 
-                                : 'bg-gray-900/50 text-gray-400 border-white/5 hover:bg-gray-800'
+                                : 'bg-brand-surface text-blue-300 border-white/5 hover:bg-[#002855]'
                             }
                         `}
                     >
@@ -167,7 +166,7 @@ const InteractivePhoneHero = () => {
                 );
             })}
         </div>
-        <p className="text-center text-xs text-gray-500 mt-4 font-medium animate-pulse">
+        <p className="text-center text-xs text-blue-300 mt-4 font-medium animate-pulse">
             {isAutoPlaying ? "Kijk mee met Mark..." : "Tik om te bekijken"}
         </p>
       </div>
