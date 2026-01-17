@@ -96,8 +96,9 @@ const InteractivePhoneHero = () => {
       onMouseLeave={handleMouseLeaveContainer}
     >
       
-      {/* Background Glow Effect - Cool/Neutral glow to let orange pop */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 blur-[60px] md:blur-[100px] rounded-full pointer-events-none animate-fade-in duration-1000" />
+      {/* Background Glow Effect - ENHANCED ORANGE LAYERS */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[650px] md:h-[650px] bg-brand-orange/20 blur-[80px] md:blur-[130px] rounded-full pointer-events-none animate-pulse-slow" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-orange-500/20 blur-[60px] rounded-full pointer-events-none mix-blend-screen" />
 
       {/* Anchor Container */}
       <div className="relative w-[280px] h-[560px] md:w-[300px] md:h-[600px] shrink-0 z-20 transition-transform duration-500 md:hover:scale-[1.02]">

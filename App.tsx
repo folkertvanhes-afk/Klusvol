@@ -635,8 +635,8 @@ const BentoCard = ({ title, description, className = "", visual }: BentoCardProp
     ${className}
   `}>
     
-    {/* Permanent cool glow corner */}
-    <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none transition-colors duration-500"></div>
+    {/* Permanent cool glow corner + Warm hover glow */}
+    <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none transition-colors duration-500 group-hover:bg-brand-orange/10"></div>
 
     {/* Visual Content */}
     <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center min-h-[140px]">
@@ -1170,7 +1170,8 @@ const InteractiveSteps = () => {
             </div>
 
             <div className="relative h-[350px] md:h-[500px] w-full flex items-center justify-center">
-                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/10 to-blue-500/10 blur-[80px] rounded-full"></div>
+                 {/* Updated Glow to Warm/Orange */}
+                 <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-blue-500/5 blur-[80px] rounded-full mix-blend-screen"></div>
                  
                  <div className="relative z-10 w-full max-w-sm h-full md:h-[320px] glass-panel rounded-[3rem] p-8 flex flex-col items-center justify-center shadow-2xl transition-all duration-500 overflow-hidden bg-black/40 border border-white/10 hover:border-brand-orange/30">
                      
@@ -1293,7 +1294,7 @@ const ROICalculator = () => {
 
     return (
         <div className="max-w-6xl mx-auto bg-brand-surface rounded-[3rem] border border-white/10 p-8 md:p-12 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-1000"></div>
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none group-hover:bg-brand-orange/5 transition-colors duration-1000"></div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative z-10">
                 <div className="pt-4">
@@ -1487,11 +1488,25 @@ function App() {
   return (
     <div className="bg-brand-dark text-white font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-screen">
       
-      {/* Background - Cool Navy Atmosphere - Subtly Lighter */}
+      {/* Background - Cool Navy Atmosphere - UPDATED WITH WARM ORANGE GLOW */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-blue-800/20 blur-[120px] rounded-full mix-blend-screen"></div>
-           <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-[#003366]/30 blur-[120px] rounded-full mix-blend-screen opacity-50"></div>
-           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
+           {/* Deep Navy/Blue Base Glow Top Left - Darkened to let orange pop */}
+           <div className="absolute top-0 left-0 w-[1000px] h-[500px] bg-blue-900/30 blur-[150px] rounded-full mix-blend-overlay opacity-60"></div>
+           
+           {/* Primary Warmth: Dynamic Orange Glow Top Right (Pulsing) */}
+           <div className="absolute top-[-200px] right-[-200px] w-[1000px] h-[1000px] bg-brand-orange/25 blur-[180px] rounded-full mix-blend-screen opacity-80 animate-pulse-slow"></div>
+           
+           {/* Secondary Warmth: Floating Amber Orb Top Left/Center */}
+           <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-orange-500/10 blur-[120px] rounded-full mix-blend-screen opacity-50 animate-float"></div>
+
+           {/* Grounding Warmth: Amber Glow Bottom Left */}
+           <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-amber-700/15 blur-[150px] rounded-full mix-blend-screen opacity-40"></div>
+           
+           {/* Depth: Dark Blue Void Bottom Right */}
+           <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-[#000d1a]/80 blur-[120px] rounded-full mix-blend-overlay opacity-60"></div>
+           
+           {/* Noise Overlay - Slightly increased for texture */}
+           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] mix-blend-overlay"></div>
       </div>
 
       {/* Navbar - Intelligent Scroll - ONLY ON HOME */}
@@ -1537,6 +1552,9 @@ function App() {
               
               {/* Content */}
               <div className="order-1 lg:order-1 relative z-20 text-center lg:text-left">
+                 {/* Hero ambient glow behind text */}
+                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-brand-orange/10 blur-[80px] rounded-full pointer-events-none opacity-60"></div>
+
                 <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 text-brand-orange text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-10 animate-slide-up-fade backdrop-blur-md hover:border-brand-orange/50 hover:bg-brand-orange/5 transition-all duration-300 cursor-default">
                   <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
@@ -1545,18 +1563,18 @@ function App() {
                   Je Digitale Rechterhand
                 </div>
                 
-                <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.05] mb-8 animate-slide-up-fade delay-100 tracking-tight text-white">
+                <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.05] mb-8 animate-slide-up-fade delay-100 tracking-tight text-white relative z-10">
                   De onzichtbare assistent <br/>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-300 to-white">
                     voor de vakman.
                   </span>
                 </h1>
                 
-                <p className="text-lg md:text-xl text-blue-200 mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light animate-slide-up-fade delay-200">
+                <p className="text-lg md:text-xl text-blue-200 mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light animate-slide-up-fade delay-200 relative z-10">
                   Neemt automatisch op als jij op de ladder staat. Wij richten alles voor je in, zodat jij direct aan de slag kunt.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center lg:justify-start animate-slide-up-fade delay-300 items-center">
+                <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center lg:justify-start animate-slide-up-fade delay-300 items-center relative z-10">
                   <Button onClick={() => openSignup('Hero Section - Launch Deal')} variant="secondary" className="px-8 py-4 h-auto min-h-[70px] w-full sm:w-auto shadow-[0_0_50px_rgba(249,115,22,0.4)] hover:shadow-[0_0_70px_rgba(249,115,22,0.6)] border-brand-orange/50 group !flex-col !items-start !gap-0.5">
                     <div className="flex items-center gap-2 text-lg font-bold">
                         Probeer gratis <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -1588,7 +1606,8 @@ function App() {
 
               {/* Phone Visual */}
               <div className="relative h-[650px] w-full flex items-center justify-center order-2 lg:order-2 animate-float mt-8 md:mt-0">
-                 <div className="absolute inset-0 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none opacity-40 animate-pulse-slow"></div>
+                 {/* Backing Glow behind phone - WARM ORANGE now to match branding */}
+                 <div className="absolute inset-0 bg-brand-orange/20 blur-[120px] rounded-full pointer-events-none opacity-50 animate-pulse-slow"></div>
                  <div className="relative z-20 scale-90 md:scale-105 transform perspective-1000 rotate-y-12 transition-transform duration-500 hover:rotate-y-0">
                    <InteractivePhoneHero />
                  </div>
@@ -1598,9 +1617,10 @@ function App() {
 
           {/* 3. The Pain */}
           <Section className="border-t border-white/[0.03]">
-            <div className="max-w-4xl mx-auto text-center mb-24">
-              <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight">Stop met <span className="text-brand-orange drop-shadow-[0_0_35px_rgba(249,115,22,0.4)]">geld verliezen</span></h2>
-              <p className="text-xl text-blue-200 font-light max-w-2xl mx-auto">62% van de telefoontjes naar vakmensen wordt niet opgenomen. <br className="hidden md:block"/>De klant wacht niet, die belt de volgende.</p>
+            <div className="max-w-4xl mx-auto text-center mb-24 relative">
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-transparent via-brand-orange/5 to-transparent blur-3xl pointer-events-none"></div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight relative z-10">Stop met <span className="text-brand-orange drop-shadow-[0_0_35px_rgba(249,115,22,0.4)]">geld verliezen</span></h2>
+              <p className="text-xl text-blue-200 font-light max-w-2xl mx-auto relative z-10">62% van de telefoontjes naar vakmensen wordt niet opgenomen. <br className="hidden md:block"/>De klant wacht niet, die belt de volgende.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1691,9 +1711,10 @@ function App() {
 
           {/* 8. Pricing */}
           <Section id="prijzen">
-            <div className="text-center max-w-3xl mx-auto mb-24">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Eerlijke prijzen. Geen verrassingen.</h2>
-              <p className="text-xl text-blue-200 font-light">Verdien het terug met één factuur. Maandelijks opzegbaar.</p>
+            <div className="text-center max-w-3xl mx-auto mb-24 relative">
+              <div className="absolute inset-0 bg-brand-orange/5 blur-3xl rounded-full pointer-events-none"></div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight relative z-10">Eerlijke prijzen. Geen verrassingen.</h2>
+              <p className="text-xl text-blue-200 font-light relative z-10">Verdien het terug met één factuur. Maandelijks opzegbaar.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
@@ -1774,6 +1795,9 @@ function App() {
           {/* 11. Final CTA */}
           <Section className="py-32 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-surface to-transparent opacity-50"></div>
+              {/* Bottom Orange Glow */}
+              <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-orange/20 blur-[120px] rounded-full pointer-events-none opacity-40"></div>
+              
               <div className="max-w-5xl mx-auto text-center relative z-10">
                   <h2 className="text-4xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter leading-tight">
                       Klaar om je <span className="text-brand-orange">avonden</span> terug te claimen?
