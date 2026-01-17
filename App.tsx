@@ -50,10 +50,11 @@ const useReveal = () => {
   return ref;
 };
 
-const Section = ({ children, className = "", id = "" }: { children?: React.ReactNode, className?: string, id?: string }) => {
+const Section = ({ children, className = "", id = "", background }: { children?: React.ReactNode, className?: string, id?: string, background?: React.ReactNode }) => {
   const revealRef = useReveal();
   return (
     <section id={id} className={`py-24 md:py-32 px-4 relative overflow-hidden ${className}`}>
+      {background && <div className="absolute inset-0 w-full h-full pointer-events-none z-0">{background}</div>}
       <div ref={revealRef} className="max-w-7xl mx-auto relative z-10 reveal transition-all duration-1000">
         {children}
       </div>
@@ -1793,11 +1794,16 @@ function App() {
           </Section>
 
           {/* 11. Final CTA */}
-          <Section className="py-32 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-surface to-transparent opacity-50"></div>
-              {/* Bottom Orange Glow */}
-              <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-orange/20 blur-[120px] rounded-full pointer-events-none opacity-40"></div>
-              
+          <Section 
+            className="py-32 relative overflow-hidden"
+            background={
+              <>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-surface to-transparent opacity-50"></div>
+                {/* Bottom Orange Glow */}
+                <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-orange/20 blur-[120px] rounded-full pointer-events-none opacity-40"></div>
+              </>
+            }
+          >
               <div className="max-w-5xl mx-auto text-center relative z-10">
                   <h2 className="text-4xl md:text-7xl font-extrabold text-white mb-8 tracking-tighter leading-tight">
                       Klaar om je <span className="text-brand-orange">avonden</span> terug te claimen?
