@@ -167,7 +167,7 @@ const AboutPage = ({ onBack, onCta }: { onBack: () => void, onCta: () => void })
                         </div>
                         {/* UPDATED: Using the same PNG logo as App.tsx */}
                         <img 
-                            src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6932e8085cc44eb1e36b5df7.png" 
+                            src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696d28a4e125efc1200fd25c.png" 
                             className="h-12 w-12 object-contain rounded-xl" 
                             alt="Klusvol Logo" 
                         />

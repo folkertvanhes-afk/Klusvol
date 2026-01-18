@@ -81,7 +81,7 @@ const Button = ({ children, variant = 'primary', className = "", onClick, ...pro
 const Logo = ({ onClick }: { onClick?: () => void }) => (
   <div onClick={onClick} className={`flex items-center gap-2.5 font-bold text-xl tracking-tight group select-none ${onClick ? 'cursor-pointer' : ''}`}>
      <img 
-        src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6932e8085cc44eb1e36b5df7.png" 
+        src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696d28a4e125efc1200fd25c.png" 
         alt="Klusvol" 
         className="h-10 w-10 object-contain rounded-xl" 
         onError={(e) => {
