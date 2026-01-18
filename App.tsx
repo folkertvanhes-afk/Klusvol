@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import InteractivePhoneHero from './components/InteractivePhoneHero';
 import Chatbot from './components/Chatbot';
@@ -15,7 +16,8 @@ import {
   Snowflake, ChevronsUp, Home, Scissors,
   PhoneOff, Armchair, FileWarning, Wallet, Briefcase, Activity,
   Coffee, PartyPopper, Smile, Unlock, Calculator, Coins, ChevronLeft, Loader2,
-  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones, Rocket, Flame
+  Play, QrCode, Wifi, Server, Send, Key, Crown, Headphones, Rocket, Flame,
+  PieChart
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
@@ -1373,15 +1375,14 @@ const SectorSection = () => {
     );
 };
 
-// --- Break-Even ROI Calculator 2.0 (Winst Simulator) ---
+// --- Break-Even ROI Calculator 2.0 (Laagdrempelig) ---
 const ROICalculator = () => {
     const [profitPerJob, setProfitPerJob] = useState(450);
-    
-    const packages = [
-        { name: "Slim", price: 29 },
-        { name: "Assistent", price: 69 },
-        { name: "Aannemer", price: 149 },
-    ];
+    const costPerMonth = 69; // Assistent Pakket
+
+    const profitLeft = profitPerJob - costPerMonth;
+    const isCovered = profitLeft >= 0;
+    const costPercentage = Math.min(100, (costPerMonth / profitPerJob) * 100);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let val = Number(e.target.value);
@@ -1391,117 +1392,92 @@ const ROICalculator = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto bg-brand-surface rounded-[3rem] border border-white/10 p-8 md:p-12 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none group-hover:bg-brand-orange/5 transition-colors duration-1000"></div>
+        <div className="max-w-4xl mx-auto bg-brand-surface rounded-[3rem] border border-white/10 p-8 md:p-12 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative z-10">
-                <div className="pt-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider mb-6">
-                        <Coins size={14} /> Winst Simulator
-                    </div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight tracking-tight text-white">
-                        Bereken je <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Pure Winst</span>
-                    </h2>
-                    
-                    <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-[#001933] border border-white/10 text-blue-200 text-xs font-semibold">
-                         <Sparkles size={12} className="text-brand-orange" />
-                         Scenario: slechts 1 extra klus per maand
-                    </div>
+            <div className="relative z-10 text-center mb-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider mb-6">
+                    <Coins size={14} /> Bierviltjes Berekening
+                </div>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight text-white">
+                    Is het de investering waard?
+                </h2>
+                <p className="text-lg text-blue-200">
+                    Spoiler: Je hebt het er vaak al na één uurtje uit.
+                </p>
+            </div>
 
-                    <p className="text-lg text-blue-200 mb-10 leading-relaxed">
-                        Vul je gemiddelde winst in en zie hoe je met <strong>slechts één extra klus</strong> per maand je investering er al dik uit haalt.
-                    </p>
-                    
-                    <div className="bg-white/[0.03] rounded-3xl p-6 border border-white/5 shadow-2xl">
-                        <label className="block text-sm font-bold text-blue-100 mb-3">Winst per klus (€)</label>
-                        <div className="flex items-center gap-4 mb-6">
-                             <div className="relative w-32 shrink-0">
-                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-300 font-bold">€</span>
-                                <input 
-                                    type="number" 
-                                    value={profitPerJob} 
-                                    onChange={handleInputChange}
-                                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-8 pr-3 text-white font-bold focus:outline-none focus:border-brand-orange transition-colors"
-                                />
-                             </div>
-                             
-                             <input 
-                                type="range" 
-                                min="50" 
-                                max="1500" 
-                                step="10" 
-                                value={profitPerJob} 
-                                onChange={(e) => setProfitPerJob(Number(e.target.value))}
-                                className="w-full h-2 bg-blue-900 rounded-lg appearance-none cursor-pointer accent-brand-orange hover:accent-orange-400 transition-all"
-                            />
-                        </div>
-                        <div className="flex gap-2 text-xs text-blue-300">
-                             <div className="bg-white/5 px-2 py-1 rounded cursor-pointer hover:text-white" onClick={()=>setProfitPerJob(250)}>€250 (Klein)</div>
-                             <div className="bg-white/5 px-2 py-1 rounded cursor-pointer hover:text-white" onClick={()=>setProfitPerJob(750)}>€750 (Middel)</div>
-                             <div className="bg-white/5 px-2 py-1 rounded cursor-pointer hover:text-white" onClick={()=>setProfitPerJob(1500)}>€1500 (Groot)</div>
-                        </div>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                {/* Left: Simple Input */}
+                <div className="space-y-6">
+                     <label className="block text-xl font-bold text-white mb-2">Wat hou je over aan 1 klus?</label>
+                     <div className="relative">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-orange font-bold text-xl">€</span>
+                        <input 
+                            type="number" 
+                            value={profitPerJob} 
+                            onChange={handleInputChange}
+                            className="w-full bg-black/20 border-b-2 border-white/10 rounded-t-xl py-6 pl-10 pr-4 text-4xl font-bold text-white focus:outline-none focus:border-brand-orange transition-colors placeholder-white/20"
+                        />
+                     </div>
+                     
+                     <div className="flex flex-wrap gap-2">
+                        {[
+                            { label: 'Klein', val: 150 },
+                            { label: 'Gemiddeld', val: 450 },
+                            { label: 'Groot', val: 1500 }
+                        ].map((preset) => (
+                            <button 
+                                key={preset.val}
+                                onClick={() => setProfitPerJob(preset.val)}
+                                className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${profitPerJob === preset.val ? 'bg-white text-brand-dark border-white' : 'bg-white/5 border-white/10 text-blue-300 hover:border-brand-orange/50 hover:text-white'}`}
+                            >
+                                {preset.label} (€{preset.val})
+                            </button>
+                        ))}
+                     </div>
                 </div>
 
-                <div className="space-y-4 pt-4">
-                    {packages.map((pkg) => {
-                        const jobsNeeded = (pkg.price / profitPerJob);
-                        const isCovered = profitPerJob >= pkg.price;
-                        const profit = isCovered ? profitPerJob - pkg.price : 0;
-                        
-                        return (
-                            <div key={pkg.name} className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.04] transition-colors">
-                                <div className="flex justify-between items-center mb-4">
-                                    <div>
-                                        <div className="font-bold text-white text-lg">{pkg.name} Pakket</div>
-                                        <div className="text-blue-300 text-xs">Kosten: €{pkg.price}/mnd</div>
-                                    </div>
-                                    <div className="text-right">
-                                        {isCovered ? (
-                                            <div>
-                                                <div className="text-green-400 font-bold text-lg">+ €{profit.toFixed(0)}</div>
-                                                <div className="text-green-500/60 text-xs font-bold uppercase">Winst op 1e klus!</div>
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <div className="text-orange-400 font-bold text-lg">{jobsNeeded.toFixed(1)} klussen</div>
-                                                <div className="text-orange-500/60 text-xs font-bold uppercase">Om quitte te spelen</div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+                {/* Right: The Visual Bar */}
+                <div className="bg-black/20 rounded-3xl p-6 md:p-8 border border-white/5 relative">
+                     <div className="flex items-center justify-between mb-4">
+                         <div className="text-xs font-bold uppercase text-blue-300 tracking-wider">Opbrengst 1e Klus</div>
+                         <div className="text-2xl font-bold text-white">€ {profitPerJob}</div>
+                     </div>
 
-                                <div className="relative h-6 bg-[#001933] rounded-full overflow-hidden flex">
-                                    {isCovered ? (
-                                        <>
-                                            <div 
-                                                className="h-full bg-blue-700 flex items-center justify-center text-[10px] font-bold text-white relative border-r border-black/20"
-                                                style={{ width: `${(pkg.price / profitPerJob) * 100}%` }}
-                                            >
-                                               {((pkg.price/profitPerJob)*100).toFixed(0)}%
-                                            </div>
-                                            <div className="flex-1 h-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-[10px] font-bold text-black/70">
-                                               Winst
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div className="w-full h-full bg-brand-orange flex items-center justify-center text-[10px] font-bold text-white">
-                                                Nog €{(pkg.price - profitPerJob).toFixed(0)} nodig
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-                                
-                                {isCovered && (
-                                     <p className="text-xs text-blue-300 mt-2 text-center">
-                                         Van je eerste klus (€{profitPerJob}) gaat slechts <span className="text-white">{Math.round((pkg.price/profitPerJob)*100)}%</span> naar de kosten.
-                                     </p>
-                                )}
-                            </div>
-                        );
-                    })}
+                     {/* The Stacked Bar */}
+                     <div className="h-16 w-full bg-white/5 rounded-2xl overflow-hidden flex relative mb-6 ring-1 ring-white/5">
+                        {/* Cost Part */}
+                        <div 
+                            className="h-full bg-brand-orange flex items-center justify-center relative group/cost transition-all duration-500"
+                            style={{ width: `${costPercentage}%`, minWidth: '40px' }}
+                        >
+                             <span className="text-white font-bold text-xs md:text-sm absolute whitespace-nowrap drop-shadow-md">€{costPerMonth}</span>
+                             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] text-brand-orange font-bold uppercase whitespace-nowrap opacity-0 group-hover/cost:opacity-100 transition-opacity">Kosten</div>
+                        </div>
+                        
+                        {/* Profit Part */}
+                        <div className="h-full flex-1 bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center relative group/profit">
+                             <span className="text-white font-bold text-lg md:text-xl drop-shadow-md">€{isCovered ? profitLeft : 0}</span>
+                             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] text-green-400 font-bold uppercase whitespace-nowrap opacity-0 group-hover/profit:opacity-100 transition-opacity">Winst</div>
+                        </div>
+                     </div>
+
+                     {isCovered ? (
+                         <div className="space-y-4 animate-fade-in">
+                             <p className="text-lg text-white font-medium leading-relaxed">
+                                 Met slechts <span className="text-brand-orange font-bold">{Math.round(costPercentage)}%</span> van je eerste klus is je hele maand betaald.
+                             </p>
+                             <div className="flex items-center gap-3 text-sm text-blue-200 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">
+                                 <CheckCircle2 size={18} className="text-green-400 shrink-0" />
+                                 <span>Dat betekent dat de rest van de maand <strong className="text-white">pure winst</strong> is.</span>
+                             </div>
+                         </div>
+                     ) : (
+                         <div className="text-orange-400 font-medium animate-pulse">
+                             Nog €{Math.abs(profitLeft)} nodig om quitte te spelen.
+                         </div>
+                     )}
                 </div>
             </div>
         </div>
