@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import InteractivePhoneHero from './components/InteractivePhoneHero';
 import Chatbot from './components/Chatbot';
-import BlogPage from './components/BlogPage';
+import AboutPage from './components/AboutPage'; // IMPORT ADDED
 import { 
   CheckCircle2, ArrowRight, XCircle, Clock, Calendar, MessageSquare, 
   CreditCard, Star, Menu, X, ChevronDown, ChevronUp, Phone, Mail, 
@@ -1442,7 +1442,7 @@ const StickyMobileCTA = ({ onCta }: { onCta: () => void }) => {
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activePage, setActivePage] = useState<'home' | 'privacy' | 'terms' | 'blog'>('home');
+  const [activePage, setActivePage] = useState<'home' | 'privacy' | 'terms' | 'about'>('home'); // TYPE UPDATED
   const [showSignup, setShowSignup] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [currentSource, setCurrentSource] = useState('Website Direct');
@@ -1455,7 +1455,7 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigateTo = (page: 'home' | 'privacy' | 'terms' | 'blog', sectionId?: string) => {
+  const navigateTo = (page: 'home' | 'privacy' | 'terms' | 'about', sectionId?: string) => { // TYPE UPDATED
       setActivePage(page);
       setMobileMenuOpen(false);
       
@@ -1522,7 +1522,8 @@ function App() {
                 <button onClick={() => navigateTo('home', 'voordelen')} className="text-sm font-medium text-blue-200 hover:text-white hover:text-brand-orange transition-colors duration-300">Voordelen</button>
                 <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-sm font-medium text-blue-200 hover:text-white hover:text-brand-orange transition-colors duration-300">Hoe het werkt</button>
                 <button onClick={() => navigateTo('home', 'prijzen')} className="text-sm font-medium text-blue-200 hover:text-white hover:text-brand-orange transition-colors duration-300">Prijzen</button>
-                <button onClick={() => navigateTo('blog')} className="text-sm font-medium text-blue-200 hover:text-white hover:text-brand-orange transition-colors duration-300">Blog</button>
+                {/* NEW: Over ons added to desktop menu */}
+                <button onClick={() => navigateTo('about')} className="text-sm font-medium text-blue-200 hover:text-white hover:text-brand-orange transition-colors duration-300">Over ons</button>
                 <Button onClick={() => openSignup('Header Navigation')} variant="primary" className="py-2.5 px-6 text-xs uppercase tracking-widest font-bold">Begin gratis</Button>
             </div>
 
@@ -1537,7 +1538,8 @@ function App() {
                 <button onClick={() => navigateTo('home', 'voordelen')} className="text-blue-100 text-lg font-medium text-left">Voordelen</button>
                 <button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="text-blue-100 text-lg font-medium text-left">Hoe het werkt</button>
                 <button onClick={() => navigateTo('home', 'prijzen')} className="text-blue-100 text-lg font-medium text-left">Prijzen</button>
-                <button onClick={() => navigateTo('blog')} className="text-blue-100 text-lg font-medium text-left">Blog</button>
+                {/* NEW: Over ons added to mobile menu */}
+                <button onClick={() => navigateTo('about')} className="text-blue-100 text-lg font-medium text-left">Over ons</button>
                 <Button onClick={() => { setMobileMenuOpen(false); openSignup('Mobile Menu'); }} variant="secondary" className="w-full justify-center py-4">Begin gratis</Button>
             </div>
             )}
@@ -1841,16 +1843,15 @@ function App() {
                   <li><button onClick={() => navigateTo('home', 'voordelen')} className="hover:text-brand-orange transition-colors">Voordelen</button></li>
                   <li><button onClick={() => navigateTo('home', 'hoe-het-werkt')} className="hover:text-brand-orange transition-colors">Hoe het werkt</button></li>
                   <li><button onClick={() => navigateTo('home', 'prijzen')} className="hover:text-brand-orange transition-colors">Prijzen</button></li>
-                  <li><button onClick={() => navigateTo('blog')} className="hover:text-brand-orange transition-colors">Kennisbank</button></li>
                 </ul>
               </div>
 
               <div>
                 <h4 className="text-white font-bold mb-6">Bedrijf</h4>
                 <ul className="space-y-4">
-                  <li><a href="#" className="hover:text-brand-orange transition-colors">Over ons</a></li>
-                  <li><a href="#" className="hover:text-brand-orange transition-colors">Contact</a></li>
-                  <li><a href="#" className="hover:text-brand-orange transition-colors">Partners</a></li>
+                  <li><button onClick={() => navigateTo('about')} className="hover:text-brand-orange transition-colors">Over ons</button></li>
+                  <li><button onClick={() => openContact('Footer')} className="hover:text-brand-orange transition-colors">Contact</button></li>
+                  <li><button className="hover:text-brand-orange transition-colors">Partners</button></li>
                   <li><button onClick={handleLoginClick} className="text-white font-bold hover:text-brand-orange transition-colors flex items-center gap-2">Inloggen <ArrowRight size={14}/></button></li>
                 </ul>
               </div>
@@ -1906,7 +1907,7 @@ function App() {
             onBack={() => navigateTo('home')} 
         />
       ) : (
-          <BlogPage onBack={() => navigateTo('home')} />
+          <AboutPage onBack={() => navigateTo('home')} onCta={() => openContact('About Page CTA')} />
       )}
 
       {/* GLOBAL MODALS */}
