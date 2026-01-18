@@ -16,7 +16,7 @@ const Chatbot = () => {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-32 md:bottom-6 right-6 z-[90] group"
+        className="fixed bottom-6 right-6 z-[90] group"
         aria-label="Contact via WhatsApp"
     >
         {/* Pulse Effect */}

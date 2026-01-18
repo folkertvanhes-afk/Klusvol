@@ -176,12 +176,12 @@ const AboutPage = ({ onBack, onCta }: { onBack: () => void, onCta: () => void })
 
                 <div className="order-1 lg:order-2 relative group">
                     <div className="absolute inset-0 bg-brand-orange/20 blur-[100px] rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
-                    <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 bg-brand-surface shadow-2xl rotate-2 group-hover:rotate-0 transition-transform duration-700 transform-gpu isolation-isolate">
+                    <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 bg-brand-surface shadow-2xl transform-gpu isolation-isolate">
                          {/* HIERONDER JE FOTO VERANDEREN: Vervang de src="..." met jouw eigen URL */}
                          <img 
                             src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696bf4d4b34b64020e600c8b.png"
                             alt="Folkert - Oprichter Klusvol" 
-                            className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                            className="w-full h-full object-cover opacity-90"
                          />
                          <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-80"></div>
                          

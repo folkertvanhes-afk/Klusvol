@@ -103,12 +103,16 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
 const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: boolean; onClose: () => void; source?: string }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [sent, setSent] = useState(false);
-    const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', message: '' });
+    const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', address: '', message: '' });
+
+    const isVisit = source.includes("Koffie") || source.includes("Bezoek");
+    const isAannemer = source.includes("Aannemer");
+    const isGeneralContact = source.includes("Contact");
 
     useEffect(() => {
         if(isOpen) {
             setSent(false);
-            setForm({ name: '', company: '', email: '', phone: '', message: '' });
+            setForm({ name: '', company: '', email: '', phone: '', address: '', message: '' });
         }
     }, [isOpen]);
 
@@ -122,9 +126,16 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
                 formData.append('company', form.company);
                 formData.append('email', form.email);
                 formData.append('phone', form.phone);
+                formData.append('address', form.address);
                 formData.append('message', form.message);
                 formData.append('source', `Klusvol Website - ${source}`);
-                formData.append('type', 'strategy_session');
+                
+                let type = 'strategy_session';
+                if (isVisit) type = 'coffee_appointment';
+                else if (isAannemer) type = 'aannemer_inquiry';
+                else if (isGeneralContact) type = 'general_inquiry';
+
+                formData.append('type', type);
 
                 await fetch(GHL_CONFIG.contactWebhook, {
                     method: 'POST',
@@ -146,6 +157,28 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
 
     if (!isOpen) return null;
 
+    // Dynamic Content based on context
+    const getContextTitle = () => {
+        if (isVisit) return 'Kennismaking';
+        if (isAannemer) return 'Aannemer Pakket';
+        if (isGeneralContact) return 'Contactgegevens';
+        return 'Klusvol Pro';
+    };
+
+    const getFormTitle = () => {
+        if (isVisit) return 'Koffie Afspraak Plannen';
+        if (isAannemer) return 'Aannemer Pakket Aanvragen';
+        if (isGeneralContact) return 'Stuur een bericht';
+        return 'Adviesgesprek Aanvragen';
+    };
+
+    const getFormDesc = () => {
+        if (isVisit) return 'Vul je adres in, dan kom ik bij je langs.';
+        if (isAannemer) return 'Dit pakket is maatwerk. We bespreken graag je wensen.';
+        if (isGeneralContact) return 'Heb je een vraag? Vul het formulier in.';
+        return 'We kijken samen of Klusvol Pro bij jouw groeifase past.';
+    };
+
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-brand-dark/95 backdrop-blur-2xl transition-opacity duration-500" onClick={onClose}></div>
@@ -154,7 +187,7 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
                 {/* Border Glow */}
                 <div className="absolute inset-0 border border-brand-orange/10 rounded-3xl md:rounded-[2.5rem] pointer-events-none sticky top-0"></div>
 
-                {/* Left Side: Premium Context */}
+                {/* Left Side: Premium Context OR Contact Details */}
                 <div className="w-full md:w-[45%] bg-brand-surface p-6 md:p-12 flex flex-col justify-between relative overflow-hidden shrink-0">
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay"></div>
                     <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 blur-[100px] rounded-full pointer-events-none"></div>
@@ -162,39 +195,84 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
                     <div className="relative z-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-black/20 border border-white/10 backdrop-blur-md mb-6 md:mb-10">
                              <Crown size={14} className="text-brand-orange fill-brand-orange" />
-                             <span className="text-[10px] md:text-[11px] font-bold text-blue-100 uppercase tracking-widest">Klusvol Pro</span>
+                             <span className="text-[10px] md:text-[11px] font-bold text-blue-100 uppercase tracking-widest">{getContextTitle()}</span>
                         </div>
                         
-                        <h3 className="text-2xl md:text-5xl font-extrabold text-white mb-4 md:mb-6 leading-[1.1] tracking-tight">
-                            Geen tool,<br/>
-                            maar een <span className="text-brand-orange">Partner.</span>
-                        </h3>
-                        <p className="text-blue-200 leading-relaxed font-light text-sm md:text-lg">
-                            We werken exclusief met vakmensen die hun plafond hebben bereikt en daar doorheen willen breken.
-                        </p>
+                        {isGeneralContact ? (
+                            <>
+                                <h3 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+                                    Kom in <span className="text-brand-orange">contact.</span>
+                                </h3>
+                                <p className="text-blue-200 leading-relaxed font-light text-sm md:text-lg mb-8">
+                                    We helpen je graag verder. Bel, mail of app ons direct.
+                                </p>
+                                
+                                <div className="space-y-6">
+                                    <a href="mailto:info@klusvol.nl" className="flex items-center gap-4 group/link">
+                                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/link:border-brand-orange/30 transition-all">
+                                            <Mail size={20} className="text-blue-300 group-hover/link:text-brand-orange transition-colors" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-blue-400 font-bold uppercase tracking-wider mb-0.5">Email</div>
+                                            <div className="text-white font-medium">info@klusvol.nl</div>
+                                        </div>
+                                    </a>
+                                    <a href="tel:0643411427" className="flex items-center gap-4 group/link">
+                                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/link:border-brand-orange/30 transition-all">
+                                            <Phone size={20} className="text-blue-300 group-hover/link:text-brand-orange transition-colors" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-blue-400 font-bold uppercase tracking-wider mb-0.5">Telefoon & WhatsApp</div>
+                                            <div className="text-white font-medium">06 434 11 427</div>
+                                        </div>
+                                    </a>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                            <ShieldCheck size={20} className="text-blue-300" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-blue-400 font-bold uppercase tracking-wider mb-0.5">KVK Nummer</div>
+                                            <div className="text-white font-medium">94035202</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <h3 className="text-2xl md:text-5xl font-extrabold text-white mb-4 md:mb-6 leading-[1.1] tracking-tight">
+                                    Geen tool,<br/>
+                                    maar een <span className="text-brand-orange">Partner.</span>
+                                </h3>
+                                <p className="text-blue-200 leading-relaxed font-light text-sm md:text-lg">
+                                    Wij werken met vakmensen die willen groeien, zonder dat dit ten koste gaat van hun vrije tijd.
+                                </p>
+                            </>
+                        )}
                     </div>
 
-                    <div className="relative z-10 mt-8 md:mt-12 space-y-6 md:space-y-8 hidden md:block">
-                         <div className="flex items-start gap-5 group/item">
-                             <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
-                                 <Rocket size={24} className="text-blue-300 group-hover/item:text-brand-orange transition-colors" />
+                    {!isGeneralContact && (
+                        <div className="relative z-10 mt-8 md:mt-12 space-y-6 md:space-y-8 hidden md:block">
+                             <div className="flex items-start gap-5 group/item">
+                                 <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
+                                     <Rocket size={24} className="text-blue-300 group-hover/item:text-brand-orange transition-colors" />
+                                 </div>
+                                 <div>
+                                     <div className="text-white font-bold text-base mb-1">Priority Onboarding</div>
+                                     <div className="text-sm text-blue-200 leading-relaxed">Wij richten alles in. Jij hoeft nergens naar om te kijken.</div>
+                                 </div>
                              </div>
-                             <div>
-                                 <div className="text-white font-bold text-base mb-1">Priority Onboarding</div>
-                                 <div className="text-sm text-blue-200 leading-relaxed">Wij richten alles in. Jij hoeft nergens naar om te kijken.</div>
+                             
+                             <div className="flex items-start gap-5 group/item">
+                                 <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
+                                     <Headphones size={24} className="text-blue-300 group-hover/item:text-brand-orange transition-colors" />
+                                 </div>
+                                 <div>
+                                     <div className="text-white font-bold text-base mb-1">Directe Lijn</div>
+                                     <div className="text-sm text-blue-200 leading-relaxed">Je eigen accountmanager op WhatsApp.</div>
+                                 </div>
                              </div>
-                         </div>
-                         
-                         <div className="flex items-start gap-5 group/item">
-                             <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
-                                 <Headphones size={24} className="text-blue-300 group-hover/item:text-brand-orange transition-colors" />
-                             </div>
-                             <div>
-                                 <div className="text-white font-bold text-base mb-1">Directe Lijn</div>
-                                 <div className="text-sm text-blue-200 leading-relaxed">Je eigen accountmanager op WhatsApp.</div>
-                             </div>
-                         </div>
-                    </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Right Side: Form */}
@@ -210,18 +288,22 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
                             </div>
                             <h3 className="text-3xl font-bold text-white mb-4">Aanvraag Ontvangen</h3>
                             <p className="text-blue-200 max-w-xs mx-auto mb-10 text-lg">
-                                Bedankt {form.name}. Je staat op de lijst. We bellen je binnen 4 uur voor de intake.
+                                Bedankt {form.name}. Je staat op de lijst. We bellen je binnen 4 uur voor de afspraak.
                             </p>
                             <Button variant="outline" onClick={onClose} className="w-full max-w-xs border-white/10 hover:bg-white/5">Sluiten</Button>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="flex flex-col h-full justify-center max-w-md mx-auto w-full">
-                            <div className="mb-6 md:mb-10">
-                                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Adviesgesprek Aanvragen</h3>
-                                <p className="text-sm md:text-base text-blue-200">We kijken samen of Klusvol Pro bij jouw groeifase past.</p>
+                            <div className="mb-6 md:mb-8">
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                                    {getFormTitle()}
+                                </h3>
+                                <p className="text-sm md:text-base text-blue-200">
+                                    {getFormDesc()}
+                                </p>
                             </div>
                             
-                            <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
+                            <div className="space-y-4 md:space-y-5 mb-8 md:mb-10">
                                 <div className="grid grid-cols-2 gap-4 md:gap-6">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-blue-300 uppercase tracking-wider ml-1">Naam</label>
@@ -245,7 +327,7 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-blue-300 uppercase tracking-wider ml-1">Direct Contact</label>
+                                    <label className="text-xs font-bold text-blue-300 uppercase tracking-wider ml-1">Contact</label>
                                     <div className="grid grid-cols-2 gap-4 md:gap-6">
                                         <input 
                                             required
@@ -266,21 +348,36 @@ const ContactModal = ({ isOpen, onClose, source = "Strategy Modal" }: { isOpen: 
                                     </div>
                                 </div>
 
+                                {isVisit && (
+                                    <div className="space-y-2 animate-slide-up-fade">
+                                        <label className="text-xs font-bold text-blue-300 uppercase tracking-wider ml-1">Locatie Afspraak</label>
+                                        <input 
+                                            required
+                                            value={form.address}
+                                            onChange={e => setForm({...form, address: e.target.value})}
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-brand-orange/50 focus:bg-white/10 transition-all placeholder-blue-300/50 text-sm md:text-base"
+                                            placeholder="Straat en huisnummer, Plaats"
+                                        />
+                                    </div>
+                                )}
+
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-blue-300 uppercase tracking-wider ml-1">Grootste Uitdaging</label>
+                                    <label className="text-xs font-bold text-blue-300 uppercase tracking-wider ml-1">
+                                        {isVisit ? 'Opmerking (Optioneel)' : (isGeneralContact ? 'Je Bericht' : 'Grootste Uitdaging')}
+                                    </label>
                                     <textarea 
-                                        required
+                                        required={!isVisit}
                                         rows={2}
                                         value={form.message}
                                         onChange={e => setForm({...form, message: e.target.value})}
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 md:px-5 md:py-4 text-white focus:outline-none focus:border-brand-orange/50 focus:bg-white/10 transition-all resize-none placeholder-blue-300/50 text-sm md:text-base"
-                                        placeholder="Bijv: Ik wil personeel aannemen maar..."
+                                        placeholder={isVisit ? "Bijv: De koffie staat klaar!" : "Waar kunnen we je mee helpen?"}
                                     />
                                 </div>
                             </div>
 
                             <Button variant="secondary" className="w-full justify-center text-sm md:text-base py-4 md:py-5" disabled={isLoading}>
-                                {isLoading ? <Loader2 className="animate-spin" /> : <>Neem contact op <ArrowRight size={18} /></>}
+                                {isLoading ? <Loader2 className="animate-spin" /> : <>{isVisit ? 'Afspraak Bevestigen' : (isAannemer ? 'Aanvraag Versturen' : (isGeneralContact ? 'Verstuur Bericht' : 'Neem contact op'))} <ArrowRight size={18} /></>}
                             </Button>
                             
                             <p className="text-center text-xs text-blue-300 mt-5 flex items-center justify-center gap-1.5">
@@ -1411,32 +1508,6 @@ const ROICalculator = () => {
     );
 };
 
-// --- Sticky Mobile CTA - FLOATING ISLAND ---
-const StickyMobileCTA = ({ onCta }: { onCta: () => void }) => {
-    return (
-        <div className="fixed bottom-6 left-6 right-6 z-[60] md:hidden animate-slide-up-fade">
-            <div className="relative group rounded-3xl p-[1px] bg-gradient-to-r from-brand-orange/40 via-white/20 to-brand-orange/40 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.8)]">
-                {/* Glow Behind */}
-                <div className="absolute inset-0 bg-brand-orange/10 blur-xl opacity-60 rounded-3xl"></div>
-                
-                {/* The 'Island' Content */}
-                <div className="relative bg-brand-surface/80 backdrop-blur-xl rounded-3xl p-4 pl-5 flex items-center justify-between shadow-2xl">
-                    <div className="flex-1">
-                        <div className="text-white font-bold text-base leading-tight tracking-tight">Klusvol Proberen?</div>
-                        <div className="text-blue-200 text-xs mt-0.5 font-medium">Wij richten alles voor je in.</div>
-                    </div>
-                    <button 
-                        onClick={onCta} 
-                        className="bg-white text-black px-5 py-3 rounded-2xl font-bold text-xs uppercase tracking-wide shadow-lg active:scale-95 transition-transform flex items-center gap-2 hover:bg-brand-orange hover:text-white"
-                    >
-                        Begin gratis
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 // --- Main App Component ---
 
 function App() {
@@ -1578,7 +1649,7 @@ function App() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center lg:justify-start animate-slide-up-fade delay-300 items-center relative z-10">
-                  <Button onClick={() => openSignup('Hero Section - Launch Deal')} variant="secondary" className="px-8 py-4 h-auto min-h-[70px] w-full sm:w-auto shadow-[0_0_50px_rgba(249,115,22,0.4)] hover:shadow-[0_0_70px_rgba(249,115,22,0.6)] border-brand-orange/50 group !flex-col !items-start !gap-0.5">
+                  <Button onClick={() => openSignup('Hero Section - Launch Deal')} variant="secondary" className="px-8 py-3 h-auto w-full sm:w-auto shadow-[0_0_50px_rgba(249,115,22,0.4)] hover:shadow-[0_0_70px_rgba(249,115,22,0.6)] border-brand-orange/50 group !flex-col !items-center !gap-1">
                     <div className="flex items-center gap-2 text-lg font-bold">
                         Probeer gratis <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -1850,8 +1921,7 @@ function App() {
                 <h4 className="text-white font-bold mb-6">Bedrijf</h4>
                 <ul className="space-y-4">
                   <li><button onClick={() => navigateTo('about')} className="hover:text-brand-orange transition-colors">Over ons</button></li>
-                  <li><button onClick={() => openContact('Footer')} className="hover:text-brand-orange transition-colors">Contact</button></li>
-                  <li><button className="hover:text-brand-orange transition-colors">Partners</button></li>
+                  <li><button onClick={() => openContact('Footer Contact')} className="hover:text-brand-orange transition-colors">Contact</button></li>
                   <li><button onClick={handleLoginClick} className="text-white font-bold hover:text-brand-orange transition-colors flex items-center gap-2">Inloggen <ArrowRight size={14}/></button></li>
                 </ul>
               </div>
@@ -1874,7 +1944,6 @@ function App() {
             </div>
           </footer>
 
-          <StickyMobileCTA onCta={() => openSignup('Sticky Mobile CTA')} />
         </>
       ) : activePage === 'privacy' ? (
         <LegalPage 
@@ -1907,7 +1976,7 @@ function App() {
             onBack={() => navigateTo('home')} 
         />
       ) : (
-          <AboutPage onBack={() => navigateTo('home')} onCta={() => openContact('About Page CTA')} />
+          <AboutPage onBack={() => navigateTo('home')} onCta={() => openContact('Koffie Afspraak - About Page')} />
       )}
 
       {/* GLOBAL MODALS */}
