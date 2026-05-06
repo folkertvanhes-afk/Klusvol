@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type AppState = 'default' | 'lead' | 'appointment' | 'review' | 'invoice';
+export type AppState = 'default' | 'showroom' | 'ontzorging' | 'filter' | 'app';
 
 export interface BadgeData {
   id: AppState;

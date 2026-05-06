@@ -1,39 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { UserPlus, CalendarCheck, Star, ReceiptEuro } from 'lucide-react';
+import { MessageCircle, Check, Monitor, Wrench, ShieldCheck } from 'lucide-react';
 import { AppState, BadgeData } from '../types';
 import FloatingBadge from './FloatingBadge';
-import { DefaultScreen, LeadScreen, AppointmentScreen, ReviewScreen, InvoiceScreen } from './AppScreens';
+import { DefaultScreen, ShowroomScreen, OntzorgingScreen, FilterScreen, AppScreen } from './AppScreens';
 
 const badges: BadgeData[] = [
   {
-    id: 'lead',
-    category: 'Nieuwe Klant',
-    label: 'Willem Jansen',
-    icon: <UserPlus size={18} />,
+    id: 'showroom',
+    category: 'Online Showroom',
+    label: 'Premium visitekaartje',
+    icon: <Monitor size={18} />,
     position: 'md:top-24 md:right-full md:mr-5',
     animationDelay: '1.2s'
   },
   {
-    id: 'appointment',
-    category: 'Eerstvolgende',
-    label: '14:00 Dakinspectie',
-    icon: <CalendarCheck size={18} />,
-    position: 'md:top-36 md:left-full md:ml-5',
+    id: 'ontzorging',
+    category: 'Geen omkijken naar',
+    label: 'Wij regelen de techniek',
+    icon: <Wrench size={18} />,
+    position: 'md:top-48 md:left-full md:ml-5',
     animationDelay: '1.4s'
   },
   {
-    id: 'review',
-    category: 'Google Review',
-    label: '★★★★★ 5.0',
-    icon: <Star size={18} fill="currentColor" />,
-    position: 'md:bottom-40 md:right-full md:mr-5',
+    id: 'filter',
+    category: 'Ruis Filteren',
+    label: 'Nee tegen koopjesjagers',
+    icon: <ShieldCheck size={18} />,
+    position: 'md:bottom-48 md:right-full md:mr-5',
     animationDelay: '1.6s'
   },
   {
-    id: 'invoice',
-    category: 'Factuur Betaald',
-    label: '+ € 1.500,00',
-    icon: <ReceiptEuro size={18} />,
+    id: 'app',
+    category: 'Klusvol App',
+    label: 'Alles in één inbox',
+    icon: <MessageCircle size={18} />,
     position: 'md:bottom-24 md:left-full md:ml-5',
     animationDelay: '1.8s'
   }
@@ -52,18 +52,18 @@ const InteractivePhoneHero = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Updated: Run loop on mobile as well to show functionality
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    if (isAutoPlaying) {
-      interval = setInterval(() => {
-        const nextIndex = (currentIndexRef.current + 1) % badges.length;
-        currentIndexRef.current = nextIndex;
-        setActiveScreen(badges[nextIndex].id);
-      }, 3000);
-    }
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]); // Removed isMobile dependency to allow mobile autoplay
+    if (!isAutoPlaying) return;
+    
+    const delay = currentIndexRef.current === 0 ? 6000 : 3000;
+    const timeout = setTimeout(() => {
+      const nextIndex = (currentIndexRef.current + 1) % badges.length;
+      currentIndexRef.current = nextIndex;
+      setActiveScreen(badges[nextIndex].id);
+    }, delay);
+    
+    return () => clearTimeout(timeout);
+  }, [isAutoPlaying, activeScreen]);
 
   const handleManualInteraction = (id: AppState) => {
     setIsAutoPlaying(false); // Stop autoplay on interaction
@@ -81,10 +81,10 @@ const InteractivePhoneHero = () => {
 
   const renderScreen = () => {
     switch (activeScreen) {
-      case 'lead': return <LeadScreen />;
-      case 'appointment': return <AppointmentScreen />;
-      case 'review': return <ReviewScreen />;
-      case 'invoice': return <InvoiceScreen />;
+      case 'showroom': return <ShowroomScreen />;
+      case 'ontzorging': return <OntzorgingScreen />;
+      case 'filter': return <FilterScreen />;
+      case 'app': return <AppScreen />;
       default: return <DefaultScreen />;
     }
   };
@@ -101,7 +101,7 @@ const InteractivePhoneHero = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-orange-500/20 blur-[60px] rounded-full pointer-events-none mix-blend-screen" />
 
       {/* Anchor Container */}
-      <div className="relative w-[280px] h-[560px] md:w-[300px] md:h-[600px] shrink-0 z-20 transition-transform duration-500 md:hover:scale-[1.02]">
+      <div className="relative w-[240px] h-[480px] md:w-[260px] md:h-[520px] shrink-0 z-20 transition-transform duration-500 md:hover:scale-[1.02]">
         
         {/* The Actual iPhone Device 
             UPDATED:

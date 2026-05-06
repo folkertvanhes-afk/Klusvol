@@ -1,61 +1,50 @@
 import React from 'react';
 import { 
-    TrendingUp, Check, Bell, User, Calendar, Star, 
-    MapPin, Phone, MessageCircle, ArrowLeft, UserPlus, 
-    Clock, Search
+    Check, User, MapPin, Phone, MessageCircle, ArrowLeft, 
+    Search, Mail, Menu, Star, Camera
 } from 'lucide-react';
 
 export const DefaultScreen = () => {
     return (
-        <div className="flex flex-col h-full bg-gray-50 text-gray-900 font-sans select-none cursor-default">
-             <div className="h-14 w-full shrink-0"></div>
+        <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
+             {/* Premium Hero Website Look */}
+             <div className="absolute inset-0 bg-slate-100">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/20 to-slate-900/80"></div>
+             </div>
              
-             <div className="px-6 pt-2">
-                 <div className="flex items-center justify-between mb-8">
-                     <div>
-                         <div className="text-gray-400 text-xs font-bold uppercase tracking-wider">Hoi Mark</div>
-                         <h2 className="text-2xl font-bold text-gray-900">Overzicht</h2>
-                     </div>
-                     <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-white overflow-hidden">
-                         <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces" className="w-full h-full object-cover" alt="Profile"/>
+             <div className="relative z-10 flex flex-col h-full">
+                 <div className="h-14 w-full shrink-0 flex items-center justify-between px-6 pt-4">
+                     <div className="font-bold text-white tracking-tight">VAKWERK.</div>
+                     <Menu size={20} className="text-white" />
+                 </div>
+                 
+                 <div className="px-6 pt-12 pb-8 text-center flex-1 flex flex-col justify-center">
+                     <h1 className="text-3xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
+                         Kwaliteit in elke hoek.
+                     </h1>
+                     <p className="text-sm text-white/90 mb-6 drop-shadow-md">
+                         Wij leveren vakwerk dat jarenlang meegaat. Geen praatjes, maar strak resultaat.
+                     </p>
+                     <div className="bg-brand-orange text-white text-center py-3 rounded-xl font-bold text-sm shadow-lg shadow-brand-orange/20 mx-auto px-8">
+                         Vraag offerte aan
                      </div>
                  </div>
 
-                 {/* Stats Card */}
-                 <div className="bg-gray-900 text-white p-5 rounded-2xl shadow-xl mb-6 relative overflow-hidden group">
-                     <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange rounded-full -mr-8 -mt-8 blur-2xl opacity-50"></div>
-                     <div className="relative z-10">
-                         <div className="flex items-center gap-2 mb-1">
-                            <Phone size={14} className="text-brand-orange" />
-                            <span className="text-gray-400 text-xs font-medium">Gemiste oproepen</span>
-                         </div>
-                         <div className="text-3xl font-bold mb-3">3</div>
-                         <div className="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
-                             <div className="h-full bg-brand-orange w-[60%]"></div>
-                         </div>
-                         <div className="mt-2 text-[10px] text-gray-400">2 automatisch beantwoord</div>
-                     </div>
-                 </div>
-
-                 <h3 className="font-bold text-gray-900 mb-3 text-sm">Vandaag</h3>
-                 <div className="space-y-3">
-                     <div className="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3 shadow-sm">
-                         <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                             <Calendar size={18} />
+                 {/* Notification Bubble Overlay */}
+                 <div className="absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-white/20 animate-fade-in z-50">
+                     <div className="flex items-start gap-3">
+                         <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center shrink-0 shadow-inner">
+                             <MessageCircle size={20} className="text-white" />
                          </div>
                          <div>
-                             <div className="font-bold text-sm">Dakinspectie</div>
-                             <div className="text-xs text-gray-500">14:00 • Utrecht</div>
-                         </div>
-                     </div>
-                     
-                     <div className="bg-white p-3 rounded-xl border border-gray-100 flex items-center gap-3 shadow-sm">
-                         <div className="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
-                             <Check size={18} />
-                         </div>
-                         <div>
-                             <div className="font-bold text-sm">Factuur betaald</div>
-                             <div className="text-xs text-gray-500">€ 450,00 ontvangen</div>
+                             <div className="flex items-center justify-between mb-1">
+                                 <span className="font-bold text-slate-900 text-sm">Klusvol Assistent</span>
+                                 <span className="text-[10px] text-slate-500">Nu</span>
+                             </div>
+                             <p className="text-slate-800 text-sm font-medium leading-tight">
+                                 Nieuwe aanvraag: Badkamer renovatie
+                             </p>
                          </div>
                      </div>
                  </div>
@@ -64,66 +53,193 @@ export const DefaultScreen = () => {
     );
 };
 
-export const LeadScreen = () => {
+export const ShowroomScreen = () => {
+    return (
+        <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
+             {/* Premium Hero Website Look */}
+             <div className="absolute top-0 left-0 w-full h-64 bg-slate-100">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-white"></div>
+             </div>
+             
+             <div className="relative z-10 flex flex-col h-full">
+                 <div className="h-14 w-full shrink-0 flex items-center justify-between px-6 pt-4">
+                     <div className="font-bold text-white tracking-tight">VAKWERK.</div>
+                     <Menu size={20} className="text-white" />
+                 </div>
+                 
+                 <div className="px-6 pt-16 pb-8">
+                     <h1 className="text-3xl font-extrabold text-slate-900 leading-tight mb-4">
+                         Kwaliteit in elke hoek.
+                     </h1>
+                     <p className="text-sm text-slate-600 mb-6">
+                         Wij leveren vakwerk dat jarenlang meegaat. Geen praatjes, maar strak resultaat.
+                     </p>
+                     <div className="bg-brand-orange text-white text-center py-3 rounded-xl font-bold text-sm shadow-lg shadow-brand-orange/20">
+                         Vraag offerte aan
+                     </div>
+                 </div>
+
+                 <div className="flex-1 bg-white px-6">
+                     <div className="flex items-center gap-4 mb-6">
+                         <div className="flex -space-x-2">
+                             {[1,2,3].map(i => (
+                                 <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+                                     <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" />
+                                 </div>
+                             ))}
+                         </div>
+                         <div className="text-xs text-slate-500">
+                             <div className="flex text-yellow-400"><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/></div>
+                             <span className="font-bold text-slate-900">4.9/5</span> (120 reviews)
+                         </div>
+                     </div>
+
+                     <div className="space-y-4">
+                         <div className="h-24 bg-slate-100 rounded-2xl overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                         </div>
+                         <div className="h-24 bg-slate-100 rounded-2xl overflow-hidden relative">
+                             <img src="https://images.unsplash.com/photo-1504307651254-35680f356f27?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    );
+};
+
+export const OntzorgingScreen = () => {
+    return (
+        <div className="flex flex-col h-full bg-slate-50 text-slate-900 font-sans select-none cursor-default">
+             <div className="h-14 w-full shrink-0"></div>
+             
+             <div className="px-6 mb-6 flex items-center justify-between">
+                 <span className="font-bold text-2xl tracking-tight">Techniek</span>
+                 <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                     <Check size={16} />
+                 </div>
+             </div>
+
+             <div className="px-6 space-y-4">
+                 <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                     <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                         <Check size={18} />
+                     </div>
+                     <div>
+                         <div className="font-bold text-sm">Hosting Actief</div>
+                         <div className="text-xs text-slate-500">99.9% Uptime</div>
+                     </div>
+                 </div>
+
+                 <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                     <div className="w-10 h-10 rounded-full bg-green-50 text-green-500 flex items-center justify-center shrink-0">
+                         <Check size={18} />
+                     </div>
+                     <div>
+                         <div className="font-bold text-sm">SSL Certificaat</div>
+                         <div className="text-xs text-slate-500">Beveiligde verbinding</div>
+                     </div>
+                 </div>
+
+                 <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+                     <div className="w-10 h-10 rounded-full bg-purple-50 text-purple-500 flex items-center justify-center shrink-0">
+                         <Check size={18} />
+                     </div>
+                     <div>
+                         <div className="font-bold text-sm">Updates & Backups</div>
+                         <div className="text-xs text-slate-500">Automatisch geregeld</div>
+                     </div>
+                 </div>
+             </div>
+             
+             <div className="px-6 mt-8">
+                 <div className="bg-brand-orange/5 border border-brand-orange/10 p-4 rounded-xl">
+                     <div className="flex gap-3">
+                         <div className="w-8 h-8 rounded-full bg-brand-orange text-white flex items-center justify-center shrink-0">
+                             <Check size={16} />
+                         </div>
+                         <div>
+                             <h4 className="font-bold text-brand-darker text-sm">Volledig Ontzorgd</h4>
+                             <p className="text-xs text-slate-600 mt-1">Jij focust op je vak, wij op de techniek.</p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    );
+};
+
+export const AppScreen = () => {
      return (
-        <div className="flex flex-col h-full bg-gray-50 text-gray-900 font-sans select-none cursor-default">
+        <div className="flex flex-col h-full bg-slate-50 text-slate-900 font-sans select-none cursor-default">
              <div className="h-14 w-full shrink-0"></div>
              
              {/* Header */}
-             <div className="px-6 mb-6 flex items-center gap-4">
-                 <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600">
-                     <ArrowLeft size={16} />
+             <div className="px-6 mb-6 flex items-center justify-between">
+                 <span className="font-bold text-2xl tracking-tight">Inbox</span>
+                 <div className="flex gap-2">
+                     <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600">
+                         <Search size={16} />
+                     </div>
                  </div>
-                 <span className="font-bold text-lg">Nieuwe Lead</span>
              </div>
 
-             <div className="px-6 flex-1 overflow-hidden">
-                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-                     <div className="flex items-center gap-4 mb-6">
-                         <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-xl font-bold">
-                             WJ
-                         </div>
-                         <div>
-                             <h2 className="text-xl font-bold text-gray-900">Willem Jansen</h2>
-                             <p className="text-sm text-gray-500">Aangevraagd: 10 min geleden</p>
-                         </div>
-                     </div>
+             {/* Social Integration Icons */}
+             <div className="px-6 mb-4 flex justify-between items-center">
+                 <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Gekoppeld</div>
+                 <div className="flex gap-2">
+                     <div className="w-6 h-6 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366]"><MessageCircle size={12} /></div>
+                     <div className="w-6 h-6 rounded-full bg-[#1877F2]/10 flex items-center justify-center text-[#1877F2]"><span className="font-bold text-[10px]">f</span></div>
+                     <div className="w-6 h-6 rounded-full bg-[#0A66C2]/10 flex items-center justify-center text-[#0A66C2]"><span className="font-bold text-[10px]">in</span></div>
+                     <div className="w-6 h-6 rounded-full bg-[#E4405F]/10 flex items-center justify-center text-[#E4405F]"><Camera size={12} /></div>
+                 </div>
+             </div>
 
-                     <div className="grid grid-cols-2 gap-3 mb-6">
-                         <div className="flex items-center justify-center gap-2 bg-green-500 text-white py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-green-500/20">
-                             <Phone size={16} /> Bellen
-                         </div>
-                         <div className="flex items-center justify-center gap-2 bg-gray-900 text-white py-2.5 rounded-xl font-bold text-sm">
-                             <MessageCircle size={16} /> Appen
+             <div className="px-4 flex-1 overflow-hidden flex flex-col gap-3">
+                 <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 flex gap-4 relative overflow-hidden">
+                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-orange"></div>
+                     <div className="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 relative">
+                         <MessageCircle size={20} />
+                         <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#25D366] rounded-full border-2 border-white flex items-center justify-center">
+                             <span className="text-[8px] text-white font-bold">WA</span>
                          </div>
                      </div>
-                     
-                     <div className="space-y-4">
-                         <div>
-                             <label className="text-xs font-bold text-gray-400 uppercase">Locatie</label>
-                             <div className="flex items-center gap-2 text-sm font-medium mt-1">
-                                 <MapPin size={16} className="text-gray-400" />
-                                 Amsterdam, Centrum
-                             </div>
+                     <div className="flex-1">
+                         <div className="flex justify-between items-start mb-1">
+                             <h3 className="font-bold text-sm">Willem Jansen</h3>
+                             <span className="text-[10px] text-slate-400 font-medium">10:42</span>
                          </div>
-                         <div>
-                             <label className="text-xs font-bold text-gray-400 uppercase">Klus</label>
-                             <div className="text-sm font-medium mt-1">
-                                 Lekkage aan dakkapel, spoed.
-                             </div>
-                         </div>
+                         <p className="text-xs text-slate-600 line-clamp-2">Hoi, kunnen jullie volgende week langskomen voor de badkamer? De tegels zijn binnen.</p>
                      </div>
                  </div>
 
-                 <div className="bg-brand-orange/5 border border-brand-orange/10 rounded-xl p-4">
-                     <div className="flex gap-3">
-                         <div className="w-6 h-6 rounded-full bg-brand-orange text-white flex items-center justify-center shrink-0">
-                             <Check size={12} />
+                 <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 flex gap-4">
+                     <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 relative">
+                         <Mail size={20} />
+                         <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
+                             <span className="text-[8px] text-white font-bold">@</span>
                          </div>
-                         <div className="text-xs text-gray-600">
-                             <span className="font-bold text-brand-darker">Auto-reply verstuurd</span>
-                             <p className="mt-1">"Hoi Willem, ik zit even op de ladder. Ik bel je over 30 min terug!"</p>
+                     </div>
+                     <div className="flex-1">
+                         <div className="flex justify-between items-start mb-1">
+                             <h3 className="font-bold text-sm">Aanvraag via Website</h3>
+                             <span className="text-[10px] text-slate-400 font-medium">Gisteren</span>
                          </div>
+                         <p className="text-xs text-slate-600 line-clamp-2">Nieuwe offerte aanvraag: Dakkapel plaatsen in Utrecht. Budget: €8.000.</p>
+                     </div>
+                 </div>
+
+                 <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 flex gap-4 opacity-70">
+                     <div className="w-12 h-12 rounded-full bg-blue-50 text-[#1877F2] flex items-center justify-center shrink-0 relative">
+                         <span className="font-bold text-lg">f</span>
+                     </div>
+                     <div className="flex-1">
+                         <div className="flex justify-between items-start mb-1">
+                             <h3 className="font-bold text-sm">Kees (Leverancier)</h3>
+                             <span className="text-[10px] text-slate-400 font-medium">Maandag</span>
+                         </div>
+                         <p className="text-xs text-slate-600 line-clamp-1">De materialen staan klaar.</p>
                      </div>
                  </div>
              </div>
@@ -131,181 +247,68 @@ export const LeadScreen = () => {
      );
 }
 
-export const AppointmentScreen = () => {
+export const FilterScreen = () => {
     return (
-        <div className="flex flex-col h-full bg-gray-50 text-gray-900 font-sans select-none cursor-default">
+        <div className="flex flex-col h-full bg-slate-50 text-slate-900 font-sans select-none cursor-default">
              <div className="h-14 w-full shrink-0"></div>
              
-             <div className="px-6 mb-6 flex items-center justify-between">
-                 <span className="font-bold text-lg">Agenda</span>
-                 <span className="text-sm font-medium text-gray-500">Vandaag</span>
+             <div className="px-6 mb-4 flex items-center gap-4">
+                 <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600">
+                     <ArrowLeft size={16} />
+                 </div>
+                 <span className="font-bold text-lg">Nieuwe Aanvraag</span>
              </div>
 
-             <div className="flex-1 px-4 pb-4 overflow-hidden flex flex-col gap-2">
-                 {/* Timeline items */}
-                 <div className="flex gap-4 opacity-50">
-                     <div className="flex flex-col items-center">
-                         <span className="text-xs font-bold text-gray-400 mb-2">09:00</span>
-                         <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-                         <div className="w-0.5 h-full bg-gray-200 my-1"></div>
-                     </div>
-                     <div className="bg-white p-4 rounded-xl border border-gray-100 flex-1 mb-4 grayscale">
-                         <div className="font-bold text-sm line-through">Materiaal inkopen</div>
-                         <div className="text-xs text-gray-500">Bouwmaat</div>
-                     </div>
-                 </div>
-
-                 <div className="flex gap-4">
-                     <div className="flex flex-col items-center">
-                         <span className="text-xs font-bold text-brand-orange mb-2">14:00</span>
-                         <div className="w-3 h-3 rounded-full bg-brand-orange ring-4 ring-brand-orange/20"></div>
-                         <div className="w-0.5 h-full bg-gray-200 my-1"></div>
-                     </div>
-                     <div className="bg-white p-4 rounded-xl border-l-4 border-brand-orange shadow-lg flex-1 mb-4 relative">
-                         <div className="absolute top-4 right-4 bg-brand-orange/10 text-brand-orange text-[10px] font-bold px-2 py-1 rounded">
-                             VOLGENDE
-                         </div>
-                         <div className="font-bold text-sm mb-1">Dakinspectie</div>
-                         <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-3">
-                             <MapPin size={12} /> Utrechtseweg 12
-                         </div>
-                         <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-50">
-                             <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-[10px] font-bold">JD</div>
-                             <span className="text-xs font-medium">Jan de Vries</span>
-                             <div className="ml-auto bg-gray-900 text-white p-1.5 rounded-lg">
-                                 <Phone size={12} />
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 
-                 <div className="flex gap-4 opacity-60">
-                     <div className="flex flex-col items-center">
-                         <span className="text-xs font-bold text-gray-400 mb-2">16:30</span>
-                         <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-                         <div className="w-0.5 h-full bg-gray-200 my-1"></div>
-                     </div>
-                     <div className="bg-white p-4 rounded-xl border border-gray-100 flex-1">
-                         <div className="font-bold text-sm">Offerte uitwerken</div>
-                         <div className="text-xs text-gray-500">Kantoor</div>
-                     </div>
-                 </div>
-             </div>
-        </div>
-    );
-}
-
-export const ReviewScreen = () => {
-    return (
-        <div className="flex flex-col h-full bg-gray-50 text-gray-900 font-sans select-none cursor-default">
-             <div className="h-14 w-full shrink-0"></div>
-             
-             <div className="bg-white mx-4 mt-4 p-6 rounded-2xl shadow-sm text-center border border-gray-100">
-                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-50 mb-4 animate-bounce-small">
-                     <Star size={32} className="text-yellow-400 fill-yellow-400" />
-                 </div>
-                 <h2 className="text-xl font-bold text-gray-900 mb-1">Nieuwe Review!</h2>
-                 <p className="text-sm text-gray-500 mb-6">Je hebt een 5-sterren review ontvangen.</p>
-
-                 <div className="bg-gray-50 rounded-xl p-4 text-left relative">
-                     <div className="absolute -top-3 left-6 text-gray-300">
-                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.00001 16.0001 9 16.0001 9 16.0001V8.00006H14.017V2.00006H4V16.0001H9V21H14.017ZM24 21L24 18C24 16.8954 23.1046 16 22 16H19V8.00006H24V2.00006H14V16.0001H19V21H24Z" /></svg>
-                     </div>
-                     <p className="text-sm italic text-gray-700 leading-relaxed relative z-10">
-                         "Mark reageerde supersnel toen ik belde voor de lekkage. Dezelfde middag nog opgelost. Echte vakman!"
-                     </p>
-                     <div className="mt-3 pt-3 border-t border-gray-200 flex items-center justify-between">
-                         <span className="text-xs font-bold text-gray-900">- P. Verhoeven</span>
-                         <div className="flex gap-0.5">
-                             {[1,2,3,4,5].map(i => <Star key={i} size={10} className="text-yellow-400 fill-yellow-400" />)}
-                         </div>
-                     </div>
-                 </div>
-                 
-                 <div className="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-blue-600/20">
-                     Reageren
-                 </div>
-             </div>
-             
-             <div className="px-6 mt-8">
-                 <div className="flex items-center justify-between text-xs text-gray-400 font-bold uppercase tracking-wider mb-4">
-                     <span>Score deze maand</span>
-                 </div>
-                 <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100">
-                     <div className="flex items-center gap-3">
-                         <div className="text-2xl font-bold text-gray-900">4.9</div>
-                         <div className="flex flex-col">
-                             <div className="flex gap-0.5">
-                                 {[1,2,3,4,5].map(i => <Star key={i} size={10} className="text-yellow-400 fill-yellow-400" />)}
-                             </div>
-                             <span className="text-[10px] text-gray-400">Gebaseerd op 24 reviews</span>
-                         </div>
-                     </div>
-                     <TrendingUp size={20} className="text-green-500" />
-                 </div>
-             </div>
-        </div>
-    );
-}
-
-export const InvoiceScreen = () => {
-    return (
-        <div className="flex flex-col h-full bg-gray-50 text-gray-900 font-sans select-none cursor-default">
-             <div className="h-14 w-full shrink-0"></div>
-             
-             <div className="bg-white p-6 pb-8 rounded-b-[2rem] shadow-sm mb-6 text-center">
-                 <div className="text-gray-400 text-sm font-medium mb-2">Totaal ontvangen vandaag</div>
-                 <div className="text-4xl font-bold text-gray-900 mb-2">€ 1.500,<span className="text-2xl text-gray-400">00</span></div>
-                 <div className="inline-flex items-center gap-1 text-green-600 bg-green-50 px-2 py-1 rounded-lg text-xs font-bold">
-                     <TrendingUp size={14} /> +12% t.o.v. vorige week
-                 </div>
-             </div>
-             
-             <div className="px-6">
-                 <h3 className="font-bold text-gray-900 mb-4">Recente betalingen</h3>
-                 <div className="space-y-3">
-                      <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center justify-between shadow-sm">
-                          <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                                  <Check size={18} />
-                              </div>
-                              <div>
-                                  <div className="font-bold text-sm">Factuur #2024-082</div>
-                                  <div className="text-xs text-gray-500">Willem Jansen</div>
-                              </div>
-                          </div>
-                          <div className="font-bold text-gray-900">+ € 1.500</div>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center justify-between opacity-60">
-                          <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
-                                  <Check size={18} />
-                              </div>
-                              <div>
-                                  <div className="font-bold text-sm">Factuur #2024-081</div>
-                                  <div className="text-xs text-gray-500">Gisteren</div>
-                              </div>
-                          </div>
-                          <div className="font-bold text-gray-900">+ € 450</div>
-                      </div>
-                 </div>
-                 
-                 <div className="mt-8 bg-brand-orange/10 border border-brand-orange/20 p-4 rounded-xl">
-                     <div className="flex gap-3">
-                         <div className="w-8 h-8 rounded-full bg-brand-orange text-white flex items-center justify-center shrink-0">
-                             <Bell size={16} />
+             <div className="px-4 flex-1 overflow-hidden flex flex-col">
+                 <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 mb-4 relative overflow-hidden flex-1">
+                     <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/10 rounded-full -mr-8 -mt-8 blur-2xl"></div>
+                     
+                     <div className="flex items-center gap-4 mb-5 relative z-10">
+                         <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-lg font-bold">
+                             JD
                          </div>
                          <div>
-                             <h4 className="font-bold text-brand-darker text-sm">Factuur herinnering</h4>
-                             <p className="text-xs text-gray-600 mt-1">Er staat nog 1 factuur open die morgen verloopt. Herinnering sturen?</p>
-                             <button className="mt-3 text-xs font-bold text-brand-orange uppercase tracking-wide">
-                                 Nu versturen
-                             </button>
+                             <h2 className="text-lg font-bold text-slate-900">Jan de Vries</h2>
+                             <p className="text-xs text-slate-500">Zojuist via website</p>
+                         </div>
+                     </div>
+
+                     <div className="space-y-3 relative z-10">
+                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                             <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Locatie</label>
+                             <div className="flex items-center gap-2 text-xs font-medium mt-0.5">
+                                 <MapPin size={12} className="text-green-500" />
+                                 Amsterdam (Binnen werkgebied)
+                             </div>
+                         </div>
+                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                             <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Budget</label>
+                             <div className="flex items-center gap-2 text-xs font-medium mt-0.5">
+                                 <Check size={12} className="text-green-500" />
+                                 € 5.000 - € 10.000
+                             </div>
+                         </div>
+                         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                             <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Klus</label>
+                             <div className="text-xs font-medium mt-0.5 text-slate-700 line-clamp-2">
+                                 Complete badkamer renovatie.
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div className="bg-green-500 text-white rounded-xl p-4 shadow-lg shadow-green-500/20 mb-6 shrink-0">
+                     <div className="flex gap-3 items-center">
+                         <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                             <Check size={16} />
+                         </div>
+                         <div>
+                             <span className="font-bold text-sm">Klant-Filter Geslaagd</span>
+                             <p className="text-xs text-green-100 mt-0.5">Klaar om te bellen!</p>
                          </div>
                      </div>
                  </div>
              </div>
         </div>
     );
-};
+}
