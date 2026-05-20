@@ -24,7 +24,7 @@ const badges: BadgeData[] = [
   {
     id: 'filter',
     category: 'Ruis Filteren',
-    label: 'Nee tegen koopjesjagers',
+    label: 'Alleen serieuze aanvragen',
     icon: <ShieldCheck size={18} />,
     position: 'md:bottom-48 md:right-full md:mr-5',
     animationDelay: '1.6s'

@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import InteractivePhoneHero from "./components/InteractivePhoneHero";
 import Chatbot from "./components/Chatbot";
 import AboutPage from "./components/AboutPage"; // IMPORT ADDED
+import CaseStudyPage from "./components/CaseStudyPage";
 import {
   CheckCircle2,
   ArrowRight,
@@ -83,6 +84,7 @@ import {
   Droplets,
   PhoneCall,
   Trophy,
+  AppWindow,
 } from "lucide-react";
 
 // --- CONFIGURATION ---
@@ -1603,32 +1605,32 @@ const InteractiveUSPs = () => {
   const usps = [
     {
       num: "01",
-      title: "Focus op lange termijn",
-      desc: "Je bouwt iets op en wil de komende 10 jaar vooruitkijken met een partner die je helpt daar te komen. Wij bouwen die digitale fundering voor je.",
+      title: "Focus op jouw vak",
+      desc: "Geen avonduren meer achter de laptop. Jij doet het vakwerk, wij regelen jouw online aanwezigheid.",
       icon: Crown,
       color: "text-amber-500",
       bgBase: "bg-amber-500",
     },
     {
       num: "02",
-      title: "Partnerschap",
-      desc: "Wij werken op basis van samenwerking. Eerlijke, transparante bouwkosten en een strak maandelijks beheer. Geen gladde verkooppraatjes.",
+      title: "De krenten uit de pap",
+      desc: "We bouwen sites die werken als een filter. Ontvang alleen serieuze aanvragen uit de regio.",
       icon: Trophy,
       color: "text-brand-orange",
       bgBase: "bg-brand-orange",
     },
     {
       num: "03",
-      title: "Ondersteunende App",
-      desc: "Al je aanvragen komen direct en netjes binnen op één plek. Zelfs de DM's en berichten van je social media kanalen komen overzichtelijk in deze app terecht.",
+      title: "Aanvragen in je broekzak",
+      desc: "Nieuwe klussen komen overzichtelijk binnen op je telefoon. Geen losse notities meer.",
       icon: Smartphone,
       color: "text-blue-500",
       bgBase: "bg-blue-500",
     },
     {
       num: "04",
-      title: "Altijd bereikbaar",
-      desc: "Korte lijntjes. Geen onpersoonlijke helpdesk of moeilijke ticketsystemen. Gewoon Folkert even appen als er iets is.",
+      title: "Praktisch en effectief",
+      desc: "Heldere prijzen zonder verborgen kosten. Ik regel alles, jij kunt me gewoon appen.",
       icon: MessageSquare,
       color: "text-emerald-500",
       bgBase: "bg-emerald-500",
@@ -1689,21 +1691,21 @@ const InteractiveUSPs = () => {
 const stepsData = [
   {
     title: "Schetsblok & Wensen",
-    desc: "Jij vertelt wat je doet en wie je zoekt. Wij maken een plan.",
-    fullDesc: "Jij vertelt wat je doet en wie je zoekt. Wij maken een plan.",
+    desc: "Jij vertelt wat je doet. Ik maak een plan.",
+    fullDesc: "Jij vertelt wat je doet. Ik maak een plan.",
     icon: Paintbrush,
   },
   {
-    title: "Wij bouwen je site",
-    desc: "Wij bouwen je site. Geen templates, maar maatwerk voor jouw vak.",
+    title: "Ik bouw je site",
+    desc: "Geen templates, maatwerk voor jouw klusbedrijf.",
     fullDesc:
-      "Wij bouwen je site. Geen templates, maar maatwerk voor jouw vak.",
+      "Geen templates, maatwerk voor jouw klusbedrijf.",
     icon: ShieldCheck,
   },
   {
     title: "Website Live",
-    desc: "Je site staat live. Vanaf nu filtert het systeem de ruis eruit.",
-    fullDesc: "Je site staat live. Vanaf nu filtert het systeem de ruis eruit.",
+    desc: "Vanaf nu filtert je site de goede klussen eruit.",
+    fullDesc: "Vanaf nu filtert je site de goede klussen eruit.",
     icon: Coffee,
   },
 ];
@@ -1892,11 +1894,11 @@ const InteractiveSteps = () => {
         </div>
       </div>
 
-      <div className="relative h-[350px] md:h-[500px] w-full flex items-center justify-center">
+      <div className="relative h-[250px] sm:h-[350px] md:h-[400px] lg:h-[450px] w-full flex items-center justify-center">
         {/* Updated Glow to Warm/Orange */}
         <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-blue-500/5 blur-[80px] rounded-full mix-blend-screen"></div>
 
-        <div className="relative z-10 w-full max-w-sm h-full md:h-[320px] bg-white border border-slate-200 shadow-sm hover:shadow-md rounded-[3rem] p-8 flex flex-col items-center justify-center shadow-2xl transition-all duration-500 overflow-hidden bg-white border border-slate-200 hover:border-brand-orange/30">
+        <div className="relative z-10 w-full max-w-2xl aspect-[3/2] bg-white border border-slate-200 shadow-sm hover:shadow-md rounded-3xl md:rounded-[3rem] p-3 md:p-6 flex flex-col items-center justify-center shadow-2xl transition-all duration-500 overflow-hidden hover:border-brand-orange/30">
           <motion.div
             animate={{
               opacity: activeStep === 0 ? 1 : 0,
@@ -1905,11 +1907,11 @@ const InteractiveSteps = () => {
               filter: activeStep === 0 ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ duration: 0.5 }}
-            className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-4"
+            className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
           >
-            <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
+            <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
               <img
-                src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+                src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de56d0b9f75f8b3387e52.png"
                 alt="Schetsen"
                 className="w-full h-full object-cover"
               />
@@ -1929,11 +1931,11 @@ const InteractiveSteps = () => {
               filter: activeStep === 1 ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ duration: 0.5 }}
-            className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-4"
+            className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
           >
-            <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
+            <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
               <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80"
+                src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de56907a34aa07f7f3ed7.png"
                 alt="Bouwen"
                 className="w-full h-full object-cover"
               />
@@ -1954,11 +1956,11 @@ const InteractiveSteps = () => {
               filter: activeStep === 2 ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ duration: 0.5 }}
-            className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-4"
+            className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
           >
-            <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
+            <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
               <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+                src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de5700b9f75f8b3387eae.png"
                 alt="Live"
                 className="w-full h-full object-cover"
               />
@@ -1982,18 +1984,18 @@ const InteractiveSteps = () => {
 // --- Sector / Audience Section (Compact & Subtle) ---
 const sectorsRow1 = [
   { icon: Paintbrush, label: "Schilders" },
-  { icon: Wrench, label: "Loodgieters" },
-  { icon: Zap, label: "Elektriciens" },
-  { icon: Hammer, label: "Timmermannen" },
+  { icon: Layers, label: "Stukadoors" },
   { icon: Trees, label: "Hoveniers" },
+  { icon: Grid, label: "Tegelzetters" },
+  { icon: Key, label: "Deur- en slotenmakers" },
 ];
 
 const sectorsRow2 = [
-  { icon: HardHat, label: "Aannemers" },
-  { icon: Truck, label: "Koeriers" },
-  { icon: Snowflake, label: "Installateurs" },
-  { icon: Home, label: "Makelaars" },
-  { icon: Scissors, label: "Kappers" },
+  { icon: AppWindow, label: "Ramen en kozijnen" },
+  { icon: Droplets, label: "Loodgieters" },
+  { icon: Zap, label: "Installateurs" },
+  { icon: Hammer, label: "Klusbedrijven" },
+  { icon: Armchair, label: "Meubelmakers" },
 ];
 
 const SectorSection = () => {
@@ -2150,7 +2152,7 @@ function App() {
                 onClick={() => navigateTo("about")}
                 className="text-sm font-medium text-slate-600 hover:text-slate-900 hover:text-brand-orange transition-colors duration-300"
               >
-                Over ons
+                Over mij
               </button>
               <Button
                 onClick={() =>
@@ -2197,7 +2199,7 @@ function App() {
                 onClick={() => navigateTo("about")}
                 className="text-slate-800 text-lg font-medium text-left"
               >
-                Over Ons
+                Over mij
               </button>
               <Button
                 onClick={() => {
@@ -2223,6 +2225,7 @@ function App() {
               <img
                 src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=2000&q=80"
                 alt="Vakwerk"
+                fetchPriority="high"
                 className="w-full h-full object-cover opacity-20"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50"></div>
@@ -2244,18 +2247,18 @@ function App() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
                   </span>
-                  Jouw trotse visitekaartje online
+                  Speciaal voor klusbedrijven in Nederland
                 </motion.div>
 
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter leading-[1.05] text-balance"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tighter leading-[1.05] text-balance"
                 >
                   Jouw vakwerk verdient een{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-600 block mt-2">
-                    topwebsite.
+                    strakke website.
                   </span>
                 </motion.h1>
 
@@ -2263,10 +2266,9 @@ function App() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                  className="text-lg md:text-xl text-slate-600 mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light relative z-10"
+                  className="text-lg md:text-xl text-slate-600 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light relative z-10"
                 >
-                  Jouw online showroom op maat. Een eenmalige investering,
-                  lokaal vindbaar en perfect beheerd.
+                  Klusvol bouwt websites voor vakmannen in Nederland vanaf € 1.500,- eenmalig plus € 69,- per maand.
                 </motion.p>
 
                 <motion.div
@@ -2335,9 +2337,7 @@ function App() {
                   Wij snappen jouw vak.
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl font-light mx-auto">
-                  Geen marketing-prietpraat of ingewikkelde procedures. Gewoon
-                  een strakke site die voor jou werkt, geregeld door mensen die
-                  meedenken.
+                  Ik bouw de website die jouw vakwerk verdient. Heldere afspraken en een aanpak die direct resultaat oplevert.
                 </p>
               </div>
 
@@ -2358,8 +2358,7 @@ function App() {
                   Trots op je online visitekaartje.
                 </h2>
                 <p className="text-lg text-slate-600 font-light">
-                  Wij spreken de taal van de bouw. Bekijk wat we voor collega's
-                  hebben gemaakt.
+                  Bekijk de websites van vakmensen in Nederland.
                 </p>
               </div>
 
@@ -2370,11 +2369,13 @@ function App() {
                       "https://assets.cdn.filesafe.space/UMBYqC3d2lb9GmvTCMc4/media/69ce1f3335c728284fc0c22e.mp4",
                     isVideo: true,
                     title: "Hoekstra Sprayworks",
+                    subtitle: "Spuiterij, klant sinds maart 2026",
                     link: "https://hoekstrasprayworks.nl",
                   },
                   {
                     img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
                     title: "Stukadoorsbedrijf Hessels",
+                    subtitle: "Stukadoorsbedrijf",
                     link: "https://stukadoorsbedrijfhessels.nl/",
                   },
                 ].map((item, i) => (
@@ -2411,9 +2412,15 @@ function App() {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-6 md:p-8">
-                          <h3 className="font-bold text-white text-xl md:text-2xl mb-4 drop-shadow-md">
+                          <h3 className="font-bold text-white text-xl md:text-2xl mb-1 drop-shadow-md">
                             {item.title}
                           </h3>
+                          {item.subtitle && (
+                            <p className="text-sm text-slate-300 font-medium mb-4 drop-shadow-md">
+                              {item.subtitle}
+                            </p>
+                          )}
+                          {!item.subtitle && <div className="mb-4"></div>}
                           <div className="overflow-hidden">
                             <span className="inline-flex items-center gap-2 text-brand-orange font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                               Bekijk Live Site <ArrowRight size={16} />
@@ -2424,6 +2431,15 @@ function App() {
                     </a>
                   </motion.div>
                 ))}
+              </div>
+              <div className="flex justify-center mt-12 w-full">
+                {/* <Button
+                  onClick={() => navigateTo("cases")}
+                  variant="outline"
+                  className="inline-flex w-auto mt-4"
+                >
+                  Bekijk uitgebreide cases en cijfers
+                </Button> */}
               </div>
             </Section>
 
@@ -2447,6 +2463,135 @@ function App() {
             </div>
           </Section>
 
+          {/* 7.5 Google Reviews */}
+          <Section className="bg-slate-50 border-t border-slate-100 relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-orange/[0.02] blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div className="max-w-6xl mx-auto relative z-10 px-4">
+              <div className="text-center mb-16">
+                <span className="inline-flex items-center gap-2 bg-white border border-slate-200 shadow-sm px-4 py-2 rounded-full text-sm font-bold text-slate-800 mb-6">
+                  Uitstekend
+                  <div className="flex gap-0.5 text-amber-400">
+                    <Star className="fill-current" size={16} />
+                    <Star className="fill-current" size={16} />
+                    <Star className="fill-current" size={16} />
+                    <Star className="fill-current" size={16} />
+                    <Star className="fill-current" size={16} />
+                  </div>
+                  <span className="text-slate-400 font-medium">|</span>
+                  <span className="flex items-center gap-2">
+                    <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path fill="none" d="M1 1h22v22H1z"/></svg>
+                    Reviews
+                  </span>
+                </span>
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+                  Vakmensen over Klusvol
+                </h2>
+                <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
+                  Directe reacties van ondernemers met wie ik samenwerk.
+                </p>
+              </div>
+
+              <div className="relative -mx-4 px-4 w-[calc(100%+2rem)] overflow-hidden py-4">
+                <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+                
+                <motion.div 
+                  className="flex gap-6 lg:gap-8 w-max"
+                  animate={{ x: ["0%", "-50%"] }}
+                  transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+                >
+                {[
+                  {
+                    name: "Teun Hoekstra",
+                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
+                    date: "1 week geleden",
+                  },
+                  {
+                    name: "J Kuipers",
+                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
+                    date: "6 dagen geleden",
+                  },
+                  {
+                    name: "Bart ten Berge",
+                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
+                    date: "2 weken geleden",
+                  },
+                  {
+                    name: "Teun Hoekstra",
+                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
+                    date: "1 week geleden",
+                  },
+                  {
+                    name: "J Kuipers",
+                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
+                    date: "6 dagen geleden",
+                  },
+                  {
+                    name: "Bart ten Berge",
+                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
+                    date: "2 weken geleden",
+                  },
+                  {
+                    name: "Teun Hoekstra",
+                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
+                    date: "1 week geleden",
+                  },
+                  {
+                    name: "J Kuipers",
+                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
+                    date: "6 dagen geleden",
+                  },
+                  {
+                    name: "Bart ten Berge",
+                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
+                    date: "2 weken geleden",
+                  },
+                  {
+                    name: "Teun Hoekstra",
+                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
+                    date: "1 week geleden",
+                  },
+                  {
+                    name: "J Kuipers",
+                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
+                    date: "6 dagen geleden",
+                  },
+                  {
+                    name: "Bart ten Berge",
+                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
+                    date: "2 weken geleden",
+                  },
+                ].map((review, i) => (
+                  <div
+                    key={i}
+                    className="w-[300px] md:w-[380px] shrink-0 bg-white border border-slate-200 p-8 rounded-[2rem] relative shadow-sm flex flex-col hover:border-brand-orange/30 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-lg">
+                        {review.name.charAt(0)}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-slate-900 text-sm leading-tight">{review.name}</h4>
+                        <div className="text-xs text-slate-500 mt-0.5">{review.date}</div>
+                      </div>
+                      <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path fill="none" d="M1 1h22v22H1z"/></svg>
+                    </div>
+                    <div className="flex gap-0.5 mb-4 text-amber-400">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} size={16} className="fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-slate-700 leading-relaxed font-light text-sm line-clamp-6">
+                      "{review.text}"
+                    </p>
+                  </div>
+                ))}
+                </motion.div>
+              </div>
+            </div>
+          </Section>
+
           {/* 8. Pricing */}
           <Section
             id="prijzen"
@@ -2465,8 +2610,7 @@ function App() {
                   Een partnerschap, geen software-abonnement.
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
-                  Kies het fundament dat bij je past. Geen verborgen kosten,
-                  geen addertjes onder het gras.
+                  Direct helder. Geen verrassingen voor jou als schilder, timmerman of loodgieter.
                 </p>
               </div>
 
@@ -2489,27 +2633,27 @@ function App() {
                     <div className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-slate-50/80 border border-slate-100 shadow-sm rounded-[2rem] p-6 md:p-8">
                       <div className="flex flex-col">
                         <h4 className="text-brand-orange font-bold mb-4 text-xs uppercase tracking-widest flex items-center gap-2">
-                          <Trophy size={14} /> Investering in Vakmanschap
+                          <Trophy size={14} /> Helder en doelgericht
                         </h4>
                         <div className="text-slate-900 font-extrabold text-2xl mb-1 tracking-tight">
-                          Bouwkosten: € 1.500,-
+                          Bouwkosten € 1.500,- eenmalig
                         </div>
                         <div className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2">
                           € 69,-{" "}
                           <span className="text-lg text-slate-500 font-medium tracking-normal">
-                            /mnd
+                            per maand
                           </span>
                         </div>
                         <p className="text-sm font-medium text-slate-600 mb-6">
-                          voor hosting, techniek en beheer.
+                          Voor hosting, beheer en support via WhatsApp. 6 maanden proef, daarna automatisch 18 maanden.
                         </p>
                         <div className="mt-2 text-sm text-slate-700 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm leading-relaxed relative">
                           <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-brand-orange rounded-full"></div>
                           <span className="block font-bold text-slate-900 mb-1 flex items-center gap-2">
                             <ShieldCheck size={16} className="text-brand-orange" />
-                            Onze garantie:
+                            100% Geld-Terug-Garantie
                           </span>
-                          Zie je na 90 dagen geen resultaat? Dan storten we 3 maanden aan beheerkosten direct terug. Samen nemen we het risico.
+                          Niet tevreden met het eerste concept? Je krijgt de eenmalige bouwkosten direct terug. Gegarandeerd.
                         </div>
                       </div>
                       <div className="relative z-10 w-full h-full min-h-[240px]">
@@ -2528,11 +2672,10 @@ function App() {
                           />
                         </div>
                         <h4 className="text-lg font-bold text-slate-900 leading-snug">
-                          Premium Showroom op maat
+                          Premium Digitaal Visitekaartje
                         </h4>
                         <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                          Een professionele en betrouwbare uitstraling waar je
-                          trots op kunt zijn. Geen standaard templates.
+                          Een professionele uitstraling op maat. Geen standaard templates, gewoon goed.
                         </p>
                       </div>
                       <div className="flex flex-col gap-3">
@@ -2583,189 +2726,86 @@ function App() {
                 </div>
               </div>
 
-              {/* Groeipaden (Opties) */}
-              <div className="max-w-5xl mx-auto pt-10">
-                <div className="text-center mb-10">
-                  <h3 className="text-3xl font-extrabold text-slate-900 mb-4 tracking-tight flex justify-center items-center gap-3">
-                    Kies je Groeipad
-                  </h3>
-                  <p className="text-lg text-slate-600 max-w-xl mx-auto">
-                    Vóórdat we live gaan of wanneer je planning klaar is voor
-                    extra naamsbekendheid.
-                  </p>
-                </div>
+            </div>
+          </Section>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {/* Option 1 */}
-                  <div className="group relative bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-blue-200 rounded-[2rem] p-6 md:p-8 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-lg flex flex-col items-start text-left">
-                    <div className="flex flex-col items-start mb-2">
-                      <div className="font-bold text-xl text-slate-900 transition-colors mb-2">
-                        Vindbaar in de regio
-                      </div>
-                      <div className="font-black text-3xl text-slate-900 transition-colors">
-                        + € 249,-{" "}
-                        <span className="text-sm text-slate-500 font-medium">
-                          /mnd
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-sm text-slate-500 font-medium italic mb-6">
-                      Voor de vakman die op lange termijn goed vindbaar wil zijn in Google.
-                    </div>
+          {/* 9. Over Folkert */}
+          <Section className="bg-white py-32 relative overflow-hidden">
+             {/* Sfeervolle achtergrond (wow effect) */}
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[600px] max-w-7xl mx-auto pointer-events-none">
+              <div className="absolute left-[-100px] top-1/4 w-[400px] h-[400px] bg-brand-orange/5 blur-[120px] rounded-full"></div>
+              <div className="absolute right-[-100px] bottom-1/4 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full"></div>
+            </div>
 
-                    <div className="pt-4 border-t border-slate-100 space-y-4 flex-1">
-                      <div className="text-sm text-slate-700 leading-relaxed">
-                        <span className="font-bold text-slate-900 block mb-1">
-                          Wat krijg je?
-                        </span>
-                        10 Regio-pagina's, ca. 100 SEO backlinks, Google Business profiel optimalisatie en focus op lokale SEO dominantie.
-                      </div>
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                {/* Image side */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="relative group"
+                >
+                  <div className="absolute inset-0 bg-brand-orange/10 transform translate-x-4 translate-y-4 rounded-[2.5rem] -z-10 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6"></div>
+                  <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-slate-200 bg-slate-50 relative z-10 shadow-xl shadow-brand-orange/5">
+                    {/* Foto van Folkert met een vakman werkt beter voor vertrouwen */}
+                    <img 
+                      src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696cad1dd403b792ebe75574.png" 
+                      alt="Folkert in gesprek met een vakman" 
+                      loading="lazy"
+                      className="w-full h-full object-cover object-top opacity-90 transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none"></div>
+                    <div className="absolute bottom-8 left-8 text-white opacity-100 drop-shadow-md z-10">
+                      <span className="block text-sm font-bold tracking-widest uppercase">Korte Lijnen</span>
+                      <span className="block text-xs uppercase tracking-widest mt-1">Direct contact, snelle service</span>
                     </div>
-                    <div className="pt-6 mt-auto">
-                      <Button
-                        variant="link"
-                        className="px-0 h-auto text-blue-600 font-bold text-base"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(
-                            "https://wa.me/31643411427?text=" + encodeURIComponent("Ik heb interesse in het pakket: Vindbaar in de regio"),
-                            "_blank"
-                          );
-                        }}
-                      >
-                        App 'Vindbaar'{" "}
-                        <ArrowRight
-                          size={16}
-                          className="ml-1 transition-transform group-hover:translate-x-1"
-                        />
-                      </Button>
-                    </div>
+                    {/* Arrow pointing right indicating Folkert */}
+                    <motion.div 
+                      animate={{ y: [0, -6, 0] }}
+                      transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                      className="absolute top-[4%] right-[8%] sm:top-[6%] sm:right-[10%] flex flex-col items-center z-10"
+                    >
+                      <span className="font-extrabold text-white text-sm sm:text-base md:text-lg tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] filter">Dat ben ik</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-brand-orange mt-1 sm:mt-2 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] w-6 h-6 sm:w-8 sm:h-8">
+                        <path d="M12 4v16"></path>
+                        <path d="m18 14-6 6-6-6"></path>
+                      </svg>
+                    </motion.div>
                   </div>
+                </motion.div>
 
-                  {/* Option 2 */}
-                  <div className="group relative bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-brand-orange/30 rounded-[2rem] p-6 md:p-8 transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-lg flex flex-col items-start text-left">
-                    <div className="flex flex-col items-start mb-2">
-                      <div className="font-bold text-xl text-slate-900 transition-colors mb-2">
-                        Direct meer werk
-                      </div>
-                      <div className="font-black text-3xl text-slate-900 transition-colors">
-                        + € 249,-{" "}
-                        <span className="text-sm text-slate-500 font-medium">
-                          /mnd
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-sm text-slate-500 font-medium italic mb-6">
-                      Voor de vakman die direct leads wil en deze kraan zelf aan en uit wil zetten.
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-100 space-y-4 flex-1">
-                      <div className="text-sm text-slate-700 leading-relaxed">
-                        <span className="font-bold text-slate-900 block mb-1">
-                          Wat krijg je?
-                        </span>
-                        Beheer van Google garantiesystemen. Je staat direct bovenaan met een officieel vinkje.
-                      </div>
-                      <div className="text-xs text-orange-900/80 bg-brand-orange/5 p-3 rounded-xl leading-relaxed mt-4">
-                        * Exclusief advertentiekosten (gemiddeld € 15,- tot € 35,- per lead).
-                      </div>
-                    </div>
-                    <div className="pt-6 mt-auto">
-                      <Button
-                        variant="link"
-                        className="px-0 h-auto text-brand-orange font-bold text-base"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(
-                            "https://wa.me/31643411427?text=" + encodeURIComponent("Ik heb interesse in het pakket: Direct meer werk"),
-                            "_blank"
-                          );
-                        }}
-                      >
-                        App 'Direct Werk'{" "}
-                        <ArrowRight
-                          size={16}
-                          className="ml-1 transition-transform group-hover:translate-x-1"
-                        />
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* Option 3 */}
-                  <div className="group relative bg-gradient-to-b from-brand-orange/[0.05] to-white/80 backdrop-blur-xl hover:bg-white border border-brand-orange/30 hover:border-brand-orange/50 rounded-[2rem] p-6 md:p-8 transition-all duration-500 shadow-[0_10px_40px_rgba(249,115,22,0.1)] hover:shadow-[0_20px_60px_rgba(249,115,22,0.2)] overflow-hidden flex flex-col md:-translate-y-2 z-10 w-full">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/20 blur-[50px] rounded-full pointer-events-none group-hover:bg-brand-orange/30 transition-colors"></div>
-
-                    <div className="flex flex-col items-start mb-2 relative z-10">
-                      <div className="font-extrabold text-xl text-slate-900 mb-2 flex items-center gap-2">
-                        De Regio-Knal{" "}
-                        <Zap
-                          size={20}
-                          className="fill-brand-orange/20 text-brand-orange"
-                        />
-                      </div>
-                      <div className="font-black text-4xl text-brand-orange">
-                        + € 399,-{" "}
-                        <span className="text-sm text-slate-500 font-medium">
-                          /mnd
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-sm text-brand-orange font-medium italic mb-6 relative z-10">
-                      Voor de vakman die de gehele lokale markt wil domineren.
-                    </div>
-
-                    <div className="pt-4 border-t border-brand-orange/10 space-y-4 flex-1 relative z-10">
-                      <div className="text-sm text-slate-600 leading-relaxed">
-                        <span className="font-bold text-slate-900 block mb-1">
-                          Wat krijg je?
-                        </span>
-                        De ultieme combinatie. Structurele organische vindbaarheid (incl. ca. 100 SEO backlinks) mét de kracht van directe leads op commando.
-                      </div>
-                      <div className="text-xs text-brand-orange/80 bg-brand-orange/5 p-3 rounded-xl leading-relaxed mt-4">
-                        * Exclusief advertentiekosten.
-                      </div>
-                    </div>
-                    <div className="pt-6 mt-auto relative z-10">
-                      <Button
-                        variant="link"
-                        className="px-0 h-auto text-brand-orange font-bold text-base"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(
-                            "https://wa.me/31643411427?text=" + encodeURIComponent("Ik heb interesse in het pakket: De Regio-Knal"),
-                            "_blank"
-                          );
-                        }}
-                      >
-                        App 'Regio-Knal'{" "}
-                        <ArrowRight
-                          size={16}
-                          className="ml-1 transition-transform group-hover:translate-x-1"
-                        />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Guarantee Section */}
-              <div className="max-w-4xl mx-auto mt-16 animate-fade-in relative z-20">
-                <div className="bg-brand-orange/5 border border-brand-orange/20 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm">
-                  <div className="flex-shrink-0 w-16 h-16 bg-white rounded-[1.25rem] flex items-center justify-center shadow-sm border border-brand-orange/10 text-brand-orange">
-                    <ShieldCheck size={32} />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-extrabold text-slate-900 mb-2">
-                      De 100% "Zonder Zorgen" Zichtbaarheidsgarantie
-                    </h3>
-                    <p className="text-slate-700 leading-relaxed font-medium">
-                      Zie je binnen 90 dagen na oplevering geen stijging in je online vindbaarheid of websitebezoekers? Dan storten we 3 maanden lang jouw beheerkosten direct en zonder discussie terug.
+                {/* Content side */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="max-w-xl"
+                >
+                  <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+                    Webontwikkelaar
+                  </span>
+                  <h2 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter text-slate-900 leading-[1.1]">
+                    Websites voor vakmensen die liever op de bouw staan.
+                  </h2>
+                  <div className="text-lg text-slate-600 leading-relaxed space-y-6 font-light">
+                    <p>
+                      Mijn naam is Folkert van Hes, webontwikkelaar uit Haren (Groningen). Ik bouw de website die jouw vakwerk verdient.
                     </p>
-                    <div className="mt-4 text-sm text-slate-600">
-                      <span className="font-bold text-slate-900">Spelregels:</span> Jij levert tijdig praktijkfoto's aan, vraagt 3 klanten om een review, en geeft ons toegang tot je Google Bedrijfsprofiel. Wij regelen de rest.
-                    </div>
+                    <p>
+                      Ik bouw voor schilders, hoveniers en tegelzetters in Nederland die hun tijd liever op de bouw doorbrengen dan achter een laptop. Vaste prijs, strak ontwerp, en aanpassingen gooi je gewoon via WhatsApp over de schutting.
+                    </p>
                   </div>
-                </div>
+                  <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+                    <Button
+                      onClick={() => navigateTo("about")}
+                      variant="secondary"
+                      className="w-full sm:w-auto"
+                    >
+                      Lees het hele verhaal
+                    </Button>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </Section>
@@ -2782,24 +2822,32 @@ function App() {
               </h2>
               <div className="space-y-4">
                 <AccordionItem
-                  question="Waarom kost een Klusvol website € 1.500,- bouwkosten?"
-                  answer="We bouwen geen standaard dertien-in-een-dozijn sites. We leveren een exclusieve, converterende 'online showroom' die droomklanten aantrekt en ruis filtert. Dat is een solide investering in je fundament, géén kostenpost."
+                  question="Wat kost een website voor een vakman bij Klusvol?"
+                  answer="Klusvol bouwt websites voor vakmannen voor €1.500 eenmalig, plus €69 per maand. De eenmalige bouwkosten zijn voor het ontwerp en de techniek. De €69 per maand is voor de hosting, het beheer en aanpassingen."
                 />
                 <AccordionItem
-                  question="Wat als ik al een domeinnaam heb?"
-                  answer="Geen probleem. We kunnen je bestaande domeinnaam eenvoudig via DNS koppelen aan het nieuwe, strakke fundament dat we voor je bouwen."
+                  question="Met welke vakmannen werkt Klusvol mee?"
+                  answer="Klusvol bouwt websites voor schilders, stukadoors, hoveniers, tegelzetters, loodgieters, installateurs en klusbedrijven. We werken voornamelijk voor vakmannen in Noord-Nederland. Folkert van Hes kent de sector en spreekt de taal van de bouw."
                 />
                 <AccordionItem
-                  question="Hoe werkt de Klant-Filter precies?"
-                  answer="We stellen slimme vragen op je website. Bijvoorbeeld: 'Wat is je budget?' of 'Binnen welke regio valt de klus?'. Voldoet een aanvraag niet aan jouw eisen? Dan krijgt de klant automatisch, maar netjes, bericht dat je vol zit."
+                  question="Hoe werkt het abonnement bij Klusvol?"
+                  answer="Je betaalt €69 per maand voor een all-in service. Hierin zit de hosting, het technische beheer en kleine aanpassingen aan je website. Aanpassingen of nieuwe foto's stuur je simpelweg door via WhatsApp."
                 />
                 <AccordionItem
-                  question="Kan ik de website zelf aanpassen?"
-                  answer="Kleine tekstuele aanpassingen of nieuwe foto's voeg je eenvoudig door aan ons door te geven via de specifieke WhatsApp support lijn. Wij regelen alle technische en grafische details."
+                  question="Zit ik aan een contract vast en hoe werkt de proefperiode?"
+                  answer="Je start met een proefperiode van 6 maanden. Ben je tevreden? Dan wordt dit automatisch verlengd met 18 maanden. We werken met deze termijn omdat we de eerste twee jaar veel tijd investeren in de fundamenten, doorontwikkeling en het beheer van jouw website."
                 />
                 <AccordionItem
-                  question="Zit ik aan een contract vast?"
-                  answer="Voor onze techniek, beheer en hosting (€ 69,- /mnd) sluiten we een samenwerking af van 24 maanden. Dit stelt ons in staat om consistent aan een veilige en razendsnelle website te werken die goed scoort op Google."
+                  question="Wat is de opzegtermijn na de initiële looptijd?"
+                  answer="Na de totale looptijd van 24 maanden heb je een opzegtermijn van 1 maand. Er zitten geen ingewikkelde haken en ogen aan; een appje naar mij is voldoende om op te zeggen."
+                />
+                <AccordionItem
+                  question="Hoe lang duurt het bouwen van een website voor een klusbedrijf?"
+                  answer="Het bouwen van een website duurt bij Klusvol gemiddeld tussen de 2 en 4 weken. We hebben een kort overleg voor jouw wensen en zorgen dan dat het digitale visitekaartje snel en goed online staat."
+                />
+                <AccordionItem
+                  question="Waarom kiezen vakmannen voor Klusvol in plaats van een Wix of Squarespace template?"
+                  answer="Met een Wix of Squarespace template ben je uren in de avond aan het fröbelen. Bij Klusvol besteed je het bouwen en beheer volledig uit voor een eerlijk bedrag, zodat jij ongestoord vakwerk kunt blijven leveren."
                 />
               </div>
             </div>
@@ -2826,9 +2874,7 @@ function App() {
                 Klaar om je plannen te bespreken?
               </h2>
               <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
-                Onder het genot van een (digitale) bak koffie bespreken we hoe
-                we jouw bedrijf online op de kaart zetten. Sluit je aan bij
-                nuchtere vakmensen die alleen nog de krenten uit de pap halen.
+                Zullen we nuchter een bakkie doen? Ik hoor graag waar jij online naartoe wilt.
               </p>
               <div className="flex flex-col items-center gap-4">
                 <Button
@@ -2856,7 +2902,7 @@ function App() {
                 <Logo onClick={() => navigateTo("home")} />
                 <p className="mt-6 leading-relaxed">
                   Klusvol helpt vakmensen groeien door onzichtbaar werk uit
-                  handen te nemen.
+                  handen te nemen. Vanuit Groningen bouwen wij voor vakmensen in heel Nederland.
                 </p>
               </div>
 
@@ -2865,6 +2911,14 @@ function App() {
                   Product
                 </h4>
                 <ul className="space-y-4">
+                  {/* <li>
+                    <button
+                      onClick={() => navigateTo("cases")}
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      Klantcases
+                    </button>
+                  </li> */}
                   <li>
                     <button
                       onClick={() => navigateTo("home", "voordelen")}
@@ -2902,7 +2956,7 @@ function App() {
                       onClick={() => navigateTo("about")}
                       className="hover:text-brand-orange transition-colors"
                     >
-                      Over Ons
+                      Over mij
                     </button>
                   </li>
                   <li>
@@ -3008,6 +3062,11 @@ function App() {
             </div>
           }
           onBack={() => navigateTo("home")}
+        />
+      ) : activePage === "cases" ? (
+        <CaseStudyPage
+          onBack={() => navigateTo("home")}
+          onCta={() => openContact("Koffie Afspraak - Case Studies")}
         />
       ) : (
         <AboutPage

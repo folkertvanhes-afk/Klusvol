@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@google/genai": "^1.33.0",
+    "@google/genai": "^2.4.0",
     "lucide-react": "^0.560.0",
     "motion": "^12.38.0",
     "react": "^19.2.1",
@@ -20,5 +20,8 @@
     "@vitejs/plugin-react": "^5.0.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
+  },
+  "overrides": {
+    "node-domexception": "npm:domexception@^4.0.0"
   }
 }

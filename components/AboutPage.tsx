@@ -10,7 +10,12 @@ import {
   CheckCircle2,
   Phone,
   Search,
-  ChevronRight
+  ChevronRight,
+  User,
+  MapPin,
+  Quote,
+  Star,
+  Activity
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -29,23 +34,23 @@ const AboutPage = ({
 
   const tabs = [
     {
-      title: "Geen marketingpraat",
-      desc: "Wij snappen dat je geen behoefte hebt aan duren woorden of ingewikkelde verkooppraatjes. Je wilt gewoon dat je website doet wat het moet doen: de juiste klanten uit jouw regio aantrekken. Punt.",
+      title: "Duidelijke taal",
+      desc: "Geen dure woorden of ingewikkelde verkooppraatjes. Jouw website moet doen wat jij nodig hebt: er professioneel uitzien, vertrouwen wekken en waar gewenst klanten aantrekken. Punt.",
       icon: Target,
     },
     {
-      title: "Persoonlijk & Direct",
-      desc: "Geen support-tickets aanmaken of wachten op een helpdesk. Heb je een vraag of wil je iets aanpassen op de site? Je mag mij gewoon appen of bellen. Snel schakelen is voor jou ook het prettigst.",
+      title: "Persoonlijk en direct",
+      desc: "Geen support-tickets of helpdesk. Een vraag of aanpassing? Je appt of belt me gewoon. Werkt voor ons allebei prettiger.",
       icon: Phone,
     },
     {
       title: "Focus op jouw vak",
-      desc: "Jij bent ondernemer geworden om fantastisch werk op te leveren, niet om te stoeien met de techniek van een website. Geef het uit handen aan iemand die de bouwwereld snapt, zodat jij je handen vrij hebt.",
+      desc: "Jij bent ondernemer geworden om goed werk te leveren, niet om met techniek te stoeien. Geef het uit handen aan iemand die de bouwwereld snapt.",
       icon: Hammer,
     },
     {
       title: "Eerlijke afspraken",
-      desc: "We beloven geen gouden bergen als we dat niet waar kunnen maken. Je weet bij ons vooraf precies wat de bouwkosten zijn en wat je maandelijks betaalt. Geen verrassingen achteraf.",
+      desc: "Geen gouden bergen die ik niet waar kan maken. Je weet vooraf wat de bouwkosten zijn en wat je maandelijks betaalt. Geen verrassingen.",
       icon: ShieldCheck,
     },
   ];
@@ -112,30 +117,14 @@ const AboutPage = ({
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-[11px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md">
-             <Wrench size={12} /> Over ons
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            Jij levert het vakwerk. <br />
-            <span className="text-brand-orange">Wij regelen de rest.</span>
-          </h1>
           
-          <div className="space-y-5 text-lg text-slate-600 leading-relaxed mb-10 font-light">
-            <p>
-              Ik ben Folkert, oprichter van Klusvol. Na jaren op de achtergrond van de online wereld te hebben gewerkt, viel me één ding op in de bouw: vakmensen leveren topwerk af, maar hun website laat vaak te wensen over. Of het kost simpelweg te veel tijd en geld om bij te houden.
-            </p>
-            <p>
-              Daarom besloot ik Klusvol te starten. Geen vage bureau-constructies of eenmalige projecten waarbij je daarna aan je lot wordt overgelaten. Wij bieden gewoon een strakke website op basis van een langdurig partnerschap.
-            </p>
-            <p className="pl-4 border-l-4 border-brand-orange italic bg-slate-50 py-4 pr-4 rounded-r-xl text-slate-800 font-medium shadow-sm">
-              "We beschouwen onszelf als jouw onzichtbare collega voor alles wat met online te maken heeft."
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
+          {/* Feature Badges below photos */}
+          <motion.div 
+             initial={{ opacity: 0, y: 20 }} 
+             whileInView={{ opacity: 1, y: 0 }} 
+             viewport={{ once: true, margin: "-50px" }}
+             className="flex flex-wrap gap-3 mt-8 md:mt-12 justify-center lg:justify-start"
+          >
              <div className="bg-white border border-slate-200 shadow-[0_4px_10px_rgba(0,0,0,0.03)] px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-bold text-slate-700">
                <CheckCircle2 size={18} className="text-brand-orange" /> Heldere taal
              </div>
@@ -145,8 +134,72 @@ const AboutPage = ({
              <div className="bg-white border border-slate-200 shadow-[0_4px_10px_rgba(0,0,0,0.03)] px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-bold text-slate-700">
                <CheckCircle2 size={18} className="text-brand-orange" /> Jarenlange ervaring
              </div>
+          </motion.div>
+        </div>
+
+        <div className="z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-[11px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md">
+             <Wrench size={12} /> Over mij
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
+            Folkert van Hes <br />
+            <span className="text-brand-orange">Jouw online fundament.</span>
+          </h1>
+          
+          <div className="space-y-10 text-lg text-slate-600 leading-relaxed mb-16 max-w-2xl font-light text-left">
+             <motion.p 
+               initial={{ opacity: 0, y: 20 }} 
+               whileInView={{ opacity: 1, y: 0 }} 
+               viewport={{ once: true, margin: "-100px" }}
+             >
+               Ik ben Folkert, afgestudeerd in ondernemerschap en retailmanagement, en bouw inmiddels 3 jaar websites voor allerlei bedrijven: webshops, coaches, vakmensen. Bij die laatste groep voelde het meteen goed.
+             </motion.p>
+             
+             <motion.p 
+               initial={{ opacity: 0, y: 20 }} 
+               whileInView={{ opacity: 1, y: 0 }} 
+               viewport={{ once: true, margin: "-100px" }}
+             >
+               Vakmannen zijn recht voor hun raap. Geen marketingpraatjes, geen omhaal. Ze willen weten wat het kost, wat ze ervoor krijgen en of je doet wat je belooft. Daar werk ik graag mee. En juist deze groep kan mijn hulp goed gebruiken: stikken in het werk, top vakwerk leveren, maar online vaak een rommeltje. Daar zet ik mijn kennis tegenover.
+             </motion.p>
+             
+             <motion.p 
+               initial={{ opacity: 0, y: 20 }} 
+               whileInView={{ opacity: 1, y: 0 }} 
+               viewport={{ once: true, margin: "-100px" }}
+               className="font-medium text-slate-800"
+             >
+               Daarom begon ik Klusvol. Vanuit Haren bouw ik voor vakmensen in heel Nederland. Heldere afspraken, korte lijnen en een strak resultaat. Ik geloof in een samenwerking voor de lange termijn, niet in snelle handel.
+             </motion.p>
+
+             <motion.p 
+               initial={{ opacity: 0, y: 20 }} 
+               whileInView={{ opacity: 1, y: 0 }} 
+               viewport={{ once: true, margin: "-100px" }}
+             >
+               Buiten Klusvol vind je me op het voetbalveld, in de sportschool of met een boek of podcast. Vakmanschap aan beide kanten van het scherm.
+             </motion.p>
           </div>
         </div>
+      </div>
+
+      {/* Quote and Extra Info (Subtle) */}
+      <div className="max-w-4xl pt-4 mb-24 z-10 relative">
+          <motion.div 
+             initial={{ opacity: 0, y: 20 }} 
+             whileInView={{ opacity: 1, y: 0 }} 
+             viewport={{ once: true, margin: "-50px" }}
+             className="border-l-2 border-brand-orange pl-6 md:pl-8 py-2"
+          >
+             <p className="text-xl md:text-2xl font-light text-slate-800 italic leading-relaxed mb-4">
+               "Sinds de website online staat hebben we al veel complimenten gekregen van klanten over hoe strak het eruitziet."
+             </p>
+             <div className="flex items-center gap-3 text-sm font-bold text-slate-500 uppercase tracking-widest">
+               <span className="text-slate-900">Teun en Kim</span>
+               <span className="w-1 h-1 bg-brand-orange rounded-full"></span>
+               <span>Hoekstra Sprayworks</span>
+             </div>
+          </motion.div>
       </div>
 
       {/* Interactive Values Section */}
@@ -204,10 +257,10 @@ const AboutPage = ({
             <Coffee size={28} />
           </div>
           <h2 className="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight">
-            Klaar voor meer zekerheid?
+            Even sparren?
           </h2>
           <p className="text-lg text-slate-600 font-light leading-relaxed mb-10">
-            Laten we even bellen of appen. Ik luister graag naar je plannen en vertel je eerlijk of wij je daarbij kunnen helpen.
+            Bel of app me. Ik hoor graag waar jij online naartoe wilt en zeg eerlijk of ik je daarbij kan helpen.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
@@ -217,7 +270,7 @@ const AboutPage = ({
               rel="noopener noreferrer"
               className="bg-brand-orange text-white px-8 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-all shadow-md active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto"
             >
-              <MessageCircle size={20} /> Stuur een appje
+              <MessageCircle size={20} /> Stuur mij een appje
             </a>
           </div>
         </div>
