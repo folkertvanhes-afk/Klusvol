@@ -42,8 +42,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
             
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&q=80"
+                <img loading="lazy" decoding="async"                   src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&q=80"
                   alt="Hoekstra Sprayworks"
                   className="w-full h-full object-cover"
                 />
@@ -99,8 +98,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
             
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm flex-shrink-0">
-                <img
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356f58?w=400&q=80"
+                <img loading="lazy" decoding="async"                   src="https://images.unsplash.com/photo-1504307651254-35680f356f58?w=400&q=80"
                   alt="Hessels Stukadoors"
                   className="w-full h-full object-cover"
                 />
@@ -109,7 +107,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">Hessels Stukadoors</h2>
                 <div className="flex items-center gap-4 text-sm font-medium text-slate-500 mb-6">
                   <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-brand-orange" /> Stukadoorsbedrijf</span>
-                  <span className="flex items-center gap-1.5"><Calendar size={16} className="text-blue-500" /> Klant sinds aug. 2025</span>
+                  <span className="flex items-center gap-1.5"><Calendar size={16} className="text-blue-500" /> Klant sinds april 2026</span>
                 </div>
                 <blockquote className="text-xl text-slate-700 italic border-l-4 border-blue-500 pl-6 my-6 font-light">
                   "Folkert legde alles nuchter uit en begreep precies wat wij nodig hadden. De website straalt kwaliteit uit. Als mensen ons nu opzoeken, weten ze direct dat we vakwerk leveren."

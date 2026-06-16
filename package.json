@@ -22,6 +22,6 @@
     "vite": "^6.2.0"
   },
   "overrides": {
-    "node-domexception": "npm:domexception@^4.0.0"
+    "node-domexception": "file:./fake-pkg"
   }
 }

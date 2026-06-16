@@ -9,7 +9,7 @@ export const DefaultScreen = () => {
         <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
              {/* Premium Hero Website Look */}
              <div className="absolute inset-0 bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-90" />
+                <img fetchPriority="high" decoding="async" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/20 to-slate-900/80"></div>
              </div>
              
@@ -58,7 +58,7 @@ export const ShowroomScreen = () => {
         <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
              {/* Premium Hero Website Look */}
              <div className="absolute top-0 left-0 w-full h-64 bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-80" />
+                <img fetchPriority="high" decoding="async" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-80" />
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-white"></div>
              </div>
              
@@ -85,7 +85,7 @@ export const ShowroomScreen = () => {
                          <div className="flex -space-x-2">
                              {[1,2,3].map(i => (
                                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-                                     <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" />
+                                     <img loading="lazy" decoding="async" src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" />
                                  </div>
                              ))}
                          </div>
@@ -97,10 +97,10 @@ export const ShowroomScreen = () => {
 
                      <div className="space-y-4">
                          <div className="h-24 bg-slate-100 rounded-2xl overflow-hidden relative">
-                             <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                             <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
                          </div>
                          <div className="h-24 bg-slate-100 rounded-2xl overflow-hidden relative">
-                             <img src="https://images.unsplash.com/photo-1504307651254-35680f356f27?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                             <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1504307651254-35680f356f27?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
                          </div>
                      </div>
                  </div>

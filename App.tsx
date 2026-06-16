@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { motion } from "motion/react";
 import InteractivePhoneHero from "./components/InteractivePhoneHero";
-import Chatbot from "./components/Chatbot";
-import AboutPage from "./components/AboutPage"; // IMPORT ADDED
-import CaseStudyPage from "./components/CaseStudyPage";
+const Chatbot = React.lazy(() => import("./components/Chatbot"));
+const AboutPage = React.lazy(() => import("./components/AboutPage")); // IMPORT ADDED
+const CaseStudyPage = React.lazy(() => import("./components/CaseStudyPage"));
 import {
   CheckCircle2,
   ArrowRight,
@@ -188,8 +188,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
     onClick={onClick}
     className={`flex items-center gap-2.5 font-bold text-xl tracking-tight group select-none ${onClick ? "cursor-pointer" : ""}`}
   >
-    <img
-      src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696d28a4e125efc1200fd25c.png"
+    <img fetchPriority="high" decoding="async"       src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696d28a4e125efc1200fd25c.png"
       alt="Klusvol"
       className="h-10 w-10 object-contain rounded-xl"
       onError={(e) => {
@@ -1910,8 +1909,7 @@ const InteractiveSteps = () => {
             className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
           >
             <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
-              <img
-                src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de56d0b9f75f8b3387e52.png"
+              <img loading="lazy" decoding="async"                 src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de56d0b9f75f8b3387e52.png"
                 alt="Schetsen"
                 className="w-full h-full object-cover"
               />
@@ -1934,8 +1932,7 @@ const InteractiveSteps = () => {
             className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
           >
             <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
-              <img
-                src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de56907a34aa07f7f3ed7.png"
+              <img loading="lazy" decoding="async"                 src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de56907a34aa07f7f3ed7.png"
                 alt="Bouwen"
                 className="w-full h-full object-cover"
               />
@@ -1959,8 +1956,7 @@ const InteractiveSteps = () => {
             className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
           >
             <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200">
-              <img
-                src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de5700b9f75f8b3387eae.png"
+              <img loading="lazy" decoding="async"                 src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de5700b9f75f8b3387eae.png"
                 alt="Live"
                 className="w-full h-full object-cover"
               />
@@ -2375,7 +2371,7 @@ function App() {
                   {
                     img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
                     title: "Stukadoorsbedrijf Hessels",
-                    subtitle: "Stukadoorsbedrijf",
+                    subtitle: "Stukadoorsbedrijf, klant sinds april 2026",
                     link: "https://stukadoorsbedrijfhessels.nl/",
                   },
                 ].map((item, i) => (
@@ -2501,68 +2497,39 @@ function App() {
                   animate={{ x: ["0%", "-50%"] }}
                   transition={{ ease: "linear", duration: 40, repeat: Infinity }}
                 >
-                {[
+                {Array(4).fill([
                   {
                     name: "Teun Hoekstra",
                     text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
-                    date: "1 week geleden",
+                    date: "2026-05-09",
                   },
                   {
                     name: "J Kuipers",
                     text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
-                    date: "6 dagen geleden",
+                    date: "2026-05-14",
                   },
                   {
                     name: "Bart ten Berge",
                     text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
-                    date: "2 weken geleden",
+                    date: "2026-05-02",
                   },
-                  {
-                    name: "Teun Hoekstra",
-                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
-                    date: "1 week geleden",
-                  },
-                  {
-                    name: "J Kuipers",
-                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
-                    date: "6 dagen geleden",
-                  },
-                  {
-                    name: "Bart ten Berge",
-                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
-                    date: "2 weken geleden",
-                  },
-                  {
-                    name: "Teun Hoekstra",
-                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
-                    date: "1 week geleden",
-                  },
-                  {
-                    name: "J Kuipers",
-                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
-                    date: "6 dagen geleden",
-                  },
-                  {
-                    name: "Bart ten Berge",
-                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
-                    date: "2 weken geleden",
-                  },
-                  {
-                    name: "Teun Hoekstra",
-                    text: "Wij zijn ontzettend blij met de website die Folkert van Klusvol voor ons schilder- en spuitbedrijf heeft gemaakt. De communicatie is top en Folkert denkt graag met ons mee om het meeste uit de website te behalen.",
-                    date: "1 week geleden",
-                  },
-                  {
-                    name: "J Kuipers",
-                    text: "Klusvol is een erg fijne partij om mee samen te werken. De lijntjes zijn kort, als ik bel of app wordt het altijd diezelfde werkdag nog opgepakt.",
-                    date: "6 dagen geleden",
-                  },
-                  {
-                    name: "Bart ten Berge",
-                    text: "Ideaal dat Folkert altijd beschikbaar is. Ik kan hem altijd even appen of bellen.",
-                    date: "2 weken geleden",
-                  },
-                ].map((review, i) => (
+                ]).flat().map((review, i) => {
+                  const getRelativeTime = (dateString: string) => {
+                    const diffInDays = Math.floor((new Date().getTime() - new Date(dateString).getTime()) / (1000 * 3600 * 24));
+                    if (diffInDays <= 0) return "vandaag";
+                    if (diffInDays === 1) return "1 dag geleden";
+                    if (diffInDays < 7) return `${diffInDays} dagen geleden`;
+                    if (diffInDays < 14) return `1 week geleden`;
+                    const weeks = Math.floor(diffInDays / 7);
+                    if (weeks < 4) return `${weeks} weken geleden`;
+                    const months = Math.floor(diffInDays / 30);
+                    if (months === 1) return `1 maand geleden`;
+                    if (months < 12) return `${months} maanden geleden`;
+                    const years = Math.floor(diffInDays / 365);
+                    if (years === 1) return `1 jaar geleden`;
+                    return `${years} jaar geleden`;
+                  };
+                  return (
                   <div
                     key={i}
                     className="w-[300px] md:w-[380px] shrink-0 bg-white border border-slate-200 p-8 rounded-[2rem] relative shadow-sm flex flex-col hover:border-brand-orange/30 hover:shadow-md transition-all duration-300"
@@ -2573,7 +2540,7 @@ function App() {
                       </div>
                       <div className="flex-1">
                         <h4 className="font-bold text-slate-900 text-sm leading-tight">{review.name}</h4>
-                        <div className="text-xs text-slate-500 mt-0.5">{review.date}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">{getRelativeTime(review.date)}</div>
                       </div>
                       <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path fill="none" d="M1 1h22v22H1z"/></svg>
                     </div>
@@ -2586,7 +2553,7 @@ function App() {
                       "{review.text}"
                     </p>
                   </div>
-                ))}
+                )})}
                 </motion.div>
               </div>
             </div>
@@ -2812,10 +2779,6 @@ function App() {
 
           {/* 10. FAQ */}
           <Section className="border-t border-slate-100 relative overflow-hidden bg-slate-50">
-            {/* Warm Ambient Background */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-4xl bg-gradient-to-b from-brand-orange/[0.03] to-transparent pointer-events-none"></div>
-            <div className="absolute top-0 right-[-100px] w-96 h-96 bg-brand-orange/[0.04] blur-[100px] rounded-full pointer-events-none"></div>
-
             <div className="max-w-3xl mx-auto relative z-10">
               <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 tracking-tight">
                 Veelgestelde vragen
@@ -3012,12 +2975,6 @@ function App() {
                 &copy; {new Date().getFullYear()} Klusvol. Alle rechten
                 voorbehouden.
               </p>
-              <div className="flex items-center gap-2 border border-slate-200 bg-white shadow-sm px-3 py-1.5 rounded-full">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span className="font-semibold text-slate-700">
-                  Systeem Online
-                </span>
-              </div>
             </div>
           </footer>
         </>
@@ -3088,7 +3045,7 @@ function App() {
       />
 
       {/* GLOBAL CHATBOT */}
-      <Chatbot />
+      <React.Suspense fallback={null}><Chatbot /></React.Suspense>
     </div>
   );
 }

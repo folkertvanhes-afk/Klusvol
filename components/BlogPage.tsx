@@ -45,7 +45,7 @@ import {
             Je normale tekst alinea.
         </p>
 
-        <img 
+        <img loading="lazy" decoding="async" 
             src="LINK_NAAR_PLAATJE_IN_TEKST" 
             className="w-full rounded-xl border border-white/10 my-8" 
         />
@@ -390,7 +390,7 @@ const ArticleView = ({ article, onBack, onNavigate }: { article: Article, onBack
 
             {/* HERO IMAGE */}
             <div className="w-full h-48 md:h-80 relative rounded-3xl overflow-hidden mb-10 border border-white/10 shadow-2xl">
-                <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={article.coverImage} alt={article.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-80"></div>
             </div>
 
@@ -440,7 +440,7 @@ const ArticleView = ({ article, onBack, onNavigate }: { article: Article, onBack
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {relatedArticles.map(rel => (
                                 <div key={rel.id} onClick={() => onNavigate(rel.id)} className="group cursor-pointer bg-brand-surface border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all flex items-start gap-4">
-                                    <img src={rel.coverImage} alt={rel.title} className="w-16 h-16 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all" />
+                                    <img loading="lazy" decoding="async" src={rel.coverImage} alt={rel.title} className="w-16 h-16 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all" />
                                     <div>
                                         <h4 className="font-bold text-white mb-2 group-hover:text-brand-orange transition-colors line-clamp-2 text-sm">{rel.title}</h4>
                                         <div className="flex items-center gap-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
@@ -513,7 +513,7 @@ const BlogHome = ({ onNavigate, onBack }: { onNavigate: (id: string) => void, on
                                 >
                                     {/* Background Image with Overlay */}
                                     <div className="absolute inset-0 z-0">
-                                        <img 
+                                        <img loading="lazy" decoding="async" 
                                             src={monster?.coverImage} 
                                             alt={monster?.title} 
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -555,7 +555,7 @@ const BlogHome = ({ onNavigate, onBack }: { onNavigate: (id: string) => void, on
                                             className="flex-1 bg-brand-surface border border-white/5 rounded-3xl p-4 cursor-pointer hover:bg-white/[0.02] hover:border-white/20 transition-all group/item flex items-center gap-5"
                                         >
                                             <div className="w-24 h-24 rounded-2xl overflow-hidden shrink-0 border border-white/5">
-                                                <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover grayscale group-hover/item:grayscale-0 transition-all duration-500" />
+                                                <img loading="lazy" decoding="async" src={article.coverImage} alt={article.title} className="w-full h-full object-cover grayscale group-hover/item:grayscale-0 transition-all duration-500" />
                                             </div>
                                             <div>
                                                 <h4 className="text-lg font-bold text-white mb-2 group-hover/item:text-brand-orange transition-colors line-clamp-2">
