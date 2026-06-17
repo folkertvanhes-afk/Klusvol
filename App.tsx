@@ -38,6 +38,7 @@ import {
   MessageCircle,
   Quote,
   LucideIcon,
+  Filter,
   Hammer,
   Paintbrush,
   Wrench,
@@ -164,11 +165,11 @@ const Button = ({
     "px-8 py-4 rounded-full font-bold transition-all duration-300 transform hover:-translate-y-1 active:scale-95 flex items-center gap-3 justify-center text-sm md:text-base tracking-wide cursor-pointer";
   const variants = {
     primary:
-      "bg-white text-slate-900 hover:bg-slate-50 shadow-sm border border-slate-200 hover:border-brand-orange/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.1)]",
+      "bg-white text-slate-900 hover:bg-[#FAF9F6] shadow-sm border border-slate-200 hover:border-brand-orange/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.1)]",
     secondary:
       "bg-brand-orange text-white hover:bg-orange-600 shadow-md shadow-brand-orange/20 border border-brand-orange hover:shadow-[0_0_30px_rgba(249,115,22,0.4)]",
     outline:
-      "border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-brand-orange/50 hover:text-brand-orange",
+      "border border-slate-200 text-slate-700 hover:bg-[#FAF9F6] hover:border-brand-orange/50 hover:text-brand-orange",
     ghost: "bg-transparent text-slate-600 hover:text-slate-900",
   };
   return (
@@ -317,18 +318,17 @@ const ContactModal = ({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-slate-50/95 backdrop-blur-2xl transition-opacity duration-500"
+        className="absolute inset-0 bg-[#FAF9F6]/95 backdrop-blur-2xl transition-opacity duration-500"
         onClick={onClose}
       ></div>
 
-      <div className="relative w-full max-w-5xl bg-slate-50 border border-slate-200 rounded-3xl md:rounded-[2.5rem] shadow-[0_0_100px_rgba(249,115,22,0.05)] animate-scale-up flex flex-col md:flex-row max-h-[90vh] md:max-h-none md:min-h-[650px] group overflow-y-auto md:overflow-visible">
+      <div className="relative w-full max-w-5xl bg-[#FAF9F6] border border-slate-200 rounded-3xl md:rounded-[2.5rem] shadow-[0_0_100px_rgba(249,115,22,0.05)] animate-scale-up flex flex-col md:flex-row max-h-[90vh] md:max-h-none md:min-h-[650px] group overflow-y-auto md:overflow-visible">
         {/* Border Glow */}
         <div className="absolute inset-0 border border-brand-orange/10 rounded-3xl md:rounded-[2.5rem] pointer-events-none sticky top-0"></div>
 
         {/* Left Side: Premium Context OR Contact Details */}
         <div className="w-full md:w-[45%] bg-white p-6 md:p-12 flex flex-col justify-between relative overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay"></div>
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-slate-200 backdrop-blur-md mb-6 md:mb-10">
@@ -355,7 +355,7 @@ const ContactModal = ({
                     href="mailto:info@klusvol.nl"
                     className="flex items-center gap-4 group/link"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 group-hover/link:border-brand-orange/30 transition-all">
+                    <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0 group-hover/link:border-brand-orange/30 transition-all">
                       <Mail
                         size={20}
                         className="text-slate-500 group-hover/link:text-brand-orange transition-colors"
@@ -374,7 +374,7 @@ const ContactModal = ({
                     href="tel:0643411427"
                     className="flex items-center gap-4 group/link"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 group-hover/link:border-brand-orange/30 transition-all">
+                    <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0 group-hover/link:border-brand-orange/30 transition-all">
                       <Phone
                         size={20}
                         className="text-slate-500 group-hover/link:text-brand-orange transition-colors"
@@ -390,7 +390,7 @@ const ContactModal = ({
                     </div>
                   </a>
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0">
                       <ShieldCheck size={20} className="text-slate-500" />
                     </div>
                     <div>
@@ -420,7 +420,7 @@ const ContactModal = ({
           {!isGeneralContact && (
             <div className="relative z-10 mt-8 md:mt-12 space-y-6 md:space-y-8 hidden md:block">
               <div className="flex items-start gap-5 group/item">
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
                   <Rocket
                     size={24}
                     className="text-slate-500 group-hover/item:text-brand-orange transition-colors"
@@ -437,7 +437,7 @@ const ContactModal = ({
               </div>
 
               <div className="flex items-start gap-5 group/item">
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
                   <Headphones
                     size={24}
                     className="text-slate-500 group-hover/item:text-brand-orange transition-colors"
@@ -457,10 +457,10 @@ const ContactModal = ({
         </div>
 
         {/* Right Side: Form */}
-        <div className="flex-1 p-6 md:p-12 relative flex flex-col justify-center bg-slate-50">
+        <div className="flex-1 p-6 md:p-12 relative flex flex-col justify-center bg-[#FAF9F6]">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full hover:bg-slate-50 text-slate-500 hover:text-slate-900 transition-colors z-50"
+            className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full hover:bg-[#FAF9F6] text-slate-500 hover:text-slate-900 transition-colors z-50"
           >
             <X size={24} />
           </button>
@@ -480,7 +480,7 @@ const ContactModal = ({
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="w-full max-w-xs border-slate-200 hover:bg-slate-50"
+                className="w-full max-w-xs border-slate-200 hover:bg-[#FAF9F6]"
               >
                 Sluiten
               </Button>
@@ -511,7 +511,7 @@ const ContactModal = ({
                       onChange={(e) =>
                         setForm({ ...form, name: e.target.value })
                       }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
                       placeholder="Jouw naam"
                     />
                   </div>
@@ -524,7 +524,7 @@ const ContactModal = ({
                       onChange={(e) =>
                         setForm({ ...form, company: e.target.value })
                       }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
                       placeholder="Bedrijfsnaam"
                     />
                   </div>
@@ -542,7 +542,7 @@ const ContactModal = ({
                       onChange={(e) =>
                         setForm({ ...form, email: e.target.value })
                       }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
                       placeholder="Emailadres"
                     />
                     <input
@@ -552,7 +552,7 @@ const ContactModal = ({
                       onChange={(e) =>
                         setForm({ ...form, phone: e.target.value })
                       }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
                       placeholder="06-nummer"
                     />
                   </div>
@@ -569,7 +569,7 @@ const ContactModal = ({
                       onChange={(e) =>
                         setForm({ ...form, address: e.target.value })
                       }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
                       placeholder="Straat en huisnummer, Plaats"
                     />
                   </div>
@@ -590,7 +590,7 @@ const ContactModal = ({
                     onChange={(e) =>
                       setForm({ ...form, message: e.target.value })
                     }
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all resize-none placeholder-blue-300/50 text-sm md:text-base"
+                    className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all resize-none placeholder-blue-300/50 text-sm md:text-base"
                     placeholder={
                       isVisit
                         ? "Bijv: De koffie staat klaar!"
@@ -654,7 +654,7 @@ const StatusRow = ({
                     ? "bg-green-500 border-green-500 text-black"
                     : status === "loading"
                       ? "border-brand-orange border-t-brand-orange border-r-transparent border-b-transparent border-l-transparent animate-spin"
-                      : "border-slate-200 bg-slate-50"
+                      : "border-slate-200 bg-[#FAF9F6]"
                 }
              `}
       >
@@ -802,7 +802,7 @@ const SignupModal = ({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-slate-50/95 backdrop-blur-md transition-opacity duration-500"
+        className="absolute inset-0 bg-[#FAF9F6]/95 backdrop-blur-md transition-opacity duration-500"
         onClick={onClose}
       ></div>
 
@@ -888,7 +888,7 @@ const SignupModal = ({
                   onChange={handleChange}
                   type="text"
                   placeholder="Jouw voornaam"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all"
+                  className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all"
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
@@ -897,7 +897,7 @@ const SignupModal = ({
                     onChange={handleChange}
                     type="email"
                     placeholder="Emailadres"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all"
+                    className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all"
                   />
                   <input
                     name="phone"
@@ -905,7 +905,7 @@ const SignupModal = ({
                     onChange={handleChange}
                     type="tel"
                     placeholder="Mobiel nummer"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all"
+                    className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all"
                   />
                 </div>
               </div>
@@ -943,14 +943,12 @@ const SignupModal = ({
               </h2>
 
               {/* THE MEMBERSHIP CARD */}
-              <div className="relative w-full max-w-sm h-52 bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden shadow-2xl group flex flex-col p-6 relative">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/20 blur-[50px] rounded-full pointer-events-none mix-blend-screen"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/10 blur-[40px] rounded-full pointer-events-none"></div>
+              <div className="relative w-full max-w-sm h-52 bg-[#FAF9F6] border border-slate-200 rounded-2xl overflow-hidden shadow-2xl group flex flex-col p-6 relative">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
                 <div className="flex justify-between items-start z-10 mb-auto">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-inner">
+                    <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shadow-inner">
                       <Zap size={20} className="text-slate-900 fill-white" />
                     </div>
                     <div>
@@ -962,7 +960,7 @@ const SignupModal = ({
                       </div>
                     </div>
                   </div>
-                  <div className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 uppercase tracking-wider backdrop-blur-md flex items-center gap-2">
+                  <div className="bg-[#FAF9F6] border border-slate-200 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-600 uppercase tracking-wider backdrop-blur-md flex items-center gap-2">
                     <Crown
                       size={12}
                       className="text-brand-orange fill-brand-orange"
@@ -1145,7 +1143,6 @@ const BentoCard = ({
       />
 
       {/* Permanent cool glow corner */}
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none"></div>
 
       {/* Visual Content */}
       <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center min-h-[140px] z-10">
@@ -1186,7 +1183,7 @@ const VisualBudget = () => (
       initial={{ x: 50, opacity: 0, rotate: 5 }}
       animate={{ x: -100, opacity: [0, 1, 0], rotate: -5 }}
       transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-      className="absolute w-4/5 bg-slate-50 border border-red-500/30 rounded-lg p-2 flex justify-between items-center opacity-50"
+      className="absolute w-4/5 bg-[#FAF9F6] border border-red-500/30 rounded-lg p-2 flex justify-between items-center opacity-50"
     >
       <span className="text-[10px] text-red-400 line-through">Klusje: €50</span>
       <X size={12} className="text-red-500" />
@@ -1369,7 +1366,7 @@ const VisualGeenGezeur = () => (
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5, type: "spring" }}
-        className="absolute -bottom-2 -right-2 bg-slate-50 rounded-full p-1 border border-emerald-500/50"
+        className="absolute -bottom-2 -right-2 bg-[#FAF9F6] rounded-full p-1 border border-emerald-500/50"
       >
         <Check size={12} className="text-emerald-400" strokeWidth={4} />
       </motion.div>
@@ -1423,7 +1420,7 @@ const PricingCard = ({
       ${
         isPopular
           ? "bg-white border border-brand-orange/60 shadow-[0_0_60px_-10px_rgba(249,115,22,0.1)] backdrop-blur-xl ring-1 ring-brand-orange/20 hover:shadow-[0_0_80px_-10px_rgba(249,115,22,0.2)]"
-          : "bg-white border border-slate-200 shadow-sm hover:shadow-md hover:bg-slate-50 border-slate-100 hover:border-brand-orange/30 hover:shadow-[0_0_30px_-10px_rgba(249,115,22,0.05)]"
+          : "bg-white border border-slate-200 shadow-sm hover:shadow-md hover:bg-[#FAF9F6] border-slate-100 hover:border-brand-orange/30 hover:shadow-[0_0_30px_-10px_rgba(249,115,22,0.05)]"
       }
     `}
     >
@@ -1556,7 +1553,7 @@ const ComparisonItem = ({
     "brand-orange":
       "text-slate-900 bg-brand-orange shadow-lg shadow-brand-orange/30 border-brand-orange",
     "brand-white":
-      "text-slate-900 bg-slate-50 border-slate-200 group-hover:bg-slate-100",
+      "text-slate-900 bg-[#FAF9F6] border-slate-200 group-hover:bg-slate-100",
     blue: "text-cyan-400 bg-cyan-950/40 border-cyan-500/30 shadow-[0_0_20px_-5px_rgba(34,211,238,0.3)]",
     green:
       "text-emerald-400 bg-emerald-950/40 border-emerald-500/30 shadow-[0_0_20px_-5px_rgba(52,211,153,0.3)]",
@@ -1578,7 +1575,7 @@ const ComparisonItem = ({
       <div
         className={`
                 w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-500 backdrop-blur-md
-                ${isHovered ? activeColorClass : "bg-slate-50 border-slate-100 text-slate-500"}
+                ${isHovered ? activeColorClass : "bg-[#FAF9F6] border-slate-100 text-slate-500"}
             `}
       >
         <Icon size={22} strokeWidth={1.5} />
@@ -1604,35 +1601,35 @@ const InteractiveUSPs = () => {
   const usps = [
     {
       num: "01",
-      title: "Focus op jouw vak",
-      desc: "Geen avonduren meer achter de laptop. Jij doet het vakwerk, wij regelen jouw online aanwezigheid.",
-      icon: Crown,
-      color: "text-amber-500",
-      bgBase: "bg-amber-500",
+      title: "Jij timmert, ik regel de rest",
+      desc: "Geen avonduren meer achter de laptop. Jij doet het vakwerk, ik werk aan je online aanwezigheid.",
+      icon: Hammer,
+      color: "text-amber-600",
+      bgBase: "bg-amber-600",
     },
     {
       num: "02",
-      title: "De krenten uit de pap",
-      desc: "We bouwen sites die werken als een filter. Ontvang alleen serieuze aanvragen uit de regio.",
-      icon: Trophy,
+      title: "Kies de klussen die je wilt",
+      desc: "De site werkt als een filter. Ontvang alleen serieuze aanvragen uit de regio, zonder de ruis.",
+      icon: Filter,
       color: "text-brand-orange",
       bgBase: "bg-brand-orange",
     },
     {
       num: "03",
-      title: "Aanvragen in je broekzak",
-      desc: "Nieuwe klussen komen overzichtelijk binnen op je telefoon. Geen losse notities meer.",
+      title: "Alles kortgesloten op je telefoon",
+      desc: "Nieuwe klussen komen overzichtelijk binnen op je telefoon. Geen losse notities en briefjes meer.",
       icon: Smartphone,
-      color: "text-blue-500",
-      bgBase: "bg-blue-500",
+      color: "text-amber-700",
+      bgBase: "bg-amber-700",
     },
     {
       num: "04",
-      title: "Praktisch en effectief",
-      desc: "Heldere prijzen zonder verborgen kosten. Ik regel alles, jij kunt me gewoon appen.",
+      title: "Snel schakelen via WhatsApp",
+      desc: "Geen eindeloze ticketsystemen. Heb je een aanpassing op je site nodig? Stuur me gewoon een appje.",
       icon: MessageSquare,
-      color: "text-emerald-500",
-      bgBase: "bg-emerald-500",
+      color: "text-stone-700",
+      bgBase: "bg-stone-700",
     },
   ];
 
@@ -1645,19 +1642,18 @@ const InteractiveUSPs = () => {
             key={i}
             onMouseEnter={() => setActiveIdx(i)}
             onClick={() => setActiveIdx(i)}
-            animate={{ flex: isActive ? 4 : 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 25 }}
-            className={`relative rounded-[2.5rem] overflow-hidden cursor-pointer flex flex-col justify-end p-8 md:p-10 border transition-colors ${
+            animate={{ flex: isActive ? 6 : 1 }}
+            transition={{ type: "spring", stiffness: 150, damping: 20 }}
+            className={`relative rounded-[2.5rem] overflow-hidden cursor-pointer flex flex-col justify-end p-8 md:p-10 border transition-colors duration-500 ${
               isActive
                 ? "border-slate-200 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06)]"
-                : "border-slate-100 bg-white shadow-sm hover:border-brand-orange/30 hover:bg-slate-50/80"
+                : "border-slate-100 bg-white shadow-sm hover:border-brand-orange/30 hover:bg-[#FAF9F6]/80"
             }`}
           >
             {/* Background Grain */}
             <div className={`absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay ${isActive ? 'block' : 'hidden'}`}></div>
             
             {/* Color Glow */}
-            <div className={`absolute -bottom-20 -right-20 w-64 h-64 ${usp.bgBase}/10 blur-[80px] rounded-full pointer-events-none transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div className="flex items-start justify-between w-full mb-8">
@@ -1669,13 +1665,15 @@ const InteractiveUSPs = () => {
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col justify-end items-start md:items-stretch relative">
-                <h3 className={`font-bold transition-all duration-300 ${isActive ? 'text-2xl md:text-3xl text-slate-900 mb-4 whitespace-normal origin-bottom-left' : 'text-lg text-slate-800 mb-0 whitespace-nowrap overflow-hidden text-ellipsis origin-bottom-left lg:-rotate-90 lg:absolute lg:bottom-0 lg:left-0 lg:w-[250px] lg:translate-x-2'}`}>
-                  {usp.title}
-                </h3>
+              <div className="flex-1 flex flex-col justify-end items-start relative w-full">
+                <div className="w-full relative">
+                  <h3 className={`font-bold transition-all duration-500 origin-bottom-left ${isActive ? 'text-2xl md:text-3xl text-slate-900 mb-4 whitespace-normal lg:whitespace-nowrap' : 'text-lg text-slate-800 mb-0 whitespace-normal lg:whitespace-nowrap lg:-rotate-90 lg:absolute lg:bottom-0 lg:left-0 lg:translate-x-2'}`}>
+                    {usp.title}
+                  </h3>
+                </div>
                 
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'max-h-[200px] opacity-100 translate-y-0' : 'max-h-0 opacity-0 translate-y-4'}`}>
-                  <p className="text-base md:text-lg text-slate-600 font-light leading-relaxed">
+                <div className={`overflow-hidden transition-all w-full duration-500 ease-in-out ${isActive ? 'max-h-[200px] opacity-100 translate-y-0' : 'max-h-0 opacity-0 translate-y-4'}`}>
+                  <p className="text-base md:text-lg text-slate-600 font-light leading-relaxed min-w-[250px] whitespace-normal">
                     {usp.desc}
                   </p>
                 </div>
@@ -1808,7 +1806,7 @@ const InteractiveSteps = () => {
         </h2>
 
         <div className="hidden md:flex flex-col gap-4 relative pl-8 border-l border-slate-100">
-          <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-slate-50"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-[#FAF9F6]"></div>
           <motion.div
             className="absolute left-0 w-[2px] bg-brand-orange shadow-[0_0_15px_rgba(249,115,22,0.8)]"
             animate={{
@@ -1826,11 +1824,14 @@ const InteractiveSteps = () => {
                 onMouseEnter={() => setActiveStep(i)}
                 animate={{
                   backgroundColor: isActive
-                    ? "rgba(0,0,0,0.02)"
+                    ? "#FFFFFF"
                     : "rgba(0,0,0,0)",
                   borderColor: isActive
                     ? "rgba(249,115,22,0.3)"
                     : "transparent",
+                  boxShadow: isActive
+                    ? "0 10px 30px -10px rgba(0,0,0,0.05)"
+                    : "none",
                   x: isActive ? 8 : 0,
                   opacity: isActive ? 1 : 0.6,
                 }}
@@ -1877,7 +1878,7 @@ const InteractiveSteps = () => {
                                         ${
                                           isActive
                                             ? "bg-white border-brand-orange text-slate-900 shadow-lg"
-                                            : "bg-slate-50 border-slate-100 text-slate-500 hover:bg-white"
+                                            : "bg-[#FAF9F6] border-slate-100 text-slate-500 hover:bg-white"
                                         }
                                     `}
                 >
@@ -1895,7 +1896,6 @@ const InteractiveSteps = () => {
 
       <div className="relative h-[250px] sm:h-[350px] md:h-[400px] lg:h-[450px] w-full flex items-center justify-center">
         {/* Updated Glow to Warm/Orange */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-blue-500/5 blur-[80px] rounded-full mix-blend-screen"></div>
 
         <div className="relative z-10 w-full max-w-2xl aspect-[3/2] bg-white border border-slate-200 shadow-sm hover:shadow-md rounded-3xl md:rounded-[3rem] p-3 md:p-6 flex flex-col items-center justify-center shadow-2xl transition-all duration-500 overflow-hidden hover:border-brand-orange/30">
           <motion.div
@@ -2099,25 +2099,40 @@ function App() {
   };
 
   return (
-    <div className="bg-slate-50 text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-screen">
-      {/* Background - Quiet Luxury / Premium Calm */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-slate-50">
-        {/* Soft Blue Glow Top Left */}
-        <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-blue-500/[0.03] blur-[150px] rounded-full pointer-events-none"></div>
+    <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-screen">
+      {/* Background - Warm, Ambachtelijk met Focus op Oranje */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-gradient-to-br from-[#FAF9F6] via-[#F6F4EE] to-[#FFF3E6] flex items-center justify-center">
+        {/* Subtle Textural Grid */}
+        
 
-        {/* Subtle Warm Orange Glow Top Right */}
-        <div className="absolute top-[-20%] right-[-10%] w-[1000px] h-[1000px] bg-brand-orange/[0.04] blur-[180px] rounded-full pointer-events-none"></div>
+        {/* Pulsing Warm Orange Glow Top Right (Primary Highlight) */}
+        <motion.div
+          animate={{ scale: [1, 1.1, 1], opacity: [0.08, 0.15, 0.08], x: [0, -20, 0], y: [0, 30, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-brand-orange blur-[200px] rounded-full pointer-events-none"
+        ></motion.div>
 
-        {/* Soft Blue Glow Bottom Right */}
-        <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-blue-600/[0.03] blur-[150px] rounded-full pointer-events-none"></div>
+        {/* Soft Warm Grey Glow Bottom Left */}
+        <motion.div
+          animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.4, 0.3] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[-15%] left-[-15%] w-[900px] h-[900px] bg-[#E8E6E1] blur-[150px] rounded-full pointer-events-none"
+        ></motion.div>
 
-        {/* Noise Overlay */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay"></div>
+        {/* Subtle Warm Highlight Center */}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.03, 0.06, 0.03], x: [0, 30, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+          className="absolute top-[30%] left-[20%] w-[600px] h-[600px] bg-amber-500 blur-[180px] rounded-full pointer-events-none"
+        ></motion.div>
+
+        {/* Noise Overlay for texture */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.06] mix-blend-overlay"></div>
       </div>
 
       {/* Navbar - Intelligent Scroll - VISIBLE ON ALL PAGES */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${scrolled || activePage !== "home" ? "backdrop-blur-xl bg-slate-50/80 border-slate-900/[0.05] py-2" : "bg-transparent border-transparent py-6"}`}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${scrolled || activePage !== "home" ? "backdrop-blur-xl bg-[#FAF9F6]/80 border-slate-900/[0.05] py-2" : "bg-transparent border-transparent py-6"}`}
       >
           <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
             <div className="flex items-center gap-4 group cursor-pointer">
@@ -2171,7 +2186,7 @@ function App() {
 
           {/* Mobile Menu Overlay */}
           {mobileMenuOpen && (
-            <div className="lg:hidden absolute top-24 left-0 w-full bg-slate-50/95 backdrop-blur-xl border-b border-slate-100 p-6 flex flex-col gap-6 animate-slide-up-fade shadow-2xl z-50">
+            <div className="lg:hidden absolute top-24 left-0 w-full bg-[#FAF9F6]/95 backdrop-blur-xl border-b border-slate-100 p-6 flex flex-col gap-6 animate-slide-up-fade shadow-2xl z-50">
               <button
                 onClick={() => navigateTo("home", "voordelen")}
                 className="text-slate-800 text-lg font-medium text-left"
@@ -2224,20 +2239,19 @@ function App() {
                 fetchPriority="high"
                 className="w-full h-full object-cover opacity-20"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/80 via-[#FAF9F6]/95 to-[#FAF9F6]"></div>
             </div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10 w-full">
               {/* Content */}
               <div className="order-2 lg:order-1 relative z-20 text-center lg:text-left">
                 {/* Hero ambient glow behind text */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-brand-orange/10 blur-[80px] rounded-full pointer-events-none opacity-60"></div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-50 border border-slate-200 text-brand-orange text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-10 backdrop-blur-md hover:border-brand-orange/50 hover:bg-brand-orange/5 transition-all duration-300 cursor-default"
+                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#FAF9F6] border border-slate-200 text-brand-orange text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-10 backdrop-blur-md hover:border-brand-orange/50 hover:bg-brand-orange/5 transition-all duration-300 cursor-default"
                 >
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
@@ -2299,7 +2313,6 @@ function App() {
                 className="relative h-[400px] md:h-[550px] w-full flex items-center justify-center order-1 lg:order-2 mt-8 md:mt-0 perspective-1000"
               >
                 {/* Backing Glow behind phone - WARM ORANGE now to match branding */}
-                <div className="absolute inset-0 bg-brand-orange/20 blur-[120px] rounded-full pointer-events-none opacity-50 animate-pulse-slow"></div>
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{
@@ -2318,11 +2331,9 @@ function App() {
           {/* 5. Modern USPs (Waarom Klusvol) */}
           <Section
             id="voordelen"
-            className="bg-slate-50 relative overflow-hidden"
+            className="relative overflow-hidden"
           >
             {/* Background wow effects */}
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-orange/5 blur-[150px] rounded-full pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
               <div className="mb-20 text-center">
@@ -2330,10 +2341,10 @@ function App() {
                   Waarom Klusvol
                 </span>
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-slate-900">
-                  Wij snappen jouw vak.
+                  Een website die net zo goed is als jouw vakwerk.
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl font-light mx-auto">
-                  Ik bouw de website die jouw vakwerk verdient. Heldere afspraken en een aanpak die direct resultaat oplevert.
+                  Geen wachttijden, geen ingewikkelde verkooppraatjes. Ik bouw, jij belt of appt als er iets moet veranderen.
                 </p>
               </div>
 
@@ -2344,7 +2355,7 @@ function App() {
           </Section>
 
           {/* 3.5 Vakwerk Showcase & Target Audience */}
-          <div className="bg-slate-50 border-t border-slate-100">
+          <div className="border-t border-slate-100">
             <Section className="!pb-0 md:!pb-0">
               <div className="max-w-4xl mx-auto text-center mb-16">
                 <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
@@ -2448,11 +2459,9 @@ function App() {
           {/* 7. How It Works */}
           <Section
             id="hoe-het-werkt"
-            className="border-t border-slate-100 bg-gradient-to-b from-white to-brand-orange/[0.02] relative overflow-hidden"
+            className="border-t border-slate-100 relative overflow-hidden"
           >
             {/* Subtle Oranje Glow Background Elements */}
-            <div className="absolute top-[20%] right-[10%] w-[600px] h-[600px] bg-brand-orange/[0.03] blur-[150px] rounded-full pointer-events-none"></div>
-            <div className="absolute bottom-[10%] left-[5%] w-[500px] h-[500px] bg-brand-orange/[0.02] blur-[120px] rounded-full pointer-events-none"></div>
 
             <div className="relative z-10">
               <InteractiveSteps />
@@ -2460,8 +2469,7 @@ function App() {
           </Section>
 
           {/* 7.5 Google Reviews */}
-          <Section className="bg-slate-50 border-t border-slate-100 relative overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-orange/[0.02] blur-[100px] rounded-full pointer-events-none"></div>
+          <Section className="border-t border-slate-100 relative overflow-hidden">
 
             <div className="max-w-6xl mx-auto relative z-10 px-4">
               <div className="text-center mb-16">
@@ -2489,8 +2497,6 @@ function App() {
               </div>
 
               <div className="relative -mx-4 px-4 w-[calc(100%+2rem)] overflow-hidden py-4">
-                <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
                 
                 <motion.div 
                   className="flex gap-6 lg:gap-8 w-max"
@@ -2562,11 +2568,9 @@ function App() {
           {/* 8. Pricing */}
           <Section
             id="prijzen"
-            className="relative bg-slate-50 overflow-hidden"
+            className="relative overflow-hidden"
           >
             {/* Spatial Background Elements */}
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-orange/20 blur-[120px] rounded-full pointer-events-none"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="text-center mb-16">
@@ -2584,8 +2588,6 @@ function App() {
               {/* Fundament (Hoofdblok) */}
               <div className="max-w-4xl mx-auto mb-16 animate-fade-in">
                 <div className="relative bg-white/60 backdrop-blur-2xl border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.08)]">
-                  <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none group-hover:bg-brand-orange/10 transition-colors duration-700"></div>
-                  <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none"></div>
 
                   <div className="relative z-10 flex flex-col">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider mb-6 self-start">
@@ -2597,7 +2599,7 @@ function App() {
                     </h3>
 
                     {/* NEW Price Anchor block with visual */}
-                    <div className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-slate-50/80 border border-slate-100 shadow-sm rounded-[2rem] p-6 md:p-8">
+                    <div className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-[#FAF9F6]/80 border border-slate-100 shadow-sm rounded-[2rem] p-6 md:p-8">
                       <div className="flex flex-col">
                         <h4 className="text-brand-orange font-bold mb-4 text-xs uppercase tracking-widest flex items-center gap-2">
                           <Trophy size={14} /> Helder en doelgericht
@@ -2697,11 +2699,9 @@ function App() {
           </Section>
 
           {/* 9. Over Folkert */}
-          <Section className="bg-white py-32 relative overflow-hidden">
+          <Section className="py-32 relative overflow-hidden">
              {/* Sfeervolle achtergrond (wow effect) */}
             <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-[600px] max-w-7xl mx-auto pointer-events-none">
-              <div className="absolute left-[-100px] top-1/4 w-[400px] h-[400px] bg-brand-orange/5 blur-[120px] rounded-full"></div>
-              <div className="absolute right-[-100px] bottom-1/4 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -2714,7 +2714,7 @@ function App() {
                   className="relative group"
                 >
                   <div className="absolute inset-0 bg-brand-orange/10 transform translate-x-4 translate-y-4 rounded-[2.5rem] -z-10 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6"></div>
-                  <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-slate-200 bg-slate-50 relative z-10 shadow-xl shadow-brand-orange/5">
+                  <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-slate-200 bg-[#FAF9F6] relative z-10 shadow-xl shadow-brand-orange/5">
                     {/* Foto van Folkert met een vakman werkt beter voor vertrouwen */}
                     <img 
                       src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696cad1dd403b792ebe75574.png" 
@@ -2778,7 +2778,7 @@ function App() {
           </Section>
 
           {/* 10. FAQ */}
-          <Section className="border-t border-slate-100 relative overflow-hidden bg-slate-50">
+          <Section className="border-t border-slate-100 relative overflow-hidden">
             <div className="max-w-3xl mx-auto relative z-10">
               <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 tracking-tight">
                 Veelgestelde vragen
@@ -2818,14 +2818,12 @@ function App() {
 
           {/* 11. Final CTA */}
           <Section
-            className="py-32 relative overflow-hidden bg-slate-50"
+            className="py-32 relative overflow-hidden"
             background={
               <>
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
                 {/* Dynamic glows */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-orange/30 to-transparent"></div>
-                <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-orange/10 blur-[150px] rounded-full pointer-events-none opacity-60"></div>
-                <div className="absolute top-[-100px] right-[-100px] w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
               </>
             }
           >
@@ -2858,7 +2856,7 @@ function App() {
           </Section>
 
           {/* 12. Footer */}
-          <footer className="py-20 bg-slate-50 relative overflow-hidden font-light border-t border-slate-200">
+          <footer className="py-20 relative overflow-hidden font-light border-t border-slate-200">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-slate-600">
               <div className="col-span-1 md:col-span-1">

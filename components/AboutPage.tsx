@@ -64,7 +64,7 @@ const AboutPage = ({
       {/* Navigation */}
       <button
         onClick={onBack}
-        className="relative z-20 flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-slate-50 px-5 py-2 rounded-full border border-slate-200"
+        className="relative z-20 flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-[#FAF9F6] px-5 py-2 rounded-full border border-slate-200"
       >
         <ChevronLeft
           size={20}
@@ -75,11 +75,8 @@ const AboutPage = ({
 
       {/* Trust & Introduction Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-24 items-center relative">
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[700px] h-[700px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none"></div>
 
         <div className="relative group z-10 w-full max-w-lg mx-auto lg:max-w-full">
-          <div className="absolute inset-0 bg-brand-orange/10 blur-[80px] rounded-full group-hover:bg-brand-orange/20 transition-all duration-700"></div>
           
           <div className="relative flex items-center justify-center h-[400px] md:h-[500px]">
             {/* Background Image (Vakman) */}
@@ -204,7 +201,7 @@ const AboutPage = ({
 
       {/* Interactive Values Section */}
       <div className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-white rounded-[2.5rem] border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row relative z-10">
-         <div className="w-full md:w-2/5 bg-slate-50 border-b md:border-b-0 md:border-r border-slate-200 p-6 flex flex-col gap-2">
+         <div className="w-full md:w-2/5 bg-[#FAF9F6] border-b md:border-b-0 md:border-r border-slate-200 p-6 flex flex-col gap-2">
             <h3 className="uppercase tracking-widest text-[11px] font-bold text-slate-400 mb-4 pl-4 pt-2 block">Onze Waarden</h3>
             {tabs.map((tab, idx) => (
               <button
@@ -248,7 +245,7 @@ const AboutPage = ({
       </div>
 
       {/* Compact Interactive CTA */}
-      <div className="bg-slate-50 rounded-[3rem] p-8 md:p-14 text-center border border-slate-200 shadow-sm relative overflow-hidden group max-w-4xl mx-auto z-10 transition-shadow duration-700 hover:shadow-[0_20px_60px_rgba(249,115,22,0.05)]">
+      <div className="bg-[#FAF9F6] rounded-[3rem] p-8 md:p-14 text-center border border-slate-200 shadow-sm relative overflow-hidden group max-w-4xl mx-auto z-10 transition-shadow duration-700 hover:shadow-[0_20px_60px_rgba(249,115,22,0.05)]">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent"></div>
 
@@ -276,8 +273,6 @@ const AboutPage = ({
         </div>
 
         {/* Background Decoration */}
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-brand-orange/10 blur-[120px] rounded-full pointer-events-none transition-all duration-700 group-hover:bg-brand-orange/20"></div>
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
       </div>
     </div>
   );

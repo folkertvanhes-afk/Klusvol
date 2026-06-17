@@ -8,9 +8,8 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
   }, []);
 
   return (
-    <div className="bg-slate-50 min-h-screen pt-32 pb-24 relative overflow-hidden">
+    <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-brand-orange/[0.03] blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         <button
@@ -38,7 +37,6 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
         {/* Case 1: Hoekstra Sprayworks */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mb-16">
           <div className="p-8 md:p-12 border-b border-slate-100 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/[0.05] blur-[80px] rounded-full pointer-events-none"></div>
             
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm flex-shrink-0">
@@ -60,7 +58,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 bg-slate-50/50">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 bg-[#FAF9F6]/50">
             <div className="p-8 text-center">
               <div className="flex justify-center mb-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
@@ -94,7 +92,6 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
         {/* Case 2: Hessels Stukadoors */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mb-16">
           <div className="p-8 md:p-12 border-b border-slate-100 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500/[0.05] blur-[80px] rounded-full pointer-events-none"></div>
             
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm flex-shrink-0">
@@ -116,7 +113,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 bg-slate-50/50">
+          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 bg-[#FAF9F6]/50">
             <div className="p-8 text-center flex flex-col items-center justify-center">
                <div className="flex gap-1 mb-4 text-brand-orange">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -141,7 +138,6 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
         {/* CTA */}
         <div className="bg-slate-900 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900"></div>
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-orange/10 blur-[80px] rounded-full"></div>
           
           <div className="relative z-10 max-w-xl mx-auto">
             <h2 className="text-3xl font-black text-white mb-4">

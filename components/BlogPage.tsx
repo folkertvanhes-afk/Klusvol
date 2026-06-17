@@ -536,7 +536,7 @@ const BlogHome = ({ onNavigate, onBack }: { onNavigate: (id: string) => void, on
                                         <div className="flex items-center justify-between pt-6 border-t border-white/20">
                                             <div className="flex items-center gap-3 text-xs text-slate-300 font-bold uppercase tracking-wider">
                                                 <span>{monster?.readTime} min leestijd</span>
-                                                <span className="w-1 h-1 rounded-full bg-slate-500"></span>
+                                                <span className="w-1 h-1 rounded-full bg-[#FAF9F6]0"></span>
                                                 <span>Masterclass</span>
                                             </div>
                                             <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center group-hover:scale-110 transition-transform">
