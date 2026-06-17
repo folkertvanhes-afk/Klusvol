@@ -58,13 +58,13 @@ const AboutPage = ({
   return (
     <div className="min-h-screen pt-24 pb-20 px-4 md:px-6 max-w-7xl mx-auto animate-fade-in relative z-10 font-sans">
       {/* Background Texture Overlay */}
-      <div className="fixed inset-0 bg-white pointer-events-none z-[-1]"></div>
+      <div className="fixed inset-0 pointer-events-none z-[-1]"></div>
       <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none z-0"></div>
 
       {/* Navigation */}
       <button
         onClick={onBack}
-        className="relative z-20 flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-[#FAF9F6] px-5 py-2 rounded-full border border-slate-200"
+        className="relative z-20 flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-white/60 backdrop-blur-md px-5 py-2 rounded-full border border-slate-200"
       >
         <ChevronLeft
           size={20}
@@ -200,8 +200,9 @@ const AboutPage = ({
       </div>
 
       {/* Interactive Values Section */}
-      <div className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-white rounded-[2.5rem] border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row relative z-10">
-         <div className="w-full md:w-2/5 bg-[#FAF9F6] border-b md:border-b-0 md:border-r border-slate-200 p-6 flex flex-col gap-2">
+      <div className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row relative z-10">
+         <div className="w-full md:w-2/5 md:border-r border-slate-200 p-6 flex flex-col gap-2 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/50 to-transparent pointer-events-none"></div>
             <h3 className="uppercase tracking-widest text-[11px] font-bold text-slate-400 mb-4 pl-4 pt-2 block">Onze Waarden</h3>
             {tabs.map((tab, idx) => (
               <button
@@ -220,7 +221,7 @@ const AboutPage = ({
               </button>
             ))}
          </div>
-         <div className="w-full md:w-3/5 p-8 md:p-14 flex items-center bg-white relative">
+         <div className="w-full md:w-3/5 p-8 md:p-14 flex items-center bg-white/50 relative">
             <AnimatePresence mode="wait">
                <motion.div
                  key={activeTab}
@@ -245,7 +246,7 @@ const AboutPage = ({
       </div>
 
       {/* Compact Interactive CTA */}
-      <div className="bg-[#FAF9F6] rounded-[3rem] p-8 md:p-14 text-center border border-slate-200 shadow-sm relative overflow-hidden group max-w-4xl mx-auto z-10 transition-shadow duration-700 hover:shadow-[0_20px_60px_rgba(249,115,22,0.05)]">
+      <div className="bg-white/60 backdrop-blur-xl rounded-[3rem] p-8 md:p-14 text-center border border-slate-200 shadow-sm relative overflow-hidden group max-w-4xl mx-auto z-10 transition-shadow duration-700 hover:shadow-[0_20px_60px_rgba(249,115,22,0.05)]">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent"></div>
 

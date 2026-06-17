@@ -1665,18 +1665,25 @@ const InteractiveUSPs = () => {
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col justify-end items-start relative w-full">
-                <div className="w-full relative">
-                  <h3 className={`font-bold transition-all duration-500 origin-bottom-left ${isActive ? 'text-2xl md:text-3xl text-slate-900 mb-4 whitespace-normal lg:whitespace-nowrap' : 'text-lg text-slate-800 mb-0 whitespace-normal lg:whitespace-nowrap lg:-rotate-90 lg:absolute lg:bottom-0 lg:left-0 lg:translate-x-2'}`}>
+              <div className="flex-1 flex flex-col justify-end items-start relative w-full h-full lg:min-h-[160px]">
+                
+                {/* Horizontal / Active content */}
+                <div className={`transition-all duration-500 ease-out flex flex-col justify-end w-full ${isActive ? 'opacity-100 translate-x-0 lg:absolute lg:bottom-0 lg:left-0' : 'opacity-100 lg:opacity-0 lg:-translate-x-4 lg:absolute lg:bottom-0 lg:left-0 lg:pointer-events-none'}`}>
+                  <h3 className={`font-bold text-slate-900 mb-4 whitespace-normal lg:whitespace-nowrap transition-all duration-500 ${isActive ? 'text-2xl md:text-3xl' : 'text-lg lg:text-2xl'}`}>
                     {usp.title}
                   </h3>
+                  
+                  <div className={`overflow-hidden transition-all w-full duration-500 ease-in-out ${isActive ? 'max-h-[200px] opacity-100 translate-y-0' : 'max-h-0 opacity-0 translate-y-4'}`}>
+                    <p className="text-base md:text-lg text-slate-600 font-light leading-relaxed min-w-[250px] whitespace-normal">
+                      {usp.desc}
+                    </p>
+                  </div>
                 </div>
-                
-                <div className={`overflow-hidden transition-all w-full duration-500 ease-in-out ${isActive ? 'max-h-[200px] opacity-100 translate-y-0' : 'max-h-0 opacity-0 translate-y-4'}`}>
-                  <p className="text-base md:text-lg text-slate-600 font-light leading-relaxed min-w-[250px] whitespace-normal">
-                    {usp.desc}
-                  </p>
-                </div>
+
+                {/* Vertical / Inactive content (only on desktop) */}
+                <h3 className={`hidden lg:block font-bold text-lg text-slate-800 whitespace-nowrap absolute bottom-0 left-0 -rotate-90 origin-bottom-left translate-x-3 transition-all duration-500 ease-out ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                  {usp.title}
+                </h3>
               </div>
             </div>
           </motion.div>
