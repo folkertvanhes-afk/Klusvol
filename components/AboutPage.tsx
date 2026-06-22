@@ -246,12 +246,9 @@ const AboutPage = ({
       </div>
 
       {/* Compact Interactive CTA */}
-      <div className="bg-white/60 backdrop-blur-xl rounded-[3rem] p-8 md:p-14 text-center border border-slate-200 shadow-sm relative overflow-hidden group max-w-4xl mx-auto z-10 transition-shadow duration-700 hover:shadow-[0_20px_60px_rgba(249,115,22,0.05)]">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent"></div>
-
+      <div className="text-center relative max-w-4xl mx-auto z-10 py-12 md:py-20 group">
         <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
-          <div className="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 border border-brand-orange/20 text-brand-orange shadow-[0_0_30px_rgba(249,115,22,0.1)] group-hover:scale-110 transition-transform duration-500">
+          <div className="w-16 h-16 bg-brand-orange/5 rounded-full flex items-center justify-center mb-6 text-brand-orange ring-1 ring-brand-orange/20 shadow-[0_0_30px_rgba(249,115,22,0.05)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(249,115,22,0.1)] group-hover:bg-brand-orange/10 transition-all duration-500">
             <Coffee size={28} />
           </div>
           <h2 className="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight">
@@ -266,14 +263,12 @@ const AboutPage = ({
               href="https://wa.me/31643411427"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-brand-orange text-white px-8 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-all shadow-md active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto"
+              className="bg-brand-orange text-white px-8 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-all shadow-md active:scale-95 flex items-center justify-center gap-3 w-full sm:w-auto shadow-brand-orange/20 hover:shadow-lg hover:shadow-brand-orange/30 hover:-translate-y-0.5 duration-300"
             >
               <MessageCircle size={20} /> Stuur mij een appje
             </a>
           </div>
         </div>
-
-        {/* Background Decoration */}
       </div>
     </div>
   );
