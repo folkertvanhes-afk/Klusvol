@@ -140,7 +140,7 @@ const AboutPage = ({
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
             Folkert van Hes <br />
-            <span className="text-brand-orange">Jouw online fundament.</span>
+            <span className="text-brand-orange">Jouw online fundament</span>
           </h1>
           
           <div className="space-y-10 text-lg text-slate-600 leading-relaxed mb-16 max-w-2xl font-light text-left">

@@ -344,7 +344,7 @@ const ContactModal = ({
             {isGeneralContact ? (
               <>
                 <h3 className="text-2xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-[1.1] tracking-tight">
-                  Kom in <span className="text-brand-orange">contact.</span>
+                  Kom in <span className="text-brand-orange">contact</span>
                 </h3>
                 <p className="text-slate-600 leading-relaxed font-light text-sm md:text-lg mb-8">
                   We helpen je graag verder. Bel, mail of app ons direct.
@@ -405,7 +405,7 @@ const ContactModal = ({
             ) : (
               <>
                 <h3 className="text-2xl md:text-5xl font-extrabold text-slate-900 mb-4 md:mb-6 leading-[1.1] tracking-tight">
-                  Geen tool,
+                  Geen gereedschap,
                   <br />
                   maar een <span className="text-brand-orange">Partner.</span>
                 </h3>
@@ -2275,7 +2275,7 @@ function App() {
                 >
                   Jouw vakwerk verdient een{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-600 block mt-2">
-                    strakke website.
+                    strakke website
                   </span>
                 </motion.h1>
 
@@ -2348,7 +2348,7 @@ function App() {
                   Waarom Klusvol
                 </span>
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-slate-900">
-                  Een website die net zo goed is als jouw vakwerk.
+                  Een website die net zo goed is als jouw vakwerk
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl font-light mx-auto">
                   Geen wachttijden, geen ingewikkelde verkooppraatjes. Ik bouw, jij belt of appt als er iets moet veranderen.
@@ -2369,10 +2369,10 @@ function App() {
                   Ons Vakwerk
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                  Trots op je online visitekaartje.
+                  Trots op je online visitekaartje
                 </h2>
                 <p className="text-lg text-slate-600 font-light">
-                  Bekijk de websites van vakmensen in Nederland.
+                  Bekijk websites die ik voor andere vakmensen heb gebouwd.
                 </p>
               </div>
 
@@ -2492,8 +2492,7 @@ function App() {
                   <span className="text-slate-400 font-medium">|</span>
                   <span className="flex items-center gap-2">
                     <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path fill="none" d="M1 1h22v22H1z"/></svg>
-                    Reviews
-                  </span>
+                    5 uit 5 op basis van 5 reviews</span>
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
                   Vakmensen over Klusvol
@@ -2585,7 +2584,7 @@ function App() {
                   Eerlijke Deal
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                  Een partnerschap, geen software-abonnement.
+                  Een partnerschap, geen software-abonnement
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
                   Direct helder. Geen verrassingen voor jou als schilder, timmerman of loodgieter.
@@ -2666,8 +2665,7 @@ function App() {
                           Ondersteunende App
                         </h4>
                         <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                          Alle aanvragen via één app direct in je broekzak. Snel
-                          de beste klussen eruit vissen.
+                          Krijg direct een pushmelding op je telefoon bij een nieuwe aanvraag. Beheer klussen simpel via de app, zonder in te loggen op een ingewikkeld dashboard.
                         </p>
                       </div>
                       <div className="flex flex-col gap-3">
@@ -2682,8 +2680,7 @@ function App() {
                           Hosting & Beheer
                         </h4>
                         <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                          Wij regelen verbinding, veiligheid én blokkeren
-                          ongewenste aanvragen via een klantfilter.
+                          Wij filteren spam en onserieuze aanvragen eruit. Je ontvangt alleen offerteaanvragen van klanten uit jouw regio die écht op zoek zijn naar vakwerk.
                         </p>
                       </div>
                     </div>
@@ -2734,18 +2731,6 @@ function App() {
                       <span className="block text-sm font-bold tracking-widest uppercase">Korte Lijnen</span>
                       <span className="block text-xs uppercase tracking-widest mt-1">Direct contact, snelle service</span>
                     </div>
-                    {/* Arrow pointing right indicating Folkert */}
-                    <motion.div 
-                      animate={{ y: [0, -6, 0] }}
-                      transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-                      className="absolute top-[4%] right-[8%] sm:top-[6%] sm:right-[10%] flex flex-col items-center z-10"
-                    >
-                      <span className="font-extrabold text-white text-sm sm:text-base md:text-lg tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] filter">Dat ben ik</span>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-brand-orange mt-1 sm:mt-2 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] w-6 h-6 sm:w-8 sm:h-8">
-                        <path d="M12 4v16"></path>
-                        <path d="m18 14-6 6-6-6"></path>
-                      </svg>
-                    </motion.div>
                   </div>
                 </motion.div>
 
@@ -2760,7 +2745,7 @@ function App() {
                     Webontwikkelaar
                   </span>
                   <h2 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter text-slate-900 leading-[1.1]">
-                    Websites voor vakmensen die liever op de bouw staan.
+                    Websites voor vakmensen die liever op de bouw staan
                   </h2>
                   <div className="text-lg text-slate-600 leading-relaxed space-y-6 font-light">
                     <p>
@@ -2773,10 +2758,10 @@ function App() {
                   <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
                     <Button
                       onClick={() => navigateTo("about")}
-                      variant="secondary"
-                      className="w-full sm:w-auto"
+                      variant="ghost"
+                      className="w-full sm:w-auto text-brand-orange hover:bg-brand-orange/10 font-bold"
                     >
-                      Lees het hele verhaal
+                      Ontdek meer <ArrowRight className="ml-2 inline" size={18} />
                     </Button>
                   </div>
                 </motion.div>
@@ -2797,7 +2782,7 @@ function App() {
                 />
                 <AccordionItem
                   question="Met welke vakmannen werkt Klusvol mee?"
-                  answer="Klusvol bouwt websites voor schilders, stukadoors, hoveniers, tegelzetters, loodgieters, installateurs en klusbedrijven. We werken voornamelijk voor vakmannen in Noord-Nederland. Folkert van Hes kent de sector en spreekt de taal van de bouw."
+                  answer="Klusvol bouwt websites voor schilders, stukadoors, hoveniers, tegelzetters, loodgieters, installateurs en klusbedrijven. We werken voor vakmannen door heel Nederland. Folkert van Hes kent de sector en spreekt de taal van de bouw."
                 />
                 <AccordionItem
                   question="Hoe werkt het abonnement bij Klusvol?"

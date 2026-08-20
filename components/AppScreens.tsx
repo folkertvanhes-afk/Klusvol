@@ -21,7 +21,7 @@ export const DefaultScreen = () => {
                  
                  <div className="px-6 pt-12 pb-8 text-center flex-1 flex flex-col justify-center">
                      <h1 className="text-3xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
-                         Kwaliteit in elke hoek.
+                         Kwaliteit in elke hoek
                      </h1>
                      <p className="text-sm text-white/90 mb-6 drop-shadow-md">
                          Wij leveren vakwerk dat jarenlang meegaat. Geen praatjes, maar strak resultaat.
@@ -57,9 +57,9 @@ export const ShowroomScreen = () => {
     return (
         <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
              {/* Premium Hero Website Look */}
-             <div className="absolute top-0 left-0 w-full h-64 bg-slate-100">
-                <img fetchPriority="high" decoding="async" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-80" />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-white"></div>
+             <div className="absolute top-0 left-0 w-full h-[320px] bg-slate-900">
+                <img fetchPriority="high" decoding="async" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-white"></div>
              </div>
              
              <div className="relative z-10 flex flex-col h-full">
@@ -68,11 +68,11 @@ export const ShowroomScreen = () => {
                      <Menu size={20} className="text-white" />
                  </div>
                  
-                 <div className="px-6 pt-16 pb-8">
-                     <h1 className="text-3xl font-extrabold text-slate-900 leading-tight mb-4">
-                         Kwaliteit in elke hoek.
+                 <div className="px-6 pt-12 pb-8">
+                     <h1 className="text-3xl font-extrabold text-white leading-tight mb-4 drop-shadow-md">
+                         Kwaliteit in elke hoek
                      </h1>
-                     <p className="text-sm text-slate-600 mb-6">
+                     <p className="text-sm text-white/90 mb-6 drop-shadow">
                          Wij leveren vakwerk dat jarenlang meegaat. Geen praatjes, maar strak resultaat.
                      </p>
                      <div className="bg-brand-orange text-white text-center py-3 rounded-xl font-bold text-sm shadow-lg shadow-brand-orange/20">
