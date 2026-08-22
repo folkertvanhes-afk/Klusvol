@@ -1727,6 +1727,12 @@ const PricingShowcaseSlider = () => {
       src: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       isVideo: false,
       link: "https://stukadoorsbedrijfhessels.nl/"
+    },
+    {
+      title: "Stukadoorsbedrijf Jeffrey Green",
+      src: "https://assets.cdn.filesafe.space/v2mZBfrhSs3uFVZENKQy/media/6a394e3928e2dab9ea39174b.webp",
+      isVideo: false,
+      link: "https://stukadoorjeffreygreen.nl"
     }
   ];
   const [idx, setIdx] = useState(0);
@@ -2376,7 +2382,7 @@ function App() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto mb-16">
                 {[
                   {
                     media:
@@ -2391,6 +2397,12 @@ function App() {
                     title: "Stukadoorsbedrijf Hessels",
                     subtitle: "Stukadoorsbedrijf, klant sinds april 2026",
                     link: "https://stukadoorsbedrijfhessels.nl/",
+                  },
+                  {
+                    img: "https://assets.cdn.filesafe.space/v2mZBfrhSs3uFVZENKQy/media/6a394e3928e2dab9ea39174b.webp",
+                    title: "Stukadoorsbedrijf Jeffrey Green",
+                    subtitle: "Stukadoor, klant sinds augustus 2026",
+                    link: "https://stukadoorjeffreygreen.nl",
                   },
                 ].map((item, i) => (
                   <motion.div
@@ -2504,10 +2516,8 @@ function App() {
 
               <div className="relative -mx-4 px-4 w-[calc(100%+2rem)] overflow-hidden py-4">
                 
-                <motion.div 
-                  className="flex gap-6 lg:gap-8 w-max"
-                  animate={{ x: ["0%", "-50%"] }}
-                  transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+                <div 
+                  className="flex gap-6 lg:gap-8 w-max animate-scroll hover:[animation-play-state:paused]"
                 >
                 {Array(4).fill([
                   {
@@ -2566,7 +2576,7 @@ function App() {
                     </p>
                   </div>
                 )})}
-                </motion.div>
+                </div>
               </div>
             </div>
           </Section>
