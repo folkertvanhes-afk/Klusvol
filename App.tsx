@@ -1,4 +1,42 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+
+export const branchData: Record<string, { title: string, subtext: string, faqs: {q: string, a: string}[] }> = {
+  "schilder": {
+    title: "Schilders",
+    subtext: "Speciaal voor schilders die hun vakwerk online net zo goed willen presenteren als op de wand.",
+    faqs: [
+      { q: "Hoeveel kost een website voor een schilder?", a: "Voor een eenmalige investering van €1.500,- bouwen wij een premium website voor jouw schildersbedrijf, inclusief een app. Daarna betaal je €69,- per maand voor hosting en beheer." },
+      { q: "Krijgt een schilder ook nieuwe klanten via zijn website?", a: "Ja. Omdat we de website optimaliseren voor lokale zoekopdrachten (bijv. 'Schilder in [Jouw Regio]'), word je beter gevonden door mensen die direct op zoek zijn naar jouw vakmanschap." }
+    ]
+  },
+  "stukadoor": {
+    title: "Stukadoors",
+    subtext: "Speciaal voor stukadoors die liever op de bouw staan dan achter een laptop.",
+    faqs: [
+      { q: "Wat kost een website voor een stukadoor?", a: "Je betaalt eenmalig €1.500,- voor het bouwen van de website. Vervolgens betaal je €69,- per maand voor betrouwbare hosting, onderhoud en support via WhatsApp." },
+      { q: "Kan ik als stukadoor mijn projecten online tonen?", a: "Absoluut! We integreren een portfolio-gedeelte in je website waar je eenvoudig voor/na foto's van je stucwerk kunt laten zien aan potentiële klanten." }
+    ]
+  },
+  "hovenier": {
+    title: "Hoveniers",
+    subtext: "Speciaal voor hoveniers die hun projecten willen tonen aan nieuwe klanten in de regio.",
+    faqs: [
+      { q: "Waarom heb ik als hovenier een professionele website nodig?", a: "Een goede website laat jouw afgeronde tuinen en projecten spreken. Het wekt direct vertrouwen en zorgt ervoor dat klanten jou bellen in plaats van de concurrent." },
+      { q: "Wat zijn de kosten voor een hovenierswebsite?", a: "De eenmalige bouwkosten bedragen €1.500,-. Daarna verzorgen wij voor €69,- per maand de hosting, technische updates en ben je verzekerd van snelle support." }
+    ]
+  },
+  "klusbedrijf": {
+    title: "Klusbedrijven",
+    subtext: "Speciaal voor klusbedrijven die klaar zijn om online serieus zichtbaar te worden.",
+    faqs: [
+      { q: "Wat kost een website voor mijn klusbedrijf?", a: "De opstartkosten zijn €1.500,- voor de volledige bouw van de website. Het maandelijkse abonnement voor hosting, beveiliging en support is €69,-." },
+      { q: "Word ik als klusbedrijf dan ook lokaal beter gevonden?", a: "Jazeker. We richten je website zo in dat wanneer mensen in jouw omgeving zoeken naar een betrouwbaar klusbedrijf, ze veel sneller bij jou uitkomen." }
+    ]
+  }
+};
+
 import { motion } from "motion/react";
 import InteractivePhoneHero from "./components/InteractivePhoneHero";
 const Chatbot = React.lazy(() => import("./components/Chatbot"));
@@ -881,6 +919,7 @@ const SignupModal = ({
               </p>
 
               <div className="space-y-4">
+                
                 <input
                   id="nameInput"
                   name="name"
@@ -1660,9 +1699,6 @@ const InteractiveUSPs = () => {
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm ${isActive ? `${usp.bgBase}/10 ${usp.color} border border-${usp.bgBase}/20 scale-110` : `${usp.bgBase}/5 ${usp.color} opacity-70 border border-slate-100 scale-100`}`}>
                   <usp.icon size={26} />
                 </div>
-                <div className={`text-5xl md:text-6xl font-black leading-none transition-all duration-500 ${isActive ? 'text-slate-100' : 'text-slate-100 opacity-60'}`}>
-                  {usp.num}
-                </div>
               </div>
 
               <div className="flex-1 flex flex-col justify-end items-start relative w-full h-full lg:min-h-[160px]">
@@ -1714,8 +1750,8 @@ const stepsData = [
   },
 ];
 
-const PricingShowcaseSlider = () => {
-  const showcases = [
+const PricingShowcaseSlider = ({ branchType }: { branchType?: string }) => {
+  const allShowcases = [
     {
       title: "Hoekstra Sprayworks",
       src: "https://assets.cdn.filesafe.space/UMBYqC3d2lb9GmvTCMc4/media/69ce1f3335c728284fc0c22e.mp4",
@@ -1735,6 +1771,11 @@ const PricingShowcaseSlider = () => {
       link: "https://stukadoorjeffreygreen.nl"
     }
   ];
+  
+  const showcases = branchType === 'stukadoor' 
+    ? allShowcases.filter(s => s.title.includes('Jeffrey Green'))
+    : allShowcases;
+
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -1992,9 +2033,9 @@ const InteractiveSteps = () => {
 
 // --- Sector / Audience Section (Compact & Subtle) ---
 const sectorsRow1 = [
-  { icon: Paintbrush, label: "Schilders" },
-  { icon: Layers, label: "Stukadoors" },
-  { icon: Trees, label: "Hoveniers" },
+  { icon: Paintbrush, label: "Schilders", url: "/website-schilder" },
+  { icon: Layers, label: "Stukadoors", url: "/website-stukadoor" },
+  { icon: Trees, label: "Hoveniers", url: "/website-hovenier" },
   { icon: Grid, label: "Tegelzetters" },
   { icon: Key, label: "Deur- en slotenmakers" },
 ];
@@ -2003,7 +2044,7 @@ const sectorsRow2 = [
   { icon: AppWindow, label: "Ramen en kozijnen" },
   { icon: Droplets, label: "Loodgieters" },
   { icon: Zap, label: "Installateurs" },
-  { icon: Hammer, label: "Klusbedrijven" },
+  { icon: Hammer, label: "Klusbedrijven", url: "/website-klusbedrijf" },
   { icon: Armchair, label: "Meubelmakers" },
 ];
 
@@ -2061,9 +2102,24 @@ const SectorSection = () => {
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activePage, setActivePage] = useState<
-    "home" | "privacy" | "terms" | "about"
-  >("home"); // TYPE UPDATED
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
+
+  let activePage = "home";
+  let branchType = "";
+  if (pathname === "/privacy") activePage = "privacy";
+  else if (pathname === "/terms") activePage = "terms";
+  else if (pathname === "/about") activePage = "about";
+  else if (pathname === "/cases") activePage = "cases";
+  else if (pathname.startsWith("/website-")) {
+    const possibleBranch = pathname.replace("/website-", "");
+    if (branchData[possibleBranch]) {
+      activePage = "branch";
+      branchType = possibleBranch;
+    }
+  }
   const [showSignup, setShowSignup] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [currentSource, setCurrentSource] = useState("Website Direct");
@@ -2077,27 +2133,25 @@ function App() {
   }, []);
 
   const navigateTo = (
-    page: "home" | "privacy" | "terms" | "about",
+    page: "home" | "privacy" | "terms" | "about" | "cases",
     sectionId?: string,
   ) => {
-    // TYPE UPDATED
-    setActivePage(page);
     setMobileMenuOpen(false);
+    
+    let path = "/";
+    if (page !== "home") path = `/${page}`;
+    navigate(path);
 
     if (page === "home" && sectionId) {
       setTimeout(() => {
         const el = document.getElementById(sectionId);
         if (el) el.scrollIntoView({ behavior: "smooth" });
       }, 100);
-    } else if (page === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      // Scroll to top for new pages like Blog
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
-  const handleLoginClick = () => {
+const handleLoginClick = () => {
     window.open(GHL_CONFIG.loginUrl, "_blank");
   };
 
@@ -2113,6 +2167,11 @@ function App() {
 
   return (
     <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-screen">
+      <Helmet>
+        <title>{activePage === 'branch' ? `Website laten maken voor ${branchData[branchType].title.toLowerCase()} | Klusvol` : "Klusvol | Websites voor vakmensen"}</title>
+        <meta name="description" content={activePage === 'branch' ? `Speciaal voor ${branchData[branchType].title.toLowerCase()}. Ontvang een premium website inclusief app voor €69,- per maand. Tijdelijk €0 opstartkosten voor 2 referentie-cases!` : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."} />
+        {activePage === 'branch' && <link rel="canonical" href={`https://klusvol.nl/website-${branchType}`} />}
+      </Helmet>
       {/* Background - Warm, Ambachtelijk met Focus op Oranje */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-gradient-to-br from-[#FAF9F6] via-[#F6F4EE] to-[#FFF3E6] flex items-center justify-center">
         {/* Subtle Textural Grid */}
@@ -2240,7 +2299,7 @@ function App() {
         </nav>
 
       {/* PAGE ROUTING LOGIC */}
-      {activePage === "home" ? (
+      {(activePage === "home" || activePage === "branch") ? (
         <>
           {/* 1. Hero Section */}
           <section className="relative pt-32 pb-24 md:pt-60 md:pb-20 px-4 z-10 min-h-screen flex items-center">
@@ -2255,9 +2314,9 @@ function App() {
               <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/80 via-[#FAF9F6]/95 to-[#FAF9F6]"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10 w-full">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 min-[1200px]:grid-cols-2 gap-16 items-center relative z-10 w-full">
               {/* Content */}
-              <div className="order-2 lg:order-1 relative z-20 text-center lg:text-left">
+              <div className="order-2 min-[1200px]:order-1 relative z-20 text-center min-[1200px]:text-left">
                 {/* Hero ambient glow behind text */}
 
                 <motion.div
@@ -2277,28 +2336,29 @@ function App() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tighter leading-[1.05] text-balance"
+                  className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tighter leading-[1.05] text-balance"
                 >
-                  Jouw vakwerk verdient een{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-600 block mt-2">
-                    strakke website
-                  </span>
+                  {activePage === "branch" ? (
+                    <>Website voor <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-600 block mt-2">{branchData[branchType].title.toLowerCase()}</span></>
+                  ) : (
+                    <>Jouw vakwerk verdient een{" "}<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-600 block mt-2">strakke website</span></>
+                  )}
                 </motion.h1>
 
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                  className="text-lg md:text-xl text-slate-600 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light relative z-10"
+                  className="text-base sm:text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto min-[1200px]:mx-0 leading-relaxed font-light relative z-10"
                 >
-                  Klusvol bouwt websites voor vakmannen in Nederland vanaf € 1.500,- eenmalig plus € 69,- per maand.
+                  {activePage === "branch" ? branchData[branchType].subtext : (<><span className="lg:hidden">Voor schilders, hoveniers, stukadoors, loodgieters en klusbedrijven in heel Nederland.</span><span className="hidden lg:inline">Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland.</span></>)}
                 </motion.p>
 
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                  className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center lg:justify-start items-center relative z-10"
+                  className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center min-[1200px]:justify-start items-center relative z-10"
                 >
                   <Button
                     onClick={() =>
@@ -2323,7 +2383,7 @@ function App() {
                 initial={{ opacity: 0, scale: 0.8, rotateY: 15 }}
                 animate={{ opacity: 1, scale: 0.9, rotateY: 0 }}
                 transition={{ duration: 1.5, delay: 0.4, ease: "easeOut" }}
-                className="relative h-[400px] md:h-[550px] w-full flex items-center justify-center order-1 lg:order-2 mt-8 md:mt-0 perspective-1000"
+                className="hidden min-[1200px]:flex relative min-[1200px]:h-[550px] w-full items-center justify-center order-1 min-[1200px]:order-2 mt-8 min-[1200px]:mt-0 perspective-1000"
               >
                 {/* Backing Glow behind phone - WARM ORANGE now to match branding */}
                 <motion.div
@@ -2353,7 +2413,7 @@ function App() {
                 <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
                   Waarom Klusvol
                 </span>
-                <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-slate-900">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-slate-900">
                   Een website die net zo goed is als jouw vakwerk
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl font-light mx-auto">
@@ -2374,8 +2434,8 @@ function App() {
                 <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
                   Ons Vakwerk
                 </span>
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                  Trots op je online visitekaartje
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-slate-900">
+                  Websites die werken voor vakmensen
                 </h2>
                 <p className="text-lg text-slate-600 font-light">
                   Bekijk websites die ik voor andere vakmensen heb gebouwd.
@@ -2492,21 +2552,25 @@ function App() {
 
             <div className="max-w-6xl mx-auto relative z-10 px-4">
               <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 bg-white border border-slate-200 shadow-sm px-4 py-2 rounded-full text-sm font-bold text-slate-800 mb-6">
-                  Uitstekend
-                  <div className="flex gap-0.5 text-amber-400">
-                    <Star className="fill-current" size={16} />
-                    <Star className="fill-current" size={16} />
-                    <Star className="fill-current" size={16} />
-                    <Star className="fill-current" size={16} />
-                    <Star className="fill-current" size={16} />
+                <div className="inline-flex items-center gap-4 bg-white border border-slate-200 shadow-sm px-6 py-3 rounded-2xl mb-8 text-left">
+                  <svg viewBox="0 0 24 24" width="28" height="28" className="shrink-0" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path fill="none" d="M1 1h22v22H1z"/></svg>
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="font-bold text-slate-900 text-sm">Uitstekend</span>
+                      <div className="flex gap-0.5 text-amber-400">
+                        <Star className="fill-current" size={14} />
+                        <Star className="fill-current" size={14} />
+                        <Star className="fill-current" size={14} />
+                        <Star className="fill-current" size={14} />
+                        <Star className="fill-current" size={14} />
+                      </div>
+                    </div>
+                    <span className="text-xs text-slate-500 font-medium leading-tight whitespace-nowrap">
+                      <strong className="text-slate-700">5</strong> uit 5 op basis van 5 reviews
+                    </span>
                   </div>
-                  <span className="text-slate-400 font-medium">|</span>
-                  <span className="flex items-center gap-2">
-                    <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path fill="none" d="M1 1h22v22H1z"/></svg>
-                    5 uit 5 op basis van 5 reviews</span>
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-slate-900">
                   Vakmensen over Klusvol
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
@@ -2593,8 +2657,8 @@ function App() {
                 <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
                   Eerlijke Deal
                 </span>
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                  Een partnerschap, geen software-abonnement
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-slate-900">
+                  Heldere tarieven
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
                   Direct helder. Geen verrassingen voor jou als schilder, timmerman of loodgieter.
@@ -2602,108 +2666,159 @@ function App() {
               </div>
 
               {/* Fundament (Hoofdblok) */}
-              <div className="max-w-4xl mx-auto mb-16 animate-fade-in">
-                <div className="relative bg-white/60 backdrop-blur-2xl border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 overflow-hidden group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.08)]">
-
-                  <div className="relative z-10 flex flex-col">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider mb-6 self-start">
-                      <Crown size={14} /> DE BASIS
-                    </div>
-
-                    <h3 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">
-                      Klusvol Website
-                    </h3>
-
-                    {/* NEW Price Anchor block with visual */}
-                    <div className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-[#FAF9F6]/80 border border-slate-100 shadow-sm rounded-[2rem] p-6 md:p-8">
-                      <div className="flex flex-col">
-                        <h4 className="text-brand-orange font-bold mb-4 text-xs uppercase tracking-widest flex items-center gap-2">
-                          <Trophy size={14} /> Helder en doelgericht
-                        </h4>
-                        <div className="text-slate-900 font-extrabold text-2xl mb-1 tracking-tight">
+              <div className="max-w-6xl mx-auto mb-16 animate-fade-in">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-stretch mb-10">
+                  
+                  {/* LEFT CARD (Base) */}
+                  <div className="lg:col-span-2 relative bg-white/60 backdrop-blur-2xl border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-10 overflow-hidden flex flex-col group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.08)]">
+                    
+                    {/* Top Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                      {/* Left Col: Title & Price */}
+                      <div>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider mb-6 self-start">
+                          <Crown size={14} /> DE BASIS
+                        </div>
+                        
+                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                          Klusvol Website
+                        </h3>
+                        
+                        <div className="text-slate-900 font-extrabold text-xl mb-1 tracking-tight">
                           Bouwkosten € 1.500,- eenmalig
                         </div>
-                        <div className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2">
-                          € 69,-{" "}
-                          <span className="text-lg text-slate-500 font-medium tracking-normal">
-                            per maand
-                          </span>
+                        <div className="text-4xl md:text-5xl font-black text-brand-orange tracking-tight mb-3">
+                          € 69,- <span className="text-lg text-slate-500 font-medium tracking-normal text-slate-900">p/m</span>
                         </div>
-                        <p className="text-sm font-medium text-slate-600 mb-6">
+                        <p className="text-sm font-medium text-slate-600 max-w-[280px]">
                           Voor hosting, beheer en support via WhatsApp. 6 maanden proef, daarna automatisch 18 maanden.
                         </p>
-                        <div className="mt-2 text-sm text-slate-700 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm leading-relaxed relative">
-                          <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-brand-orange rounded-full"></div>
-                          <span className="block font-bold text-slate-900 mb-1 flex items-center gap-2">
-                            <ShieldCheck size={16} className="text-brand-orange" />
-                            100% Geld-Terug-Garantie
-                          </span>
-                          Niet tevreden met het eerste concept? Je krijgt de eenmalige bouwkosten direct terug. Gegarandeerd.
-                        </div>
                       </div>
-                      <div className="relative z-10 w-full h-full min-h-[240px]">
-                        <PricingShowcaseSlider />
+
+                      {/* Right Col: Promo Box */}
+                      <div className="flex flex-col justify-start">
+                        <div className="bg-brand-orange/10 border border-brand-orange/30 rounded-xl p-5 relative overflow-hidden shadow-sm h-full flex flex-col justify-center">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Sparkles size={18} className="text-brand-orange shrink-0" />
+                            <span className="font-extrabold text-brand-orange text-sm uppercase tracking-wide">Tijdelijk €0 Opstartkosten</span>
+                          </div>
+                          <p className="text-sm font-medium text-slate-800 leading-relaxed mb-2">
+                            Wij zoeken 2 referentie-cases per branche. Bouw zonder opstartkosten in ruil voor een testimonial en foto's.
+                          </p>
+                          <Button 
+                            variant="outline"
+                            onClick={() => window.open("https://wa.me/31643411427?text=" + encodeURIComponent("Hi Folkert, ik werk als [branche] en wil weten of ik in aanmerking kom voor de referentie actie."), "_blank")}
+                            className="w-full text-brand-orange border-brand-orange/30 hover:bg-brand-orange/10 bg-white/50 text-sm py-2 h-auto font-bold mt-auto"
+                          >
+                            Check of jouw branche nog open staat
+                          </Button>
+                        </div>
                       </div>
                     </div>
 
-                    {/* What you get instead of preview */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10 border-t border-slate-100 pt-8">
-                      <div className="flex flex-col gap-3">
-                        <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
-                          <Check
-                            size={20}
-                            className="text-brand-orange"
-                            strokeWidth={3}
-                          />
+                    {/* Middle Section: Features Horizontal */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-t border-b border-slate-100 mb-8 flex-1 items-start">
+                      {/* Feature 1 */}
+                      <div className="flex flex-col items-start text-left gap-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-8 h-8 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
+                            <Check size={16} className="text-brand-orange" strokeWidth={3} />
+                          </div>
+                          <h4 className="text-sm font-bold text-slate-900 leading-snug">
+                            Premium Digitaal<br/>Visitekaartje
+                          </h4>
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900 leading-snug">
-                          Premium Digitaal Visitekaartje
-                        </h4>
-                        <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                          Een professionele uitstraling op maat. Geen standaard templates, gewoon goed.
+                        <p className="text-slate-600 text-xs font-medium leading-relaxed pl-10">
+                          Een professionele uitstraling op maat. Geen standaard templates.
                         </p>
                       </div>
-                      <div className="flex flex-col gap-3">
-                        <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
-                          <Check
-                            size={20}
-                            className="text-brand-orange"
-                            strokeWidth={3}
-                          />
+                      {/* Feature 2 */}
+                      <div className="flex flex-col items-start text-left gap-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-8 h-8 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
+                            <Check size={16} className="text-brand-orange" strokeWidth={3} />
+                          </div>
+                          <h4 className="text-sm font-bold text-slate-900 leading-snug">
+                            Ondersteunende<br/>App
+                          </h4>
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900 leading-snug">
-                          Ondersteunende App
-                        </h4>
-                        <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                          Krijg direct een pushmelding op je telefoon bij een nieuwe aanvraag. Beheer klussen simpel via de app, zonder in te loggen op een ingewikkeld dashboard.
+                        <p className="text-slate-600 text-xs font-medium leading-relaxed pl-10">
+                          Krijg pushmeldingen. Beheer klussen simpel via de app.
                         </p>
                       </div>
-                      <div className="flex flex-col gap-3">
-                        <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
-                          <Check
-                            size={20}
-                            className="text-brand-orange"
-                            strokeWidth={3}
-                          />
+                      {/* Feature 3 */}
+                      <div className="flex flex-col items-start text-left gap-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-8 h-8 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
+                            <Check size={16} className="text-brand-orange" strokeWidth={3} />
+                          </div>
+                          <h4 className="text-sm font-bold text-slate-900 leading-snug">
+                            Hosting &<br/>Beheer
+                          </h4>
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900 leading-snug">
-                          Hosting & Beheer
-                        </h4>
-                        <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                          Wij filteren spam en onserieuze aanvragen eruit. Je ontvangt alleen offerteaanvragen van klanten uit jouw regio die écht op zoek zijn naar vakwerk.
+                        <p className="text-slate-600 text-xs font-medium leading-relaxed pl-10">
+                          Wij filteren spam. Je ontvangt alleen serieuze aanvragen.
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex justify-center mt-6">
+                    {/* Bottom Section: CTA & Guarantee */}
+                    <div className="flex flex-col items-center justify-center mt-auto w-full md:w-3/4 mx-auto gap-4">
                       <Button
-                        onClick={() =>
-                          window.open("https://wa.me/31643411427", "_blank")
-                        }
-                        className="w-full sm:w-auto py-6 px-10 text-lg shadow-[0_0_30px_rgba(249,115,22,0.3)] bg-brand-orange hover:bg-orange-600 rounded-full font-bold"
+                        variant="secondary"
+                        onClick={() => window.open("https://wa.me/31643411427?text=" + encodeURIComponent("Hi Folkert, ik wil de Klusvol basis website aanvragen. Ik werk als [branche]."), "_blank")}
+                        className="w-full py-5 text-lg shadow-[0_0_20px_rgba(249,115,22,0.3)] rounded-full font-bold transition-transform hover:scale-[1.02]"
                       >
-                        App Folkert voor een partnerschap
+                        Ik wil de basis
                       </Button>
+                      <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+                        <ShieldCheck size={16} className="text-brand-orange shrink-0" />
+                        <span><strong className="text-slate-700">100% Geld-Terug-Garantie.</strong> Niet tevreden? Bouwkosten direct terug.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT CARD (Groeimodule) */}
+                  <div className="lg:col-span-1 bg-[#FAF9F6] border border-brand-orange/20 shadow-[0_4px_20px_rgb(249,115,22,0.06)] rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden flex flex-col group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.12)]">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl pointer-events-none"></div>
+                    
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-xs font-bold uppercase tracking-wider mb-6 self-start shadow-sm relative z-10">
+                      <TrendingUp size={14} className="text-brand-orange" /> OPTIONEEL
+                    </div>
+                    
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-900 mb-2 tracking-tight relative z-10">
+                      Groeimodule
+                    </h3>
+                    <div className="text-xl font-bold text-slate-700 mb-6 relative z-10">
+                      vanaf € 150,- <span className="text-sm font-medium text-slate-500">p/m</span>
+                    </div>
+
+                    <p className="text-slate-600 text-sm font-medium leading-relaxed mb-8 relative z-10">
+                      Actief meer opdrachten uit je regio halen? Activeer de groeimodule voor gerichte vindbaarheid.
+                    </p>
+
+                    <div className="flex flex-col gap-4 mt-auto relative z-10">
+                      <div className="flex items-start gap-3">
+                        <Check size={18} className="text-brand-orange mt-0.5 shrink-0" strokeWidth={3} />
+                        <span className="text-sm font-medium text-slate-700 leading-snug">Google Ads regio campagnes</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Check size={18} className="text-brand-orange mt-0.5 shrink-0" strokeWidth={3} />
+                        <span className="text-sm font-medium text-slate-700 leading-snug">Extra locatie- & dienstpagina's</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Check size={18} className="text-brand-orange mt-0.5 shrink-0" strokeWidth={3} />
+                        <span className="text-sm font-medium text-slate-700 leading-snug">SEO optimalisatie</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Check size={18} className="text-brand-orange mt-0.5 shrink-0" strokeWidth={3} />
+                        <span className="text-sm font-medium text-slate-700 leading-snug">Maandelijkse voortgangsupdate</span>
+                      </div>
+                      <div className="mt-4 pt-4 border-t border-slate-200/60">
+                        <p className="text-xs font-medium text-slate-500 leading-relaxed">
+                          Groeimodule is een uitbreiding op de Klusvol basis. Vraag ernaar tijdens de kennismaking.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2719,7 +2834,7 @@ function App() {
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+              <div className="grid grid-cols-1 min-[1200px]:grid-cols-2 gap-16 lg:gap-24 items-center">
                 {/* Image side */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -2754,7 +2869,7 @@ function App() {
                   <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
                     Webontwikkelaar
                   </span>
-                  <h2 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter text-slate-900 leading-[1.1]">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 tracking-tighter text-slate-900 leading-[1.1]">
                     Websites voor vakmensen die liever op de bouw staan
                   </h2>
                   <div className="text-lg text-slate-600 leading-relaxed space-y-6 font-light">
@@ -2782,37 +2897,48 @@ function App() {
           {/* 10. FAQ */}
           <Section className="border-t border-slate-100 relative overflow-hidden">
             <div className="max-w-3xl mx-auto relative z-10">
-              <h2 className="text-3xl font-bold mb-12 text-center text-slate-900 tracking-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-center text-slate-900 tracking-tight">
                 Veelgestelde vragen
               </h2>
               <div className="space-y-4">
+                {activePage === "branch" && branchData[branchType].faqs.map((faq, i) => (
+                  <div key={'branch-faq-'+i}><AccordionItem question={faq.q} answer={faq.a} /></div>
+                ))}
                 <AccordionItem
-                  question="Wat kost een website voor een vakman bij Klusvol?"
-                  answer="Klusvol bouwt websites voor vakmannen voor €1.500 eenmalig, plus €69 per maand. De eenmalige bouwkosten zijn voor het ontwerp en de techniek. De €69 per maand is voor de hosting, het beheer en aanpassingen."
+                  question="Hoeveel kost een website voor een klusbedrijf in 2026?"
+                  answer="Bij Klusvol hanteren we heldere tarieven voor klusbedrijven in 2026. Een professionele, op maat gemaakte website kost normaal gesproken €1500 eenmalig voor de bouw en het ontwerp. Daarnaast betaal je een vast bedrag van €69/mnd voor snelle hosting, doorlopend onderhoud en aanpassingen. We werken standaard met een proefperiode van 6 maanden, waarna het overgaat in een 24 maanden contract. Met onze tijdelijke actie is het voor geselecteerde referentieklanten zelfs mogelijk om in te stappen met €0 opstartkosten. Jouw klusbedrijf krijgt hiervoor een strak en representatief digitaal visitekaartje."
                 />
                 <AccordionItem
-                  question="Met welke vakmannen werkt Klusvol mee?"
-                  answer="Klusvol bouwt websites voor schilders, stukadoors, hoveniers, tegelzetters, loodgieters, installateurs en klusbedrijven. We werken voor vakmannen door heel Nederland. Folkert van Hes kent de sector en spreekt de taal van de bouw."
+                  question="Kan ik een website laten maken zonder opstartkosten?"
+                  answer="Ja, dat is tijdelijk mogelijk bij Klusvol! Om ons portfolio te versterken, zoeken wij momenteel per branche twee referentie-cases. Werk jij als schilder, loodgieter, hovenier of klusser in een branche of regio waar wij nog geen actieve klant hebben? Dan bouwen wij jouw nieuwe website helemaal gratis, dus met €0 opstartkosten in plaats van de gebruikelijke €1500 eenmalig. In ruil daarvoor vragen we een testimonial en mooie foto's van jouw afgeronde vakwerk. Je betaalt vervolgens alleen de vaste €69/mnd voor beheer en hosting met ons 24 maanden contract."
                 />
                 <AccordionItem
-                  question="Hoe werkt het abonnement bij Klusvol?"
-                  answer="Je betaalt €69 per maand voor een all-in service. Hierin zit de hosting, het technische beheer en kleine aanpassingen aan je website. Aanpassingen of nieuwe foto's stuur je simpelweg door via WhatsApp."
+                  question="Wat is de beste website bouwer voor vakmensen?"
+                  answer="Klusvol is dé gespecialiseerde website bouwer voor vakmensen zoals stukadoors, hoveniers en installateurs. Veel bouwers leveren ingewikkelde systemen, maar wij nemen alles uit handen. Voor een transparant tarief (normaal €1500 eenmalig en €69/mnd) bouwen en beheren wij jouw online visitekaartje volledig. Je hoeft zelf niet te pionieren met templates of ingewikkelde instellingen. Doordat we ons specifiek op de bouwbranche en vakbedrijven richten, spreken we jouw taal en snappen we precies wat jouw klanten willen zien. Profiteer direct van €0 opstartkosten met onze referentie actie."
                 />
                 <AccordionItem
-                  question="Zit ik aan een contract vast en hoe werkt de proefperiode?"
-                  answer="Je start met een proefperiode van 6 maanden. Ben je tevreden? Dan wordt dit automatisch verlengd met 18 maanden. We werken met deze termijn omdat we de eerste twee jaar veel tijd investeren in de fundamenten, doorontwikkeling en het beheer van jouw website."
+                  question="Hoe lang duurt het bouwen van een website voor mijn vakbedrijf?"
+                  answer="Bij Klusvol weten we dat vakmensen geen tijd hebben voor eindeloze trajecten. Daarom staat een nieuwe website voor jouw klusbedrijf of schildersbedrijf doorgaans binnen 2 tot 4 weken online. Na een korte bespreking van jouw wensen, gaan wij direct aan de slag met het ontwerp. We zorgen voor een strakke, goed vindbare site inclusief alle teksten. Omdat we werken met efficiënte processen, kost dit jou minimale moeite. En met onze referentie actie krijg je dit snelle resultaat zelfs met €0 opstartkosten (regulier €1500 eenmalig) en slechts €69/mnd voor beheer (24 maanden contract)."
                 />
                 <AccordionItem
-                  question="Wat is de opzegtermijn na de initiële looptijd?"
-                  answer="Na de totale looptijd van 24 maanden heb je een opzegtermijn van 1 maand. Er zitten geen ingewikkelde haken en ogen aan; een appje naar mij is voldoende om op te zeggen."
+                  question="Wat kost onderhoud van een website voor een vakman?"
+                  answer="Het onderhoud van een website voor een vakman kost bij Klusvol slechts €69/mnd. Dit all-in bedrag dekt de hosting, regelmatige technische updates, beveiliging en kleine aanpassingen aan je website, zoals nieuwe projectfoto's toevoegen. Stuur gewoon een appje en wij regelen de rest! Wij werken met een proefperiode van 6 maanden die overgaat in een 24 maanden contract, zodat je verzekerd bent van langdurige kwaliteit. Waar de bouw normaal €1500 eenmalig kost, start je via onze huidige referentie actie tijdelijk voor €0 opstartkosten."
                 />
                 <AccordionItem
-                  question="Hoe lang duurt het bouwen van een website voor een klusbedrijf?"
-                  answer="Het bouwen van een website duurt bij Klusvol gemiddeld tussen de 2 en 4 weken. We hebben een kort overleg voor jouw wensen en zorgen dan dat het digitale visitekaartje snel en goed online staat."
+                  question="Moet ik een abonnement of eenmalig betalen voor mijn website?"
+                  answer="Bij Klusvol hanteren we een transparante combinatie. Normaal betaal je €1500 eenmalig voor de realisatie van de website, en daarnaast een abonnement van €69/mnd voor hosting en technisch beheer, verbonden aan een 24 maanden contract. Maar met onze huidige referentie actie kun je de eenmalige kosten volledig schrappen! Als jij een testimonial achterlaat, start je met €0 opstartkosten en betaal je enkel het vaste maandbedrag van €69/mnd. Dit betekent dat je profiteert van een professionele website zonder grote investering vooraf."
                 />
                 <AccordionItem
-                  question="Waarom kiezen vakmannen voor Klusvol in plaats van een Wix of Squarespace template?"
-                  answer="Met een Wix of Squarespace template ben je uren in de avond aan het fröbelen. Bij Klusvol besteed je het bouwen en beheer volledig uit voor een eerlijk bedrag, zodat jij ongestoord vakwerk kunt blijven leveren."
+                  question="Kan ik zelf mijn website beheren als vakman?"
+                  answer="Als vakman heb je het druk genoeg met je klussen, schilderwerk of tuinen. Daarom is de filosofie van Klusvol dat je de website niet hoeft te beheren. Wij voeren alle aanpassingen voor je uit. Of je nu nieuwe projectfoto's, gewijzigde contactgegevens of een nieuwe dienst wilt toevoegen; een simpel WhatsApp-bericht is voldoende. Wij doen de rest. Zo behoud je jouw professionele uitstraling zonder technische rompslomp en kun jij je volledig focussen op je vakwerk."
+                />
+                <AccordionItem
+                  question="Krijgt een website voor mijn schildersbedrijf ook klanten?"
+                  answer="Een professionele website van Klusvol is ontworpen om vertrouwen te wekken en bezoekers om te zetten in concrete aanvragen voor jouw schildersbedrijf. Door een strakke layout en heldere contactmogelijkheden bellen potentiële klanten sneller. Daarnaast bieden we een groeimodule (vanaf €150 per maand) aan als je nog meer lokale dominantie zoekt via advertenties en extra pagina's. Door onze referentie actie kun je nu instappen met €0 opstartkosten in plaats van €1500 eenmalig. Je betaalt daarnaast €69/mnd in een 24 maanden contract voor doorlopende prestaties en beheer."
+                />
+                <AccordionItem
+                  question="Hoe zorg ik dat mijn vakbedrijf gevonden wordt in Google?"
+                  answer="Klusvol zorgt bij de bouw direct voor een goede technische basis en basis SEO (zoekmachineoptimalisatie), zodat jouw klusbedrijf lokaal goed vindbaar is. Wil je echt de regio domineren? Dan kun je onze optionele groeimodule (vanaf €150 per maand) inzetten voor actieve Google Ads en extra landingspagina's. Voor de reguliere website betaal je normaal €1500 eenmalig en €69/mnd in een 24 maanden contract, maar met onze referentie actie krijg je de basis website met €0 opstartkosten. Zo word je snel en professioneel gevonden zonder enorme initiële kosten."
                 />
               </div>
             </div>
@@ -2833,7 +2959,7 @@ function App() {
               <div className="w-20 h-20 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-brand-orange/20 text-brand-orange shadow-[0_0_30px_rgba(249,115,22,0.1)]">
                 <Coffee size={36} />
               </div>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tighter leading-tight drop-shadow-sm">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-8 tracking-tighter leading-tight drop-shadow-sm">
                 Klaar om je plannen te bespreken?
               </h2>
               <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed font-light">

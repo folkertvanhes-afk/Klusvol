@@ -404,7 +404,7 @@ const ArticleView = ({ article, onBack, onNavigate }: { article: Article, onBack
                                 <Anchor size={12} /> Masterclass
                             </div>
                         )}
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6">
                             {article.title}
                         </h1>
                         <div className="flex items-center gap-6 text-sm text-slate-500 border-b border-white/10 pb-8">
@@ -477,7 +477,7 @@ const BlogHome = ({ onNavigate, onBack }: { onNavigate: (id: string) => void, on
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-orange text-[10px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md">
                    <BookOpen size={12} /> Kennisbank
                 </div>
-                <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight">
                     Jouw bedrijf,<br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-400 to-slate-600">maar dan beter.</span>
                 </h1>

@@ -138,7 +138,7 @@ const AboutPage = ({
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange text-[11px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md">
              <Wrench size={12} /> Over mij
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-[1.05]">
             Folkert van Hes <br />
             <span className="text-brand-orange">Jouw online fundament</span>
           </h1>

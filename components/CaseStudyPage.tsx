@@ -26,7 +26,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
           <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
             Klantcases
           </span>
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1]">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-[1.05]">
             Van onzichtbaar naar een stabiele stroom klantaanvragen.
           </h1>
           <p className="text-xl text-slate-600 font-light leading-relaxed">
