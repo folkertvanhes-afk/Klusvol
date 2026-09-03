@@ -2,37 +2,49 @@ import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-export const branchData: Record<string, { title: string, subtext: string, faqs: {q: string, a: string}[] }> = {
+export const branchData: Record<string, { title: string, subtext: string, faqs: {q: string, a: string}[], metaTitle: string, metaDesc: string }> = {
   "schilder": {
     title: "Schilders",
     subtext: "Speciaal voor schilders die hun vakwerk online net zo goed willen presenteren als op de wand.",
+    metaTitle: "Website voor schildersbedrijf laten maken | Klusvol",
+    metaDesc: "Website voor schilders vanaf 69/mnd. Tijdelijk zonder opstartkosten. Klusvol bouwt strakke websites voor schilders in heel Nederland.",
     faqs: [
-      { q: "Hoeveel kost een website voor een schilder?", a: "Voor een eenmalige investering van €1.500,- bouwen wij een premium website voor jouw schildersbedrijf, inclusief een app. Daarna betaal je €69,- per maand voor hosting en beheer." },
-      { q: "Krijgt een schilder ook nieuwe klanten via zijn website?", a: "Ja. Omdat we de website optimaliseren voor lokale zoekopdrachten (bijv. 'Schilder in [Jouw Regio]'), word je beter gevonden door mensen die direct op zoek zijn naar jouw vakmanschap." }
+      { q: "Hoeveel kost een website voor een schildersbedrijf?", a: "Voor een schildersbedrijf bouwen wij een complete website voor €1500 eenmalig. Daarna betaal je €69/mnd voor hosting en onderhoud. Via onze referentie actie kun je nu tijdelijk met €0 opstartkosten instappen bij Klusvol." },
+      { q: "Kan ik als schilder ook Google Ads krijgen via Klusvol?", a: "Ja zeker. Naast je website voor €69/mnd bieden we een groeimodule waarmee jouw schildersbedrijf via Google Ads bovenaan staat in de regio. Ideaal om direct gericht extra klussen binnen te halen via Klusvol." },
+      { q: "Hoe vind ik nieuwe schilder klussen via mijn website?", a: "Door een strak portfolio en SEO-optimalisatie word je lokaal goed gevonden. Klanten zien direct jouw eerdere schilderwerk en kunnen makkelijk contact opnemen. Zo haalt jouw schildersbedrijf via Klusvol structureel nieuwe klussen binnen zonder moeite." }
     ]
   },
   "stukadoor": {
     title: "Stukadoors",
     subtext: "Speciaal voor stukadoors die liever op de bouw staan dan achter een laptop.",
+    metaTitle: "Website voor stukadoors laten maken | Klusvol",
+    metaDesc: "Website voor stukadoors vanaf 69/mnd. Tijdelijk zonder opstartkosten. Klusvol bouwt websites die stucwerk projecten online tonen.",
     faqs: [
-      { q: "Wat kost een website voor een stukadoor?", a: "Je betaalt eenmalig €1.500,- voor het bouwen van de website. Vervolgens betaal je €69,- per maand voor betrouwbare hosting, onderhoud en support via WhatsApp." },
-      { q: "Kan ik als stukadoor mijn projecten online tonen?", a: "Absoluut! We integreren een portfolio-gedeelte in je website waar je eenvoudig voor/na foto's van je stucwerk kunt laten zien aan potentiële klanten." }
+      { q: "Wat kost een website voor een stukadoor?", a: "Een website voor een stukadoor kost normaal €1500 eenmalig voor de bouw en €69/mnd voor beheer. Met onze tijdelijke referentie actie bij Klusvol start je echter met €0 opstartkosten. Je betaalt dan alleen de vaste maandelijkse kosten." },
+      { q: "Kan ik mijn stucwerk projecten online tonen?", a: "Absoluut! We maken een speciaal portfolio gedeelte voor jouw stucwerk. Jij appt Klusvol de voor/na foto's van je projecten, en wij plaatsen ze strak op je website voor €69/mnd." },
+      { q: "Hoe krijg ik meer stucwerk aanvragen via internet?", a: "Jouw stukadoors website wordt ingericht op conversie en lokaal gevonden. Door duidelijk je diensten te tonen en een makkelijke contactknop te plaatsen, weten klanten je sneller te vinden. Klusvol helpt jouw stucwerk bedrijf online succesvol te maken." }
     ]
   },
   "hovenier": {
     title: "Hoveniers",
     subtext: "Speciaal voor hoveniers die hun projecten willen tonen aan nieuwe klanten in de regio.",
+    metaTitle: "Website voor hoveniersbedrijf laten maken | Klusvol",
+    metaDesc: "Website voor hoveniers vanaf 69/mnd. Tijdelijk zonder opstartkosten. Klusvol bouwt websites die tuinprojecten laten zien.",
     faqs: [
-      { q: "Waarom heb ik als hovenier een professionele website nodig?", a: "Een goede website laat jouw afgeronde tuinen en projecten spreken. Het wekt direct vertrouwen en zorgt ervoor dat klanten jou bellen in plaats van de concurrent." },
-      { q: "Wat zijn de kosten voor een hovenierswebsite?", a: "De eenmalige bouwkosten bedragen €1.500,-. Daarna verzorgen wij voor €69,- per maand de hosting, technische updates en ben je verzekerd van snelle support." }
+      { q: "Wat kost een website voor een hoveniersbedrijf?", a: "De opstartkosten voor een hoveniersbedrijf zijn normaal €1500 eenmalig. Via de huidige Klusvol referentie actie betaal je €0 opstartkosten. Je betaalt daarna slechts €69/mnd voor volledige hosting en onderhoud van je website." },
+      { q: "Kan ik mijn tuinprojecten online showen?", a: "Ja, een visueel portfolio is cruciaal voor een hovenier. Jij levert Klusvol de foto's van je mooiste tuinen aan via WhatsApp, en wij zorgen dat ze perfect op de website staan, inbegrepen in de €69/mnd." },
+      { q: "Hoe vind ik meer tuinklanten in mijn regio?", a: "Klusvol optimaliseert jouw hoveniersbedrijf website voor lokale zoekopdrachten. We richten ons op mensen in jouw buurt die een hovenier zoeken. Zo bereik je precies de juiste doelgroep en krijg je meer passende tuinklanten." }
     ]
   },
   "klusbedrijf": {
     title: "Klusbedrijven",
     subtext: "Speciaal voor klusbedrijven die klaar zijn om online serieus zichtbaar te worden.",
+    metaTitle: "Website voor klusbedrijf laten maken | Klusvol",
+    metaDesc: "Website voor klusbedrijven vanaf 69/mnd. Tijdelijk zonder opstartkosten. Klusvol bouwt strakke websites voor klusbedrijven in Nederland.",
     faqs: [
-      { q: "Wat kost een website voor mijn klusbedrijf?", a: "De opstartkosten zijn €1.500,- voor de volledige bouw van de website. Het maandelijkse abonnement voor hosting, beveiliging en support is €69,-." },
-      { q: "Word ik als klusbedrijf dan ook lokaal beter gevonden?", a: "Jazeker. We richten je website zo in dat wanneer mensen in jouw omgeving zoeken naar een betrouwbaar klusbedrijf, ze veel sneller bij jou uitkomen." }
+      { q: "Wat kost een website voor een klusbedrijf?", a: "Normaal kost dit €1500 eenmalig, maar met de Klusvol referentie actie is dit tijdelijk €0 opstartkosten! Je profiteert van een professionele klusbedrijf website voor slechts een vast bedrag van €69/mnd inclusief beheer en hosting." },
+      { q: "Kan ik meerdere diensten op mijn website tonen?", a: "Natuurlijk. Een klusbedrijf doet vaak veel: van timmerwerk tot montage. Klusvol zorgt ervoor dat al jouw diensten overzichtelijk worden gepresenteerd, zodat bezoekers direct zien waarvoor ze jou kunnen inschakelen voor €69/mnd." },
+      { q: "Hoe val ik op tussen andere klusbedrijven online?", a: "Met een strak en professioneel design wek je direct vertrouwen. Klusvol bouwt de website zo dat jouw eerdere projecten en sterke punten goed uit de verf komen, waardoor je opvalt tussen de vele andere klusbedrijven in de regio." }
     ]
   }
 };
@@ -711,10 +723,12 @@ const SignupModal = ({
   isOpen,
   onClose,
   source = "Direct",
+  branchNameCompany = "klusbedrijf",
 }: {
   isOpen: boolean;
   onClose: () => void;
   source?: string;
+  branchNameCompany?: string;
 }) => {
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -877,7 +891,7 @@ const SignupModal = ({
             <div className="animate-slide-up-fade">
               <label className="block text-2xl md:text-3xl font-bold text-slate-900 mb-6 leading-tight">
                 Hoe heet je{" "}
-                <span className="text-brand-orange">klusbedrijf</span>?
+                <span className="text-brand-orange">{branchNameCompany}</span>?
               </label>
               <input
                 ref={inputRef}
@@ -1728,7 +1742,7 @@ const InteractiveUSPs = () => {
     </div>
   );
 };
-const stepsData = [
+const getStepsData = (branchNameCompany: string) => [
   {
     title: "Schetsblok & Wensen",
     desc: "Jij vertelt wat je doet. Ik maak een plan.",
@@ -1737,9 +1751,9 @@ const stepsData = [
   },
   {
     title: "Ik bouw je site",
-    desc: "Geen templates, maatwerk voor jouw klusbedrijf.",
+    desc: `Geen templates, maatwerk voor jouw ${branchNameCompany}.`,
     fullDesc:
-      "Geen templates, maatwerk voor jouw klusbedrijf.",
+      `Geen templates, maatwerk voor jouw ${branchNameCompany}.`,
     icon: ShieldCheck,
   },
   {
@@ -1836,7 +1850,8 @@ const PricingShowcaseSlider = ({ branchType }: { branchType?: string }) => {
   );
 };
 
-const InteractiveSteps = () => {
+const InteractiveSteps = ({ branchNameCompany = "klusbedrijf" }: { branchNameCompany?: string }) => {
+  const stepsData = getStepsData(branchNameCompany);
   const [activeStep, setActiveStep] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -2120,6 +2135,12 @@ function App() {
       branchType = possibleBranch;
     }
   }
+
+  const branchNameSingular = branchType === 'schilder' ? 'schilder' : branchType === 'hovenier' ? 'hovenier' : branchType === 'stukadoor' ? 'stukadoor' : 'klusbedrijf';
+  const branchNameCompany = branchType === 'schilder' ? 'schildersbedrijf' : branchType === 'hovenier' ? 'hoveniersbedrijf' : branchType === 'stukadoor' ? 'stukadoorsbedrijf' : 'klusbedrijf';
+  const branchNameCompanyPlural = branchType === 'schilder' ? 'schildersbedrijven' : branchType === 'hovenier' ? 'hoveniersbedrijven' : branchType === 'stukadoor' ? 'stukadoorsbedrijven' : 'klusbedrijven';
+  const branchNamePlural = branchType === 'schilder' ? 'schilders' : branchType === 'hovenier' ? 'hoveniers' : branchType === 'stukadoor' ? 'stukadoors' : 'klusbedrijven';
+
   const [showSignup, setShowSignup] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [currentSource, setCurrentSource] = useState("Website Direct");
@@ -2168,8 +2189,8 @@ const handleLoginClick = () => {
   return (
     <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-screen">
       <Helmet>
-        <title>{activePage === 'branch' ? `Website laten maken voor ${branchData[branchType].title.toLowerCase()} | Klusvol` : "Klusvol | Websites voor vakmensen"}</title>
-        <meta name="description" content={activePage === 'branch' ? `Speciaal voor ${branchData[branchType].title.toLowerCase()}. Ontvang een premium website inclusief app voor €69,- per maand. Tijdelijk €0 opstartkosten voor 2 referentie-cases!` : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."} />
+        <title>{activePage === 'branch' ? branchData[branchType].metaTitle : "Klusvol | Websites voor vakmensen"}</title>
+        <meta name="description" content={activePage === 'branch' ? branchData[branchType].metaDesc : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."} />
         {activePage === 'branch' && <link rel="canonical" href={`https://klusvol.nl/website-${branchType}`} />}
       </Helmet>
       {/* Background - Warm, Ambachtelijk met Focus op Oranje */}
@@ -2329,7 +2350,7 @@ const handleLoginClick = () => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
                   </span>
-                  Speciaal voor klusbedrijven in Nederland
+                  {activePage === "branch" ? `Speciaal voor ${branchNamePlural} in Nederland` : "Speciaal voor klusbedrijven in Nederland"}
                 </motion.div>
 
                 <motion.h1
@@ -2429,7 +2450,7 @@ const handleLoginClick = () => {
 
           {/* 3.5 Vakwerk Showcase & Target Audience */}
           <div className="border-t border-slate-100">
-            <Section className="!pb-0 md:!pb-0">
+            <Section id="ons-vakwerk" className="!pb-0 md:!pb-0">
               <div className="max-w-4xl mx-auto text-center mb-16">
                 <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
                   Ons Vakwerk
@@ -2442,8 +2463,8 @@ const handleLoginClick = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto mb-16">
-                {[
+              {(() => {
+                const filteredPortfolio = [
                   {
                     media:
                       "https://assets.cdn.filesafe.space/UMBYqC3d2lb9GmvTCMc4/media/69ce1f3335c728284fc0c22e.mp4",
@@ -2451,88 +2472,109 @@ const handleLoginClick = () => {
                     title: "Hoekstra Sprayworks",
                     subtitle: "Spuiterij, klant sinds maart 2026",
                     link: "https://hoekstrasprayworks.nl",
+                    branches: ["schilder", "klusbedrijf"],
                   },
                   {
                     img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
                     title: "Stukadoorsbedrijf Hessels",
                     subtitle: "Stukadoorsbedrijf, klant sinds april 2026",
                     link: "https://stukadoorsbedrijfhessels.nl/",
+                    branches: ["stukadoor", "klusbedrijf"],
                   },
                   {
                     img: "https://assets.cdn.filesafe.space/v2mZBfrhSs3uFVZENKQy/media/6a394e3928e2dab9ea39174b.webp",
                     title: "Stukadoorsbedrijf Jeffrey Green",
                     subtitle: "Stukadoor, klant sinds augustus 2026",
                     link: "https://stukadoorjeffreygreen.nl",
+                    branches: ["stukadoor", "klusbedrijf"],
                   },
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="group relative flex flex-col items-center"
-                  >
-                    <a
-                      href={item.link || "#"}
-                      target={item.link ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                      className="block w-full relative cursor-pointer"
-                    >
-                      <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 aspect-[4/3] border border-slate-200">
-                        {item.isVideo ? (
-                          <video
-                            src={item.media}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                        ) : (
-                          <img
-                            src={item.img}
-                            alt={item.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-6 md:p-8">
-                          <h3 className="font-bold text-white text-xl md:text-2xl mb-1 drop-shadow-md">
-                            {item.title}
-                          </h3>
-                          {item.subtitle && (
-                            <p className="text-sm text-slate-300 font-medium mb-4 drop-shadow-md">
-                              {item.subtitle}
-                            </p>
-                          )}
-                          {!item.subtitle && <div className="mb-4"></div>}
-                          <div className="overflow-hidden">
-                            <span className="inline-flex items-center gap-2 text-brand-orange font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                              Bekijk Live Site <ArrowRight size={16} />
-                            </span>
+                ].filter(item => activePage !== 'branch' || item.branches.includes(branchType));
+
+                if (filteredPortfolio.length === 0) {
+                  return (
+                    <div className="max-w-4xl mx-auto text-center mb-16 py-12 bg-white rounded-3xl border border-slate-200 shadow-sm">
+                      <p className="text-xl text-slate-600 font-medium">Binnenkort de eerste {branchNameSingular} case</p>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto mb-16">
+                    {filteredPortfolio.map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                        className="group relative flex flex-col items-center"
+                      >
+                        <a
+                          href={item.link || "#"}
+                          target={item.link ? "_blank" : undefined}
+                          rel="noopener noreferrer"
+                          className="block w-full relative cursor-pointer"
+                        >
+                          <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 aspect-[4/3] border border-slate-200">
+                            {item.isVideo ? (
+                              <video
+                                src={item.media}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
+                            ) : (
+                              <img
+                                src={item.img}
+                                alt={item.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              />
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-6 md:p-8">
+                              <h3 className="font-bold text-white text-xl md:text-2xl mb-1 drop-shadow-md">
+                                {item.title}
+                              </h3>
+                              {item.subtitle && (
+                                <p className="text-sm text-slate-300 font-medium mb-4 drop-shadow-md">
+                                  {item.subtitle}
+                                </p>
+                              )}
+                              {!item.subtitle && <div className="mb-4"></div>}
+                              <div className="overflow-hidden">
+                                <span className="inline-flex items-center gap-2 text-brand-orange font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                  Bekijk Live Site <ArrowRight size={16} />
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </a>
-                  </motion.div>
-                ))}
-              </div>
-              <div className="flex justify-center mt-12 w-full">
-                {/* <Button
-                  onClick={() => navigateTo("cases")}
-                  variant="outline"
-                  className="inline-flex w-auto mt-4"
-                >
-                  Bekijk uitgebreide cases en cijfers
-                </Button> */}
+                        </a>
+                      </motion.div>
+                    ))}
+                  </div>
+                );
+              })()}
+              <div className="flex justify-center mt-4 md:-mt-8 mb-12 w-full relative z-10">
+                {activePage === "branch" && (
+                  <Button
+                    onClick={() => navigateTo("home", "ons-vakwerk")}
+                    variant="outline"
+                    className="inline-flex w-auto bg-white/50 backdrop-blur-sm"
+                  >
+                    Bekijk meer klanten uit andere branches
+                  </Button>
+                )}
               </div>
             </Section>
 
             {/* 6. Target Audience */}
-            <div className="pb-16">
-              <SectorSection />
-            </div>
+            {activePage === "home" && (
+              <div className="pb-16">
+                <SectorSection />
+              </div>
+            )}
           </div>
 
           {/* 7. How It Works */}
@@ -2543,7 +2585,7 @@ const handleLoginClick = () => {
             {/* Subtle Oranje Glow Background Elements */}
 
             <div className="relative z-10">
-              <InteractiveSteps />
+              <InteractiveSteps branchNameCompany={activePage === "branch" ? branchNameCompany : "klusbedrijf"} />
             </div>
           </Section>
 
@@ -2601,7 +2643,7 @@ const handleLoginClick = () => {
                   },
                 ]).flat().map((review, i) => {
                   const getRelativeTime = (dateString: string) => {
-                    const diffInDays = Math.floor((new Date().getTime() - new Date(dateString).getTime()) / (1000 * 3600 * 24));
+                    const diffInDays = Math.floor((new Date().getTime() - new Date(dateString.replace(/-/g, '/')).getTime()) / (1000 * 3600 * 24));
                     if (diffInDays <= 0) return "vandaag";
                     if (diffInDays === 1) return "1 dag geleden";
                     if (diffInDays < 7) return `${diffInDays} dagen geleden`;
@@ -2661,7 +2703,7 @@ const handleLoginClick = () => {
                   Heldere tarieven
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
-                  Direct helder. Geen verrassingen voor jou als schilder, timmerman of loodgieter.
+                  Direct helder. Geen verrassingen voor jou als {activePage === "branch" ? branchNameSingular : "schilder, timmerman of loodgieter"}.
                 </p>
               </div>
 
@@ -2877,7 +2919,7 @@ const handleLoginClick = () => {
                       Mijn naam is Folkert van Hes, webontwikkelaar uit Haren (Groningen). Ik bouw de website die jouw vakwerk verdient.
                     </p>
                     <p>
-                      Ik bouw voor schilders, hoveniers en tegelzetters in Nederland die hun tijd liever op de bouw doorbrengen dan achter een laptop. Vaste prijs, strak ontwerp, en aanpassingen gooi je gewoon via WhatsApp over de schutting.
+                      Ik bouw voor {activePage === "branch" ? `${branchNamePlural} en andere vakmensen` : "schilders, hoveniers en tegelzetters"} in Nederland die hun tijd liever op de bouw doorbrengen dan achter een laptop. Vaste prijs, strak ontwerp, en aanpassingen gooi je gewoon via WhatsApp over de schutting.
                     </p>
                   </div>
                   <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
@@ -2905,8 +2947,8 @@ const handleLoginClick = () => {
                   <div key={'branch-faq-'+i}><AccordionItem question={faq.q} answer={faq.a} /></div>
                 ))}
                 <AccordionItem
-                  question="Hoeveel kost een website voor een klusbedrijf in 2026?"
-                  answer="Bij Klusvol hanteren we heldere tarieven voor klusbedrijven in 2026. Een professionele, op maat gemaakte website kost normaal gesproken €1500 eenmalig voor de bouw en het ontwerp. Daarnaast betaal je een vast bedrag van €69/mnd voor snelle hosting, doorlopend onderhoud en aanpassingen. We werken standaard met een proefperiode van 6 maanden, waarna het overgaat in een 24 maanden contract. Met onze tijdelijke actie is het voor geselecteerde referentieklanten zelfs mogelijk om in te stappen met €0 opstartkosten. Jouw klusbedrijf krijgt hiervoor een strak en representatief digitaal visitekaartje."
+                  question={`Hoeveel kost een website voor een ${activePage === "branch" ? branchNameCompany : "klusbedrijf"} in 2026?`}
+                  answer={`Bij Klusvol hanteren we heldere tarieven voor ${activePage === "branch" ? branchNameCompanyPlural : "klusbedrijven"} in 2026. Een professionele, op maat gemaakte website kost normaal gesproken €1500 eenmalig voor de bouw en het ontwerp. Daarnaast betaal je een vast bedrag van €69/mnd voor snelle hosting, doorlopend onderhoud en aanpassingen. We werken standaard met een proefperiode van 6 maanden, waarna het overgaat in een 24 maanden contract. Met onze tijdelijke actie is het voor geselecteerde referentieklanten zelfs mogelijk om in te stappen met €0 opstartkosten. Jouw ${activePage === "branch" ? branchNameCompany : "klusbedrijf"} krijgt hiervoor een strak en representatief digitaal visitekaartje.`}
                 />
                 <AccordionItem
                   question="Kan ik een website laten maken zonder opstartkosten?"
@@ -2918,7 +2960,7 @@ const handleLoginClick = () => {
                 />
                 <AccordionItem
                   question="Hoe lang duurt het bouwen van een website voor mijn vakbedrijf?"
-                  answer="Bij Klusvol weten we dat vakmensen geen tijd hebben voor eindeloze trajecten. Daarom staat een nieuwe website voor jouw klusbedrijf of schildersbedrijf doorgaans binnen 2 tot 4 weken online. Na een korte bespreking van jouw wensen, gaan wij direct aan de slag met het ontwerp. We zorgen voor een strakke, goed vindbare site inclusief alle teksten. Omdat we werken met efficiënte processen, kost dit jou minimale moeite. En met onze referentie actie krijg je dit snelle resultaat zelfs met €0 opstartkosten (regulier €1500 eenmalig) en slechts €69/mnd voor beheer (24 maanden contract)."
+                  answer={`Bij Klusvol weten we dat vakmensen geen tijd hebben voor eindeloze trajecten. Daarom staat een nieuwe website voor jouw ${activePage === "branch" ? branchNameCompany : "klusbedrijf of schildersbedrijf"} doorgaans binnen 2 tot 4 weken online. Na een korte bespreking van jouw wensen, gaan wij direct aan de slag met het ontwerp. We zorgen voor een strakke, goed vindbare site inclusief alle teksten. Omdat we werken met efficiënte processen, kost dit jou minimale moeite. En met onze referentie actie krijg je dit snelle resultaat zelfs met €0 opstartkosten (regulier €1500 eenmalig) en slechts €69/mnd voor beheer (24 maanden contract).`}
                 />
                 <AccordionItem
                   question="Wat kost onderhoud van een website voor een vakman?"
@@ -2933,12 +2975,12 @@ const handleLoginClick = () => {
                   answer="Als vakman heb je het druk genoeg met je klussen, schilderwerk of tuinen. Daarom is de filosofie van Klusvol dat je de website niet hoeft te beheren. Wij voeren alle aanpassingen voor je uit. Of je nu nieuwe projectfoto's, gewijzigde contactgegevens of een nieuwe dienst wilt toevoegen; een simpel WhatsApp-bericht is voldoende. Wij doen de rest. Zo behoud je jouw professionele uitstraling zonder technische rompslomp en kun jij je volledig focussen op je vakwerk."
                 />
                 <AccordionItem
-                  question="Krijgt een website voor mijn schildersbedrijf ook klanten?"
-                  answer="Een professionele website van Klusvol is ontworpen om vertrouwen te wekken en bezoekers om te zetten in concrete aanvragen voor jouw schildersbedrijf. Door een strakke layout en heldere contactmogelijkheden bellen potentiële klanten sneller. Daarnaast bieden we een groeimodule (vanaf €150 per maand) aan als je nog meer lokale dominantie zoekt via advertenties en extra pagina's. Door onze referentie actie kun je nu instappen met €0 opstartkosten in plaats van €1500 eenmalig. Je betaalt daarnaast €69/mnd in een 24 maanden contract voor doorlopende prestaties en beheer."
+                  question={`Krijgt een website voor mijn ${activePage === "branch" ? branchNameCompany : "schildersbedrijf"} ook klanten?`}
+                  answer={`Een professionele website van Klusvol is ontworpen om vertrouwen te wekken en bezoekers om te zetten in concrete aanvragen voor jouw ${activePage === "branch" ? branchNameCompany : "schildersbedrijf"}. Door een strakke layout en heldere contactmogelijkheden bellen potentiële klanten sneller. Daarnaast bieden we een groeimodule (vanaf €150 per maand) aan als je nog meer lokale dominantie zoekt via advertenties en extra pagina's. Door onze referentie actie kun je nu instappen met €0 opstartkosten in plaats van €1500 eenmalig. Je betaalt daarnaast €69/mnd in een 24 maanden contract voor doorlopende prestaties en beheer.`}
                 />
                 <AccordionItem
                   question="Hoe zorg ik dat mijn vakbedrijf gevonden wordt in Google?"
-                  answer="Klusvol zorgt bij de bouw direct voor een goede technische basis en basis SEO (zoekmachineoptimalisatie), zodat jouw klusbedrijf lokaal goed vindbaar is. Wil je echt de regio domineren? Dan kun je onze optionele groeimodule (vanaf €150 per maand) inzetten voor actieve Google Ads en extra landingspagina's. Voor de reguliere website betaal je normaal €1500 eenmalig en €69/mnd in een 24 maanden contract, maar met onze referentie actie krijg je de basis website met €0 opstartkosten. Zo word je snel en professioneel gevonden zonder enorme initiële kosten."
+                  answer={`Klusvol zorgt bij de bouw direct voor een goede technische basis en basis SEO (zoekmachineoptimalisatie), zodat jouw ${activePage === "branch" ? branchNameCompany : "klusbedrijf"} lokaal goed vindbaar is. Wil je echt de regio domineren? Dan kun je onze optionele groeimodule (vanaf €150 per maand) inzetten voor actieve Google Ads en extra landingspagina's. Voor de reguliere website betaal je normaal €1500 eenmalig en €69/mnd in een 24 maanden contract, maar met onze referentie actie krijg je de basis website met €0 opstartkosten. Zo word je snel en professioneel gevonden zonder enorme initiële kosten.`}
                 />
               </div>
             </div>
@@ -3163,6 +3205,7 @@ const handleLoginClick = () => {
         isOpen={showSignup}
         onClose={() => setShowSignup(false)}
         source={currentSource}
+        branchNameCompany={activePage === "branch" ? branchNameCompany : "klusbedrijf"}
       />
       <ContactModal
         isOpen={showContact}
