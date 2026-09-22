@@ -1123,7 +1123,7 @@ const LegalPage = ({
   }, []);
 
   return (
-    <div className="min-h-screen pt-12 pb-20 px-6 max-w-4xl mx-auto">
+    <div className="min-h-[100dvh] pt-12 pb-20 px-6 max-w-4xl mx-auto">
       <button
         onClick={onBack}
         className="flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-8 group"
@@ -1774,7 +1774,7 @@ const PricingShowcaseSlider = ({ branchType }: { branchType?: string }) => {
     },
     {
       title: "Stukadoorsbedrijf Hessels",
-      src: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      src: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=webp&auto=format&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=75&w=800",
       isVideo: false,
       link: "https://stukadoorsbedrijfhessels.nl/"
     },
@@ -2187,7 +2187,7 @@ const handleLoginClick = () => {
   };
 
   return (
-    <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-screen">
+    <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-[100dvh]">
       <Helmet>
         <title>{activePage === 'branch' ? branchData[branchType].metaTitle : "Klusvol | Websites voor vakmensen"}</title>
         <meta name="description" content={activePage === 'branch' ? branchData[branchType].metaDesc : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."} />
@@ -2323,15 +2323,32 @@ const handleLoginClick = () => {
       {(activePage === "home" || activePage === "branch") ? (
         <>
           {/* 1. Hero Section */}
-          <section className="relative pt-32 pb-24 md:pt-60 md:pb-20 px-4 z-10 min-h-screen flex items-center">
+          <section className="relative pt-32 pb-24 md:pt-60 md:pb-20 px-4 z-10 min-h-[100dvh] flex items-center">
             {/* Full Width Hero Background */}
             <div className="absolute inset-0 z-0">
-              <img
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=2000&q=80"
-                alt="Vakwerk"
-                fetchPriority="high"
-                className="w-full h-full object-cover opacity-20"
-              />
+              <picture>
+                <source 
+                  media="(max-width: 640px)" 
+                  type="image/webp"
+                  srcSet="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=640&q=50 1x, https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=1080&q=60 2x" 
+                />
+                <source 
+                  media="(max-width: 1024px)" 
+                  type="image/webp"
+                  srcSet="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=1200&q=65 1x, https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=1600&q=70 2x" 
+                />
+                <source 
+                  type="image/webp"
+                  srcSet="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=2000&q=75 1x, https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=2400&q=80 2x" 
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=2000&q=75"
+                  alt="Vakwerk"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover opacity-20"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/80 via-[#FAF9F6]/95 to-[#FAF9F6]"></div>
             </div>
 
@@ -2475,7 +2492,7 @@ const handleLoginClick = () => {
                     branches: ["schilder", "klusbedrijf"],
                   },
                   {
-                    img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+                    img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=webp&auto=format&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=75&w=800",
                     title: "Stukadoorsbedrijf Hessels",
                     subtitle: "Stukadoorsbedrijf, klant sinds april 2026",
                     link: "https://stukadoorsbedrijfhessels.nl/",

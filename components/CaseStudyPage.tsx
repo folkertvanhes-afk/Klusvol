@@ -40,10 +40,22 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
             
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm flex-shrink-0">
-                <img loading="lazy" decoding="async"                   src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&q=80"
-                  alt="Hoekstra Sprayworks"
-                  className="w-full h-full object-cover"
-                />
+                <picture>
+                  <source
+                    media="(max-width: 640px)"
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=120&q=60 1x, https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=240&q=70 2x"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=200&q=75 1x, https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=400&q=80 2x"
+                  />
+                  <img loading="lazy" decoding="async"
+                    src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=200&q=75"
+                    alt="Hoekstra Sprayworks"
+                    className="w-full h-full object-cover"
+                  />
+                </picture>
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">Hoekstra Sprayworks</h2>
@@ -95,10 +107,22 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
             
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm flex-shrink-0">
-                <img loading="lazy" decoding="async"                   src="https://images.unsplash.com/photo-1504307651254-35680f356f58?w=400&q=80"
-                  alt="Hessels Stukadoors"
-                  className="w-full h-full object-cover"
-                />
+                <picture>
+                  <source
+                    media="(max-width: 640px)"
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1504307651254-35680f356f58?auto=format&fm=webp&w=120&q=60 1x, https://images.unsplash.com/photo-1504307651254-35680f356f58?auto=format&fm=webp&w=240&q=70 2x"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1504307651254-35680f356f58?auto=format&fm=webp&w=200&q=75 1x, https://images.unsplash.com/photo-1504307651254-35680f356f58?auto=format&fm=webp&w=400&q=80 2x"
+                  />
+                  <img loading="lazy" decoding="async"
+                    src="https://images.unsplash.com/photo-1504307651254-35680f356f58?auto=format&fm=webp&w=200&q=75"
+                    alt="Hessels Stukadoors"
+                    className="w-full h-full object-cover"
+                  />
+                </picture>
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">Hessels Stukadoors</h2>

@@ -9,7 +9,29 @@ export const DefaultScreen = () => {
         <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
              {/* Premium Hero Website Look */}
              <div className="absolute inset-0 bg-slate-100">
-                <img fetchPriority="high" decoding="async" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-90" />
+                <picture>
+                  <source 
+                    media="(max-width: 640px)" 
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=360&q=60 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=640&q=65 2x" 
+                  />
+                  <source 
+                    media="(max-width: 1024px)" 
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=500&q=70 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=900&q=75 2x" 
+                  />
+                  <source 
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=1200&q=85 2x" 
+                  />
+                  <img 
+                    fetchPriority="high" 
+                    decoding="async" 
+                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80" 
+                    alt="Hero" 
+                    className="w-full h-full object-cover opacity-90" 
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/20 to-slate-900/80"></div>
              </div>
              
@@ -58,7 +80,29 @@ export const ShowroomScreen = () => {
         <div className="flex flex-col h-full bg-white text-slate-900 font-sans select-none cursor-default relative overflow-hidden">
              {/* Premium Hero Website Look */}
              <div className="absolute top-0 left-0 w-full h-[320px] bg-slate-900">
-                <img fetchPriority="high" decoding="async" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Hero" className="w-full h-full object-cover opacity-60" />
+                <picture>
+                  <source 
+                    media="(max-width: 640px)" 
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=360&q=60 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=640&q=65 2x" 
+                  />
+                  <source 
+                    media="(max-width: 1024px)" 
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=500&q=70 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=900&q=75 2x" 
+                  />
+                  <source 
+                    type="image/webp"
+                    srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=1200&q=85 2x" 
+                  />
+                  <img 
+                    fetchPriority="high" 
+                    decoding="async" 
+                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80" 
+                    alt="Hero" 
+                    className="w-full h-full object-cover opacity-60" 
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-white"></div>
              </div>
              
@@ -97,10 +141,42 @@ export const ShowroomScreen = () => {
 
                      <div className="space-y-4">
                          <div className="h-24 bg-slate-100 rounded-2xl overflow-hidden relative">
-                             <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                             <picture>
+                                <source 
+                                    media="(max-width: 640px)" 
+                                    type="image/webp"
+                                    srcSet="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=240&q=55 1x, https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=420&q=65 2x" 
+                                />
+                                <source 
+                                    media="(max-width: 1024px)" 
+                                    type="image/webp"
+                                    srcSet="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=340&q=70 1x, https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=600&q=75 2x" 
+                                />
+                                <source 
+                                    type="image/webp"
+                                    srcSet="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=400&q=80 1x, https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=800&q=80 2x" 
+                                />
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fm=webp&w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                            </picture>
                          </div>
                          <div className="h-24 bg-slate-100 rounded-2xl overflow-hidden relative">
-                             <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1504307651254-35680f356f27?w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                             <picture>
+                                <source 
+                                    media="(max-width: 640px)" 
+                                    type="image/webp"
+                                    srcSet="https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=240&q=55 1x, https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=420&q=65 2x" 
+                                />
+                                <source 
+                                    media="(max-width: 1024px)" 
+                                    type="image/webp"
+                                    srcSet="https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=340&q=70 1x, https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=600&q=75 2x" 
+                                />
+                                <source 
+                                    type="image/webp"
+                                    srcSet="https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=400&q=80 1x, https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=800&q=80 2x" 
+                                />
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1504307651254-35680f356f27?auto=format&fm=webp&w=400&q=80" alt="Project" className="w-full h-full object-cover" />
+                            </picture>
                          </div>
                      </div>
                  </div>
