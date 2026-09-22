@@ -43,12 +43,10 @@ const FloatingBadge: React.FC<FloatingBadgeProps> = ({ data, isActive, onHover, 
       {/* Badge Card */}
       <motion.div 
         animate={{ 
-            scale: isActive ? 1.05 : 1,
-            y: isActive ? 0 : [0, -5, 0]
+            scale: isActive ? 1.05 : 1
         }}
         transition={{ 
-            scale: { duration: 0.3 },
-            y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: parseFloat(data.animationDelay) }
+            scale: { duration: 0.3 }
         }}
         className={`
         flex flex-col items-center justify-center gap-2 p-3 rounded-xl border backdrop-blur-xl shadow-2xl h-full

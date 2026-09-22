@@ -159,6 +159,7 @@ const useReveal = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -1171,135 +1172,78 @@ const BentoCard = ({
   };
 
   return (
-    <motion.div
+    <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -5, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={`
-        relative overflow-hidden rounded-[2rem] border border-white/40 
+        group relative overflow-hidden rounded-[2rem] border border-white/40 
         bg-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] flex flex-col backdrop-blur-xl
+        hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300
         ${className}
       `}
     >
       {/* Dynamic Spotlight */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-0"
-        animate={{
+      <div
+        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300"
+        style={{
           background: isHovered
             ? `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(249,115,22,0.15), transparent 40%)`
             : `radial-gradient(600px circle at 50% 50%, rgba(249,115,22,0), transparent 40%)`,
         }}
-        transition={{ type: "tween", ease: "linear", duration: 0.2 }}
       />
-
-      {/* Permanent cool glow corner */}
 
       {/* Visual Content */}
       <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center min-h-[140px] z-10">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
-        <motion.div
-          animate={{ scale: isHovered ? 1.05 : 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="w-full h-full flex items-center justify-center"
-        >
+        <div className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
           {visual}
-        </motion.div>
+        </div>
       </div>
 
       {/* Text Content */}
       <div className="relative z-10 p-6 pt-2 md:pt-4 bg-gradient-to-t from-brand-surface/90 to-transparent">
-        <motion.h3
-          animate={{ color: isHovered ? "#F97316" : "#0F172A" }}
-          className="text-sm md:text-base font-bold mb-1 leading-tight"
-        >
+        <h3 className="text-sm md:text-base font-bold mb-1 leading-tight text-slate-900 group-hover:text-brand-orange transition-colors duration-300">
           {title}
-        </motion.h3>
-        <motion.p
-          animate={{ color: isHovered ? "#0F172A" : "#475569" }}
-          className="text-[11px] md:text-xs font-medium leading-relaxed line-clamp-2"
-        >
+        </h3>
+        <p className="text-[11px] md:text-xs font-medium leading-relaxed line-clamp-2 text-slate-600 group-hover:text-slate-900 transition-colors duration-300">
           {description}
-        </motion.p>
+        </p>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-// --- Micro Visual Components (Animated & Interactive) ---
+// --- Micro Visual Components (Lightweight & CSS-driven) ---
 
 const VisualBudget = () => (
   <div className="relative w-full h-full flex flex-col items-center justify-center gap-3 px-4 overflow-hidden">
-    <motion.div
-      initial={{ x: 50, opacity: 0, rotate: 5 }}
-      animate={{ x: -100, opacity: [0, 1, 0], rotate: -5 }}
-      transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-      className="absolute w-4/5 bg-[#FAF9F6] border border-red-500/30 rounded-lg p-2 flex justify-between items-center opacity-50"
-    >
-      <span className="text-[10px] text-red-400 line-through">Klusje: €50</span>
-      <X size={12} className="text-red-500" />
-    </motion.div>
-
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0, y: 20 }}
-      animate={{ scale: 1.05, opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
-      className="w-full bg-brand-orange/10 border border-brand-orange/50 rounded-lg p-3 flex justify-between items-center shadow-[0_0_30px_rgba(249,115,22,0.3)] relative z-10 backdrop-blur-sm"
-    >
+    <div className="w-full bg-brand-orange/10 border border-brand-orange/50 rounded-lg p-3 flex justify-between items-center shadow-[0_0_30px_rgba(249,115,22,0.3)] relative z-10 backdrop-blur-sm">
       <span className="text-xs font-bold text-slate-900">
         Droomklus: €5.000+
       </span>
-      <motion.div
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-      >
-        <Check
-          size={16}
-          className="text-brand-orange drop-shadow-[0_0_5px_rgba(249,115,22,0.8)]"
-          strokeWidth={3}
-        />
-      </motion.div>
-    </motion.div>
+      <Check
+        size={16}
+        className="text-brand-orange drop-shadow-[0_0_5px_rgba(249,115,22,0.8)]"
+        strokeWidth={3}
+      />
+    </div>
   </div>
 );
 
 const VisualRegio = () => (
   <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-    <motion.div
-      animate={{ scale: [1, 2.5], opacity: [0.5, 0] }}
-      transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-      className="absolute w-16 h-16 bg-brand-orange/20 rounded-full"
-    />
-    <motion.div
-      animate={{ scale: [1, 1.5], opacity: [0.8, 0] }}
-      transition={{
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeOut",
-        delay: 0.5,
-      }}
-      className="absolute w-16 h-16 bg-brand-orange/40 rounded-full"
-    />
+    <div className="absolute w-16 h-16 bg-brand-orange/20 rounded-full animate-ping opacity-30" />
     <div className="relative z-10 flex flex-col items-center">
-      <motion.div
-        animate={{ y: [0, -5, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <MapPin
-          size={36}
-          className="text-brand-orange drop-shadow-[0_0_20px_rgba(249,115,22,0.8)]"
-          fill="rgba(249,115,22,0.2)"
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-2 text-[10px] bg-brand-orange/20 text-slate-900 font-bold px-3 py-1 rounded-full border border-brand-orange/50 shadow-[0_0_10px_rgba(249,115,22,0.3)]"
-      >
+      <MapPin
+        size={36}
+        className="text-brand-orange drop-shadow-[0_0_20px_rgba(249,115,22,0.8)]"
+        fill="rgba(249,115,22,0.2)"
+      />
+      <div className="mt-2 text-[10px] bg-brand-orange/20 text-slate-900 font-bold px-3 py-1 rounded-full border border-brand-orange/50 shadow-[0_0_10px_rgba(249,115,22,0.3)]">
         Jouw Regio
-      </motion.div>
+      </div>
     </div>
   </div>
 );
@@ -1307,123 +1251,68 @@ const VisualRegio = () => (
 const VisualKwalificatie = () => (
   <div className="relative w-full h-full flex flex-col items-center justify-center gap-2">
     {[
-      { text: "Complete renovatie", delay: 0 },
-      { text: "Budget akkoord", delay: 0.2 },
-      { text: "Foto's toegevoegd", delay: 0.4 },
+      { text: "Complete renovatie" },
+      { text: "Budget akkoord" },
+      { text: "Foto's toegevoegd" },
     ].map((item, i) => (
-      <motion.div
+      <div
         key={i}
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: item.delay, duration: 0.5 }}
-        className="flex items-center gap-2 w-4/5 bg-slate-100 rounded p-2 border border-slate-300 shadow-lg backdrop-blur-sm"
+        className="flex items-center gap-2 w-4/5 bg-slate-100 rounded p-2 border border-slate-300 shadow-sm backdrop-blur-sm"
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: item.delay + 0.3, type: "spring" }}
-          className="w-4 h-4 rounded-full bg-brand-orange flex items-center justify-center shadow-[0_0_10px_rgba(249,115,22,0.5)]"
-        >
+        <div className="w-4 h-4 rounded-full bg-brand-orange flex items-center justify-center shadow-[0_0_10px_rgba(249,115,22,0.5)]">
           <Check size={10} className="text-slate-900" strokeWidth={3} />
-        </motion.div>
+        </div>
         <div className="text-[10px] font-medium text-slate-900">
           {item.text}
         </div>
-      </motion.div>
+      </div>
     ))}
   </div>
 );
 
 const VisualRust = () => (
   <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-    <motion.div
-      animate={{ rotate: 360 }}
-      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent,rgba(56,189,248,0.1),transparent)]"
-    />
-    <motion.div
-      whileHover={{ scale: 1.1 }}
-      className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/20 to-brand-surface border border-blue-400/30 flex items-center justify-center relative z-10 shadow-[0_0_30px_rgba(56,189,248,0.2)] backdrop-blur-md cursor-pointer"
-    >
-      <motion.div
-        animate={{ rotate: [-5, 5, -5] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Coffee size={32} className="text-slate-500 drop-shadow-lg" />
-      </motion.div>
-      <motion.div
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-brand-dark shadow-[0_0_10px_rgba(34,197,94,0.6)]"
-      />
-    </motion.div>
+    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/20 to-brand-surface border border-blue-400/30 flex items-center justify-center relative z-10 shadow-[0_0_30px_rgba(56,189,248,0.2)] backdrop-blur-md cursor-pointer hover:scale-105 transition-transform duration-300">
+      <Coffee size={32} className="text-slate-500 drop-shadow-lg" />
+      <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-brand-dark shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+    </div>
   </div>
 );
 
 const VisualPremium = () => (
   <div className="relative w-full h-full flex items-center justify-center p-4 perspective-1000">
-    <motion.div
-      initial={{ rotateX: 20, rotateY: -20 }}
-      animate={{ rotateX: [20, 10, 20], rotateY: [-20, -10, -20] }}
-      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      className="w-full h-full bg-gradient-to-br from-slate-900/5 to-slate-900/10 border border-slate-900/10 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden backdrop-blur-md"
-    >
+    <div className="w-full h-full bg-gradient-to-br from-slate-900/5 to-slate-900/10 border border-slate-900/10 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden backdrop-blur-md">
       <div className="h-4 w-full bg-slate-100 flex items-center px-3 gap-1.5 border-b border-slate-200">
         <div className="w-2 h-2 rounded-full bg-red-400/80"></div>
         <div className="w-2 h-2 rounded-full bg-yellow-400/80"></div>
         <div className="w-2 h-2 rounded-full bg-green-400/80"></div>
       </div>
       <div className="flex-1 p-3 flex flex-col gap-3 relative">
-        <motion.div
-          animate={{ width: ["0%", "60%"] }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="h-2 bg-slate-900/20 rounded"
-        />
-        <motion.div
-          animate={{ width: ["0%", "40%"] }}
-          transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-          className="h-2 bg-slate-900/10 rounded"
-        />
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="w-full h-10 bg-gradient-to-r from-brand-orange/20 to-brand-orange/40 rounded border border-brand-orange/50 mt-auto flex items-center justify-center shadow-[0_0_15px_rgba(249,115,22,0.3)]"
-        >
+        <div className="h-2 bg-slate-900/20 rounded w-3/5" />
+        <div className="h-2 bg-slate-900/10 rounded w-2/5" />
+        <div className="w-full h-10 bg-gradient-to-r from-brand-orange/20 to-brand-orange/40 rounded border border-brand-orange/50 mt-auto flex items-center justify-center shadow-[0_0_15px_rgba(249,115,22,0.3)]">
           <span className="text-[8px] font-bold text-slate-900 uppercase tracking-wider">
             Premium Design
           </span>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   </div>
 );
 
 const VisualGeenGezeur = () => (
   <div className="relative w-full h-full flex items-center justify-center">
-    <motion.div
-      animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full"
-    />
-    <motion.div
-      whileHover={{ scale: 1.2, rotate: 5 }}
-      className="relative z-10 cursor-pointer"
-    >
+    <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full opacity-40" />
+    <div className="relative z-10 cursor-pointer hover:scale-110 transition-transform duration-300">
       <ShieldCheck
         size={56}
         strokeWidth={1.5}
         className="text-emerald-400 drop-shadow-[0_0_25px_rgba(52,211,153,0.6)]"
       />
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, type: "spring" }}
-        className="absolute -bottom-2 -right-2 bg-[#FAF9F6] rounded-full p-1 border border-emerald-500/50"
-      >
+      <div className="absolute -bottom-2 -right-2 bg-[#FAF9F6] rounded-full p-1 border border-emerald-500/50">
         <Check size={12} className="text-emerald-400" strokeWidth={4} />
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   </div>
 );
 
@@ -1793,12 +1682,13 @@ const PricingShowcaseSlider = ({ branchType }: { branchType?: string }) => {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    if (showcases.length <= 1) return;
     const timer = setInterval(
       () => setIdx((v) => (v + 1) % showcases.length),
       4000,
     );
     return () => clearInterval(timer);
-  }, []);
+  }, [showcases.length]);
 
   return (
     <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 h-full min-h-[240px] group">
@@ -1856,7 +1746,7 @@ const InteractiveSteps = ({ branchNameCompany = "klusbedrijf" }: { branchNameCom
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    if (isHovering) return;
+    if (isHovering || (typeof window !== "undefined" && window.innerWidth < 768)) return;
     const timer = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % stepsData.length);
     }, 3000);
@@ -2149,7 +2039,7 @@ function App() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -2198,26 +2088,20 @@ const handleLoginClick = () => {
         {/* Subtle Textural Grid */}
         
 
-        {/* Pulsing Warm Orange Glow Top Right (Primary Highlight) */}
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.08, 0.15, 0.08], x: [0, -20, 0], y: [0, 30, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-brand-orange blur-[200px] rounded-full pointer-events-none"
-        ></motion.div>
+        {/* Warm Orange Glow Top Right (Primary Highlight) */}
+        <div
+          className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-brand-orange blur-[200px] rounded-full pointer-events-none opacity-10"
+        ></div>
 
         {/* Soft Warm Grey Glow Bottom Left */}
-        <motion.div
-          animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.4, 0.3] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[-15%] left-[-15%] w-[900px] h-[900px] bg-[#E8E6E1] blur-[150px] rounded-full pointer-events-none"
-        ></motion.div>
+        <div
+          className="absolute bottom-[-15%] left-[-15%] w-[900px] h-[900px] bg-[#E8E6E1] blur-[150px] rounded-full pointer-events-none opacity-30"
+        ></div>
 
         {/* Subtle Warm Highlight Center */}
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.03, 0.06, 0.03], x: [0, 30, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-          className="absolute top-[30%] left-[20%] w-[600px] h-[600px] bg-amber-500 blur-[180px] rounded-full pointer-events-none"
-        ></motion.div>
+        <div
+          className="absolute top-[30%] left-[20%] w-[600px] h-[600px] bg-amber-500 blur-[180px] rounded-full pointer-events-none opacity-5"
+        ></div>
 
         {/* Noise Overlay for texture */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.06] mix-blend-overlay"></div>
@@ -2357,10 +2241,7 @@ const handleLoginClick = () => {
               <div className="order-2 min-[1200px]:order-1 relative z-20 text-center min-[1200px]:text-left">
                 {/* Hero ambient glow behind text */}
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
+                <div
                   className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#FAF9F6] border border-slate-200 text-brand-orange text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-10 backdrop-blur-md hover:border-brand-orange/50 hover:bg-brand-orange/5 transition-all duration-300 cursor-default"
                 >
                   <span className="relative flex h-2 w-2">
@@ -2368,12 +2249,9 @@ const handleLoginClick = () => {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
                   </span>
                   {activePage === "branch" ? `Speciaal voor ${branchNamePlural} in Nederland` : "Speciaal voor klusbedrijven in Nederland"}
-                </motion.div>
+                </div>
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                <h1
                   className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tighter leading-[1.05] text-balance"
                 >
                   {activePage === "branch" ? (
@@ -2381,21 +2259,15 @@ const handleLoginClick = () => {
                   ) : (
                     <>Jouw vakwerk verdient een{" "}<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-600 block mt-2">strakke website</span></>
                   )}
-                </motion.h1>
+                </h1>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                <p
                   className="text-base sm:text-lg lg:text-xl text-slate-600 mb-10 max-w-3xl mx-auto min-[1200px]:mx-0 leading-relaxed font-light relative z-10"
                 >
                   {activePage === "branch" ? branchData[branchType].subtext : (<><span className="lg:hidden">Voor schilders, hoveniers, stukadoors, loodgieters en klusbedrijven in heel Nederland.</span><span className="hidden lg:inline">Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland.</span></>)}
-                </motion.p>
+                </p>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                <div
                   className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center min-[1200px]:justify-start items-center relative z-10"
                 >
                   <Button
@@ -2413,29 +2285,20 @@ const handleLoginClick = () => {
                       className="group-hover:translate-x-1 transition-transform"
                     />
                   </Button>
-                </motion.div>
+                </div>
               </div>
 
               {/* Phone Visual */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateY: 15 }}
-                animate={{ opacity: 1, scale: 0.9, rotateY: 0 }}
-                transition={{ duration: 1.5, delay: 0.4, ease: "easeOut" }}
+              <div
                 className="hidden min-[1200px]:flex relative min-[1200px]:h-[550px] w-full items-center justify-center order-1 min-[1200px]:order-2 mt-8 min-[1200px]:mt-0 perspective-1000"
               >
                 {/* Backing Glow behind phone - WARM ORANGE now to match branding */}
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
+                <div
                   className="relative z-20 transform transition-transform duration-500 hover:rotate-y-0"
                 >
                   <InteractivePhoneHero />
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -2518,12 +2381,8 @@ const handleLoginClick = () => {
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto mb-16">
                     {filteredPortfolio.map((item, i) => (
-                      <motion.div
+                      <div
                         key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
                         className="group relative flex flex-col items-center"
                       >
                         <a
@@ -2568,7 +2427,7 @@ const handleLoginClick = () => {
                             </div>
                           </div>
                         </a>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 );

@@ -46,14 +46,14 @@ const InteractivePhoneHero = () => {
   const currentIndexRef = useRef(0);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1200);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || isMobile) return;
     
     const delay = currentIndexRef.current === 0 ? 6000 : 3000;
     const timeout = setTimeout(() => {
@@ -63,7 +63,7 @@ const InteractivePhoneHero = () => {
     }, delay);
     
     return () => clearTimeout(timeout);
-  }, [isAutoPlaying, activeScreen]);
+  }, [isAutoPlaying, activeScreen, isMobile]);
 
   const handleManualInteraction = (id: AppState) => {
     setIsAutoPlaying(false); // Stop autoplay on interaction
