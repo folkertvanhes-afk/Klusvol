@@ -51,9 +51,9 @@ export const branchData: Record<string, { title: string, subtext: string, faqs: 
 
 import { motion } from "motion/react";
 import InteractivePhoneHero from "./components/InteractivePhoneHero";
-const Chatbot = React.lazy(() => import("./components/Chatbot"));
-const AboutPage = React.lazy(() => import("./components/AboutPage")); // IMPORT ADDED
-const CaseStudyPage = React.lazy(() => import("./components/CaseStudyPage"));
+import Chatbot from "./components/Chatbot";
+import AboutPage from "./components/AboutPage";
+import CaseStudyPage from "./components/CaseStudyPage";
 import {
   CheckCircle2,
   ArrowRight,
