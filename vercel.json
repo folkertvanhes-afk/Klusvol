@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/over-klusvol",
+      "permanent": true
+    },
+    {
+      "source": "/cases",
+      "destination": "/projecten",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacyverklaring",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/algemene-voorwaarden",
+      "permanent": true
+    }
+  ]
+}

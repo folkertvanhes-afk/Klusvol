@@ -12,10 +12,10 @@ const ROUTES = [
   '/website-stukadoor',
   '/website-hovenier',
   '/website-klusbedrijf',
-  '/about',
-  '/cases',
-  '/privacy',
-  '/terms',
+  '/over-klusvol',
+  '/projecten',
+  '/privacyverklaring',
+  '/algemene-voorwaarden',
 ];
 
 async function prerender() {

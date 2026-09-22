@@ -2023,10 +2023,10 @@ function App() {
 
   let activePage = "home";
   let branchType = "";
-  if (pathname === "/privacy") activePage = "privacy";
-  else if (pathname === "/terms") activePage = "terms";
-  else if (pathname === "/about") activePage = "about";
-  else if (pathname === "/cases") activePage = "cases";
+  if (pathname === "/privacyverklaring" || pathname === "/privacy") activePage = "privacyverklaring";
+  else if (pathname === "/algemene-voorwaarden" || pathname === "/terms") activePage = "algemene-voorwaarden";
+  else if (pathname === "/over-klusvol" || pathname === "/about") activePage = "over-klusvol";
+  else if (pathname === "/projecten" || pathname === "/cases") activePage = "projecten";
   else if (pathname.startsWith("/website-")) {
     const possibleBranch = pathname.replace("/website-", "");
     if (branchData[possibleBranch]) {
@@ -2052,14 +2052,30 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (pathname === "/about") {
+      navigate("/over-klusvol", { replace: true });
+    } else if (pathname === "/cases") {
+      navigate("/projecten", { replace: true });
+    } else if (pathname === "/privacy") {
+      navigate("/privacyverklaring", { replace: true });
+    } else if (pathname === "/terms") {
+      navigate("/algemene-voorwaarden", { replace: true });
+    }
+  }, [pathname, navigate]);
+
   const navigateTo = (
-    page: "home" | "privacy" | "terms" | "about" | "cases",
+    page: "home" | "privacy" | "terms" | "about" | "cases" | "over-klusvol" | "projecten" | "privacyverklaring" | "algemene-voorwaarden",
     sectionId?: string,
   ) => {
     setMobileMenuOpen(false);
     
     let path = "/";
-    if (page !== "home") path = `/${page}`;
+    if (page === "over-klusvol" || page === "about") path = "/over-klusvol";
+    else if (page === "projecten" || page === "cases") path = "/projecten";
+    else if (page === "privacyverklaring" || page === "privacy") path = "/privacyverklaring";
+    else if (page === "algemene-voorwaarden" || page === "terms") path = "/algemene-voorwaarden";
+    else if (page !== "home") path = `/${page}`;
     navigate(path);
 
     if (page === "home" && sectionId) {
@@ -2088,9 +2104,40 @@ const handleLoginClick = () => {
   return (
     <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-[100dvh]">
       <Helmet>
-        <title>{activePage === 'branch' ? branchData[branchType].metaTitle : "Klusvol | Websites voor vakmensen"}</title>
-        <meta name="description" content={activePage === 'branch' ? branchData[branchType].metaDesc : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."} />
+        <title>
+          {activePage === 'branch'
+            ? branchData[branchType].metaTitle
+            : activePage === 'over-klusvol'
+            ? "Over Klusvol | Jouw online fundament voor vakmensen"
+            : activePage === 'projecten'
+            ? "Projecten & Klantcases | Klusvol"
+            : activePage === 'privacyverklaring'
+            ? "Privacyverklaring | Klusvol"
+            : activePage === 'algemene-voorwaarden'
+            ? "Algemene Voorwaarden | Klusvol"
+            : "Klusvol | Websites voor vakmensen"}
+        </title>
+        <meta
+          name="description"
+          content={
+            activePage === 'branch'
+              ? branchData[branchType].metaDesc
+              : activePage === 'over-klusvol'
+              ? "Maak kennis met Folkert van Hes en Klusvol. Wij bouwen no-nonsense, professionele websites voor vakmensen in heel Nederland."
+              : activePage === 'projecten'
+              ? "Bekijk de resultaten en projecten van vakmensen die kozen voor een Klusvol website. Van onzichtbaar naar een stabiele stroom aanvragen."
+              : activePage === 'privacyverklaring'
+              ? "Privacyverklaring van Klusvol. Lees hoe wij omgaan met persoonsgegevens en de privacy van onze klanten en websitebezoekers waarborgen."
+              : activePage === 'algemene-voorwaarden'
+              ? "Algemene voorwaarden van Klusvol voor de ontwikkeling, hosting en het onderhoud van websites voor vakmensen."
+              : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."
+          }
+        />
         {activePage === 'branch' && <link rel="canonical" href={`https://klusvol.nl/website-${branchType}`} />}
+        {activePage === 'over-klusvol' && <link rel="canonical" href="https://klusvol.nl/over-klusvol" />}
+        {activePage === 'projecten' && <link rel="canonical" href="https://klusvol.nl/projecten" />}
+        {activePage === 'privacyverklaring' && <link rel="canonical" href="https://klusvol.nl/privacyverklaring" />}
+        {activePage === 'algemene-voorwaarden' && <link rel="canonical" href="https://klusvol.nl/algemene-voorwaarden" />}
       </Helmet>
       {/* Background - Warm, Ambachtelijk met Focus op Oranje */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-gradient-to-br from-[#FAF9F6] via-[#F6F4EE] to-[#FFF3E6] flex items-center justify-center">
@@ -2146,7 +2193,7 @@ const handleLoginClick = () => {
               </button>
               {/* NEW: Over ons added to desktop menu */}
               <button
-                onClick={() => navigateTo("about")}
+                onClick={() => navigateTo("over-klusvol")}
                 className="text-sm font-medium text-slate-600 hover:text-slate-900 hover:text-brand-orange transition-colors duration-300"
               >
                 Over mij
@@ -2193,7 +2240,7 @@ const handleLoginClick = () => {
               </button>
               {/* NEW: Over ons added to mobile menu */}
               <button
-                onClick={() => navigateTo("about")}
+                onClick={() => navigateTo("over-klusvol")}
                 className="text-slate-800 text-lg font-medium text-left"
               >
                 Over mij
@@ -2807,7 +2854,7 @@ const handleLoginClick = () => {
                   </div>
                   <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
                     <Button
-                      onClick={() => navigateTo("about")}
+                      onClick={() => navigateTo("over-klusvol")}
                       variant="ghost"
                       className="w-full sm:w-auto text-brand-orange hover:bg-brand-orange/10 font-bold"
                     >
@@ -2927,7 +2974,7 @@ const handleLoginClick = () => {
                 <ul className="space-y-4">
                   {/* <li>
                     <button
-                      onClick={() => navigateTo("cases")}
+                      onClick={() => navigateTo("projecten")}
                       className="hover:text-brand-orange transition-colors"
                     >
                       Klantcases
@@ -2967,7 +3014,7 @@ const handleLoginClick = () => {
                 <ul className="space-y-4">
                   <li>
                     <button
-                      onClick={() => navigateTo("about")}
+                      onClick={() => navigateTo("over-klusvol")}
                       className="hover:text-brand-orange transition-colors"
                     >
                       Over mij
@@ -3001,7 +3048,7 @@ const handleLoginClick = () => {
                 <ul className="space-y-4">
                   <li>
                     <button
-                      onClick={() => navigateTo("privacy")}
+                      onClick={() => navigateTo("privacyverklaring")}
                       className="hover:text-brand-orange transition-colors"
                     >
                       Privacybeleid
@@ -3009,7 +3056,7 @@ const handleLoginClick = () => {
                   </li>
                   <li>
                     <button
-                      onClick={() => navigateTo("terms")}
+                      onClick={() => navigateTo("algemene-voorwaarden")}
                       className="hover:text-brand-orange transition-colors"
                     >
                       Algemene Voorwaarden
@@ -3029,7 +3076,7 @@ const handleLoginClick = () => {
             </div>
           </footer>
         </>
-      ) : activePage === "privacy" ? (
+      ) : activePage === "privacyverklaring" ? (
         <LegalPage
           title="Privacybeleid"
           content={
@@ -3053,7 +3100,7 @@ const handleLoginClick = () => {
           }
           onBack={() => navigateTo("home")}
         />
-      ) : activePage === "terms" ? (
+      ) : activePage === "algemene-voorwaarden" ? (
         <LegalPage
           title="Algemene Voorwaarden"
           content={
@@ -3071,7 +3118,7 @@ const handleLoginClick = () => {
           }
           onBack={() => navigateTo("home")}
         />
-      ) : activePage === "cases" ? (
+      ) : activePage === "projecten" ? (
         <CaseStudyPage
           onBack={() => navigateTo("home")}
           onCta={() => openContact("Koffie Afspraak - Case Studies")}
