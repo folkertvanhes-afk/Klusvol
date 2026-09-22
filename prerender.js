@@ -81,13 +81,20 @@ async function prerender() {
         pageHtml = pageHtml.replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>\n?/, '');
       }
 
-      // 4. Inject prerendered App HTML into <div id="root">
+      // 4. Clean hoisted head/SEO tags from App HTML so they are NOT duplicated inside <div id="root">
+      const cleanRootHtml = appHtml
+        .replace(/<title[\s\S]*?<\/title>/gi, '')
+        .replace(/<meta\s+name=["']description["'][^>]*\/?>/gi, '')
+        .replace(/<link\s+rel=["']canonical["'][^>]*\/?>/gi, '')
+        .replace(/<link\s+rel=["']preload["'][^>]*\/?>/gi, '');
+
+      // 5. Inject prerendered App HTML into <div id="root">
       pageHtml = pageHtml.replace(
         '<div id="root"></div>',
-        `<div id="root">${appHtml}</div>`
+        `<div id="root">${cleanRootHtml}</div>`
       );
 
-      // 5. Determine output file path
+      // 6. Determine output file path
       let outPath;
       if (route === '/') {
         outPath = path.resolve(distDir, 'index.html');
