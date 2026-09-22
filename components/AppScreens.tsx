@@ -25,7 +25,7 @@ export const DefaultScreen = () => {
                     srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=1200&q=85 2x" 
                   />
                   <img 
-                    fetchPriority="high" 
+                    loading="lazy"
                     decoding="async" 
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80" 
                     alt="Hero" 
@@ -96,7 +96,7 @@ export const ShowroomScreen = () => {
                     srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80 1x, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=1200&q=85 2x" 
                   />
                   <img 
-                    fetchPriority="high" 
+                    loading="lazy"
                     decoding="async" 
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fm=webp&w=800&q=80" 
                     alt="Hero" 

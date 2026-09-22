@@ -59,7 +59,7 @@ const AboutPage = ({
     <div className="min-h-screen pt-24 pb-20 px-4 md:px-6 max-w-7xl mx-auto animate-fade-in relative z-10 font-sans">
       {/* Background Texture Overlay */}
       <div className="fixed inset-0 pointer-events-none z-[-1]"></div>
-      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none z-0"></div>
+      <div className="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none z-0"></div>
 
       {/* Navigation */}
       <button
@@ -101,7 +101,9 @@ const AboutPage = ({
               <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md border border-white/20 shadow-xl p-3 md:p-4 rounded-2xl">
                 <div className="flex items-center gap-3">
                   <img
-                    src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696d28a4e125efc1200fd25c.png"
+                    src="/logo.webp"
+                    width={40}
+                    height={40}
                     className="h-10 w-10 object-contain rounded-xl border border-slate-100 bg-white p-1"
                     loading="lazy"
                     alt="Klusvol Logo"

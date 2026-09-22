@@ -240,11 +240,20 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
     onClick={onClick}
     className={`flex items-center gap-2.5 font-bold text-xl tracking-tight group select-none ${onClick ? "cursor-pointer" : ""}`}
   >
-    <img fetchPriority="high" decoding="async"       src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696d28a4e125efc1200fd25c.png"
+    <img
+      decoding="async"
+      src="/logo.webp"
       alt="Klusvol"
+      width={40}
+      height={40}
       className="h-10 w-10 object-contain rounded-xl"
       onError={(e) => {
-        e.currentTarget.style.display = "none";
+        const target = e.currentTarget;
+        if (target.src.endsWith('/logo.webp')) {
+          target.src = '/logo-120.png';
+          return;
+        }
+        target.style.display = "none";
         document.getElementById("fallback-logo")?.classList.remove("hidden");
         document.getElementById("fallback-logo")?.classList.add("flex");
       }}
@@ -379,7 +388,7 @@ const ContactModal = ({
 
         {/* Left Side: Premium Context OR Contact Details */}
         <div className="w-full md:w-[45%] bg-white p-6 md:p-12 flex flex-col justify-between relative overflow-hidden shrink-0">
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay"></div>
 
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-slate-200 backdrop-blur-md mb-6 md:mb-10">
@@ -998,7 +1007,7 @@ const SignupModal = ({
 
               {/* THE MEMBERSHIP CARD */}
               <div className="relative w-full max-w-sm h-52 bg-[#FAF9F6] border border-slate-200 rounded-2xl overflow-hidden shadow-2xl group flex flex-col p-6 relative">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
                 <div className="flex justify-between items-start z-10 mb-auto">
                   <div className="flex items-center gap-3">
@@ -1196,7 +1205,7 @@ const BentoCard = ({
 
       {/* Visual Content */}
       <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center min-h-[140px] z-10">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
         <div className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
           {visual}
         </div>
@@ -1593,7 +1602,7 @@ const InteractiveUSPs = () => {
             }`}
           >
             {/* Background Grain */}
-            <div className={`absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay ${isActive ? 'block' : 'hidden'}`}></div>
+            <div className={`absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02] mix-blend-overlay ${isActive ? 'block' : 'hidden'}`}></div>
             
             {/* Color Glow */}
 
@@ -2104,7 +2113,7 @@ const handleLoginClick = () => {
         ></div>
 
         {/* Noise Overlay for texture */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.06] mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.06] mix-blend-overlay"></div>
       </div>
 
       {/* Navbar - Intelligent Scroll - VISIBLE ON ALL PAGES */}
@@ -2214,22 +2223,20 @@ const handleLoginClick = () => {
                 <source 
                   media="(max-width: 640px)" 
                   type="image/webp"
-                  srcSet="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=640&q=50 1x, https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=1080&q=60 2x" 
+                  srcSet="/hero/hero-mobile.webp" 
                 />
                 <source 
-                  media="(max-width: 1024px)" 
+                  media="(min-width: 641px)" 
                   type="image/webp"
-                  srcSet="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=1200&q=65 1x, https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=1600&q=70 2x" 
-                />
-                <source 
-                  type="image/webp"
-                  srcSet="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=2000&q=75 1x, https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=2400&q=80 2x" 
+                  srcSet="/hero/hero-desktop.webp" 
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fm=webp&w=2000&q=75"
+                  src="/hero/hero-mobile.webp"
                   alt="Vakwerk"
                   fetchPriority="high"
                   decoding="async"
+                  width={640}
+                  height={800}
                   className="w-full h-full object-cover opacity-20"
                 />
               </picture>
@@ -2867,7 +2874,7 @@ const handleLoginClick = () => {
             className="py-32 relative overflow-hidden"
             background={
               <>
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
                 {/* Dynamic glows */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-orange/30 to-transparent"></div>
               </>
