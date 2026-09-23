@@ -3098,42 +3098,625 @@ const handleLoginClick = () => {
           content={
             <div className="space-y-6">
               <p>
-                Bij Klusvol nemen we jouw privacy serieus. We verwerken
-                persoonsgegevens enkel voor het doel waarvoor ze zijn verstrekt.
+                Klusvol gaat zorgvuldig om met persoonsgegevens. In deze
+                privacyverklaring leggen we uit welke gegevens we verwerken,
+                waarom we dat doen en welke rechten je hebt.
               </p>
-              <h2 className="text-xl font-bold text-slate-900 pt-2">1. Gegevens die we verzamelen</h2>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                1. Wie is verantwoordelijk?
+              </h2>
               <p>
-                We verzamelen naam, e-mailadres, telefoonnummer en
-                bedrijfsgegevens om onze dienst te kunnen leveren.
+                Klusvol is verantwoordelijk voor de verwerking van
+                persoonsgegevens zoals beschreven in deze privacyverklaring.
               </p>
-              <h2 className="text-xl font-bold text-slate-900 pt-2">2. Hoe we gegevens gebruiken</h2>
+              <p className="leading-relaxed">
+                Klusvol<br />
+                KvK: 94035202<br />
+                E-mail: info@klusvol.nl<br />
+                Gevestigd in Haren, Groningen
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                2. Welke persoonsgegevens verwerken we?
+              </h2>
               <p>
-                Om je account in te richten, facturen te sturen en contact op te
-                nemen voor support.
+                Klusvol verwerkt alleen persoonsgegevens die nodig zijn voor
+                contact, dienstverlening en administratie.
               </p>
-              <p>...</p>
+              <p>Het kan bijvoorbeeld gaan om:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>naam;</li>
+                <li>bedrijfsnaam;</li>
+                <li>e-mailadres;</li>
+                <li>telefoonnummer;</li>
+                <li>
+                  informatie die je zelf aan ons verstrekt via e-mail of
+                  WhatsApp;
+                </li>
+                <li>
+                  gegevens die nodig zijn voor offertes, overeenkomsten en
+                  facturatie.
+                </li>
+              </ul>
+              <p>
+                Op Klusvol.nl staat op dit moment geen contactformulier. Contact
+                verloopt rechtstreeks via e-mail of WhatsApp.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                3. Waarom verwerken we deze gegevens?
+              </h2>
+              <p>Wij gebruiken persoonsgegevens onder andere om:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>vragen te beantwoorden;</li>
+                <li>contact op te nemen over onze dienstverlening;</li>
+                <li>offertes en afspraken te maken;</li>
+                <li>
+                  websites en bijbehorende diensten te leveren en beheren;
+                </li>
+                <li>
+                  facturen te versturen en onze administratie bij te houden;
+                </li>
+                <li>te voldoen aan wettelijke verplichtingen.</li>
+              </ul>
+              <p>
+                Voor iedere verwerking moet een geldige grondslag bestaan,
+                bijvoorbeeld omdat de verwerking nodig is voor een overeenkomst,
+                een wettelijke verplichting of een gerechtvaardigd belang.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                4. Cookies en analytics
+              </h2>
+              <p>
+                Klusvol.nl gebruikt op dit moment geen Google Analytics,
+                trackingcookies of andere marketingcookies.
+              </p>
+              <p>
+                Wanneer dit in de toekomst verandert, passen we deze
+                privacyverklaring aan en treffen we waar nodig aanvullende
+                maatregelen rondom toestemming en informatie.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                5. Delen van persoonsgegevens
+              </h2>
+              <p>Wij verkopen persoonsgegevens niet.</p>
+              <p>
+                Gegevens kunnen alleen worden gedeeld met partijen die nodig
+                zijn om onze diensten uit te voeren, bijvoorbeeld voor e-mail,
+                hosting, administratie of andere technische dienstverlening.
+              </p>
+              <p>Wij delen niet meer gegevens dan noodzakelijk.</p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                6. Bewaartermijnen
+              </h2>
+              <p>
+                Wij bewaren persoonsgegevens niet langer dan nodig is voor het
+                doel waarvoor ze zijn verzameld, tenzij wij gegevens langer
+                moeten bewaren vanwege een wettelijke verplichting.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                7. Beveiliging
+              </h2>
+              <p>
+                Klusvol neemt passende maatregelen om persoonsgegevens te
+                beschermen tegen verlies, onbevoegde toegang of ongewenste
+                openbaarmaking.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                8. Jouw privacyrechten
+              </h2>
+              <p>Je kunt onder andere vragen om:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>inzage in je persoonsgegevens;</li>
+                <li>correctie van onjuiste gegevens;</li>
+                <li>verwijdering van gegevens;</li>
+                <li>beperking van de verwerking;</li>
+                <li>bezwaar tegen bepaalde verwerkingen;</li>
+                <li>
+                  overdracht van gegevens wanneer dat recht van toepassing is.
+                </li>
+              </ul>
+              <p>Voor een verzoek kun je mailen naar info@klusvol.nl.</p>
+              <p>
+                Je hebt daarnaast het recht om een klacht in te dienen bij de
+                Autoriteit Persoonsgegevens.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                9. Wijzigingen
+              </h2>
+              <p>
+                Klusvol kan deze privacyverklaring aanpassen wanneer onze
+                dienstverlening of manier van gegevensverwerking verandert.
+              </p>
+              <p className="text-sm text-slate-500 pt-4">
+                Laatste wijziging: 23 september 2026.
+              </p>
             </div>
           }
-          placeholderText="Privacyverklaring wordt momenteel aangevuld."
           onBack={() => navigateTo("home")}
         />
       ) : activePage === "algemene-voorwaarden" ? (
         <LegalPage
-          title="Algemene Voorwaarden"
+          title="Algemene voorwaarden Klusvol"
           content={
             <div className="space-y-6">
+              <p className="text-sm font-semibold text-slate-500">
+                Versie: 23 september 2026
+              </p>
               <p>
-                Op alle diensten van Klusvol zijn deze voorwaarden van
+                Deze algemene voorwaarden zijn van toepassing op diensten van
+                Klusvol. Klusvol levert haar diensten in beginsel uitsluitend aan
+                zakelijke klanten.
+              </p>
+              <p className="leading-relaxed">
+                Klusvol<br />
+                KvK: 94035202<br />
+                E-mail: info@klusvol.nl<br />
+                Gevestigd in Haren, Groningen
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                1. Definities
+              </h2>
+              <p>In deze voorwaarden wordt verstaan onder:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>
+                  Klusvol: de aanbieder van websites en aanverwante digitale
+                  diensten.
+                </li>
+                <li>
+                  Klant: de onderneming of zakelijke opdrachtgever die een
+                  overeenkomst met Klusvol aangaat.
+                </li>
+                <li>
+                  Overeenkomst: de opdrachtbevestiging, offerte of andere
+                  schriftelijk vastgelegde afspraak tussen Klusvol en de klant.
+                </li>
+                <li>
+                  Website: de website die Klusvol voor de klant ontwikkelt,
+                  beheert of host.
+                </li>
+                <li>
+                  Aanvullende diensten: afzonderlijk overeengekomen diensten
+                  zoals SEO, lokale landingspagina’s, Google Ads,
+                  campagnebeheer of andere marketingwerkzaamheden.
+                </li>
+              </ul>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                2. Toepasselijkheid
+              </h2>
+              <p>
+                Deze algemene voorwaarden gelden voor alle offertes,
+                overeenkomsten, werkzaamheden en diensten van Klusvol, tenzij
+                schriftelijk anders is afgesproken.
+              </p>
+              <p>
+                Afspraken die specifiek in een offerte of opdrachtbevestiging
+                staan, gaan bij strijdigheid voor op deze algemene voorwaarden.
+              </p>
+              <p>
+                Klusvol richt haar dienstverlening op zakelijke klanten. Indien
+                uitdrukkelijk een overeenkomst met een consument wordt
+                gesloten, kunnen aanvullende wettelijke consumentenrechten van
+                toepassing zijn.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                3. Totstandkoming van de overeenkomst
+              </h2>
+              <p>
+                Een overeenkomst komt tot stand nadat de klant een offerte of
+                opdrachtbevestiging schriftelijk of elektronisch heeft
+                geaccepteerd, of wanneer Klusvol na instemming van de klant met
+                de werkzaamheden begint.
+              </p>
+              <p>
+                De inhoud van de opdrachtbevestiging bepaalt welke diensten,
+                prijzen, eventuele eenmalige kosten en aanvullende afspraken
+                voor de betreffende klant gelden.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                4. Website-abonnement en minimale looptijd
+              </h2>
+              <p>
+                Tenzij schriftelijk anders overeengekomen bedraagt het
+                website-abonnement €69 per maand exclusief btw.
+              </p>
+              <p>
+                Voor nieuwe overeenkomsten geldt een minimale looptijd van 24
+                maanden.
+              </p>
+              <p>
+                De startdatum wordt vastgelegd in de opdrachtbevestiging. Indien
+                geen afzonderlijke startdatum is overeengekomen, geldt de datum
+                waarop de website wordt opgeleverd of live wordt geplaatst als
+                startdatum van het abonnement.
+              </p>
+              <p>
+                Na afloop van de eerste 24 maanden loopt het abonnement voor
+                onbepaalde tijd door en kan het door beide partijen worden
+                opgezegd met een opzegtermijn van één maand.
+              </p>
+              <p>
+                Opzegging tijdens de minimale looptijd beëindigt de
+                betalingsverplichting over de resterende minimale looptijd niet,
+                tenzij Klusvol schriftelijk anders akkoord gaat.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                5. Bouwkosten en acties
+              </h2>
+              <p>
+                Voor de ontwikkeling van een website kan Klusvol eenmalige
+                bouw- of opstartkosten rekenen.
+              </p>
+              <p>
+                Wanneer in de opdrachtbevestiging expliciet een actie, korting
+                of referentieproject met €0 opstartkosten wordt vermeld,
+                vervallen uitsluitend de daar genoemde eenmalige bouwkosten.
+              </p>
+              <p>
+                Een korting of het vervallen van opstartkosten verandert de
+                minimale looptijd en overige betalingsverplichtingen niet.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                6. Hosting, technisch beheer en kleine wijzigingen
+              </h2>
+              <p>Het basisabonnement omvat, tenzij anders overeengekomen:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>hosting van de website;</li>
+                <li>technisch beheer en onderhoud;</li>
+                <li>kleine wijzigingen aan bestaande pagina’s;</li>
+                <li>
+                  ondersteuning bij normale wijzigingen aan contactgegevens,
+                  teksten of afbeeldingen.
+                </li>
+              </ul>
+              <p>
+                Onder kleine wijzigingen wordt in beginsel maximaal 30 minuten
+                uitvoerwerk per maand verstaan.
+              </p>
+              <p>
+                Niet-gebruikte tijd wordt niet meegenomen naar een volgende
+                maand.
+              </p>
+              <p>Onder kleine wijzigingen vallen niet:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>nieuwe pagina’s of uitgebreide nieuwe onderdelen;</li>
+                <li>een volledig nieuw ontwerp;</li>
+                <li>nieuwe functionaliteiten;</li>
+                <li>uitgebreide tekstproductie;</li>
+                <li>SEO-trajecten;</li>
+                <li>het maken van meerdere lokale SEO-pagina’s;</li>
+                <li>advertentiecampagnes;</li>
+                <li>omvangrijke technische aanpassingen.</li>
+              </ul>
+              <p>
+                Voor werkzaamheden buiten het abonnement maakt Klusvol vooraf
+                een afzonderlijke afspraak of prijsopgave.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                7. Technische uitvoering en platform
+              </h2>
+              <p>
+                Klusvol bepaalt hoe een website technisch wordt gebouwd en welke
+                software, hostingomgeving, systemen, frameworks of externe
+                platforms daarvoor worden gebruikt, tenzij in de
+                opdrachtbevestiging uitdrukkelijk een specifieke techniek is
+                afgesproken.
+              </p>
+              <p>
+                Een website van Klusvol hoeft daarom niet in WordPress of een
+                ander specifiek CMS te zijn gebouwd, tenzij dit expliciet
+                schriftelijk is overeengekomen.
+              </p>
+              <p>
+                Klusvol mag voor haar dienstverlening gebruikmaken van software
+                en diensten van derden.
+              </p>
+              <p>
+                Wijzigingen, storingen of beperkingen bij dergelijke externe
+                diensten kunnen invloed hebben op de website. Klusvol zal zich
+                in dat geval redelijkerwijs inspannen om problemen te beperken
+                of op te lossen.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                8. Domeinnaam, content en intellectueel eigendom
+              </h2>
+              <p>
+                De klant blijft eigenaar van eigen bedrijfsinformatie, logo’s,
+                foto’s, teksten en andere materialen die door de klant worden
+                aangeleverd.
+              </p>
+              <p>
+                Een domeinnaam wordt waar mogelijk op naam van de klant
+                geregistreerd. Klusvol mag het technische beheer daarvan
+                uitvoeren zolang de dienstverlening loopt.
+              </p>
+              <p>
+                Klusvol behoudt de rechten op eigen ontwerpen, templates,
+                componenten, code, technische systemen, processen en andere
+                herbruikbare onderdelen, voor zover deze niet specifiek en
+                exclusief aan de klant zijn overgedragen.
+              </p>
+              <p>
+                Licenties en rechten van externe softwareleveranciers blijven
+                bij de betreffende rechthebbenden.
+              </p>
+              <p>
+                De klant garandeert dat aangeleverde teksten, foto’s, logo’s en
+                andere materialen mogen worden gebruikt en geen rechten van
+                derden schenden.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                9. Overdracht na beëindiging
+              </h2>
+              <p>
+                Na het volledig afronden van de minimale looptijd van 24
+                maanden en nadat alle openstaande bedragen zijn betaald, werkt
+                Klusvol op verzoek redelijkerwijs mee aan de overdracht van de
+                domeinnaam en de eigen content van de klant.
+              </p>
+              <p>
+                Waar technisch mogelijk kan Klusvol een bruikbare export van de
+                website of websitecontent beschikbaar stellen.
+              </p>
+              <p>
+                Een overdracht betekent niet automatisch dat onderliggende
+                Klusvol-templates, herbruikbare broncode, frameworks, interne
+                systemen, accounts of licenties van externe platforms worden
+                overgedragen.
+              </p>
+              <p>
+                Wanneer de gebruikte technische omgeving geen volledige
+                één-op-één export ondersteunt, kan Klusvol niet garanderen dat
+                de website zonder aanpassingen bij een andere aanbieder kan
+                worden voortgezet.
+              </p>
+              <p>
+                Eventuele aanvullende werkzaamheden voor migratie of
+                ondersteuning kunnen afzonderlijk in rekening worden gebracht.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                10. Aanvullende SEO- en advertentiediensten
+              </h2>
+              <p>
+                SEO, lokale SEO-pagina’s, Google Ads, campagnebeheer en
+                vergelijkbare marketingdiensten maken uitsluitend deel uit van de
+                overeenkomst indien deze afzonderlijk zijn overeengekomen.
+              </p>
+              <p>
+                De prijs, looptijd en eventuele eenmalige setupkosten van zulke
+                diensten worden vastgelegd in de betreffende
+                opdrachtbevestiging.
+              </p>
+              <p>
+                Tenzij uitdrukkelijk anders afgesproken, is advertentiebudget
+                voor Google Ads of andere advertentieplatforms niet inbegrepen
+                in de vergoeding van Klusvol.
+              </p>
+              <p>
+                Het advertentiebudget wordt afzonderlijk door de klant betaald.
+              </p>
+              <p>
+                Klusvol kan werkzaamheden uitvoeren om online zichtbaarheid,
+                advertentieprestaties en conversies te verbeteren, maar kan geen
+                specifieke resultaten garanderen.
+              </p>
+              <p>Klusvol geeft daarom geen garantie op:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>een bepaalde positie in Google of andere zoekmachines;</li>
+                <li>een bepaald aantal vertoningen of klikken;</li>
+                <li>een bepaald aantal aanvragen of leads;</li>
+                <li>een bepaalde omzet;</li>
+                <li>een bepaald type of omvang van opdrachten;</li>
+                <li>een bepaald rendement op advertentiebudget.</li>
+              </ul>
+              <p>
+                Zoekmachines en advertentieplatforms bepalen hun eigen
+                algoritmes, veilingen en weergave van resultaten en kunnen deze
+                wijzigen.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                11. Verplichtingen van de klant
+              </h2>
+              <p>
+                De klant verstrekt tijdig alle informatie, toegang, teksten,
+                afbeeldingen en andere gegevens die noodzakelijk zijn voor
+                uitvoering van de overeenkomst.
+              </p>
+              <p>
+                De klant is verantwoordelijk voor de juistheid en rechtmatigheid
+                van aangeleverde informatie en geeft waar nodig tijdig feedback
+                of goedkeuring.
+              </p>
+              <p>
+                Vertraging die ontstaat doordat noodzakelijke informatie of
+                medewerking van de klant ontbreekt, komt niet voor rekening van
+                Klusvol.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                12. Betaling
+              </h2>
+              <p>
+                Periodieke abonnementskosten worden in beginsel vooraf per maand
+                in rekening gebracht.
+              </p>
+              <p>
+                Facturen hebben, tenzij anders vermeld, een betalingstermijn van
+                14 dagen.
+              </p>
+              <p>
+                Wanneer de klant niet tijdig betaalt, kan Klusvol na een
+                herinnering en een redelijke mogelijkheid tot betaling de
+                dienstverlening geheel of gedeeltelijk opschorten.
+              </p>
+              <p>
+                Klusvol zal een website niet direct na het verstrijken van de
+                eerste betaaltermijn definitief verwijderen.
+              </p>
+              <p>
+                Bij betalingsachterstand kan Klusvol, voor zover wettelijk
+                toegestaan, aanspraak maken op wettelijke handelsrente en
+                redelijke buitengerechtelijke incassokosten.
+              </p>
+              <p>
+                Opschorting wegens betalingsachterstand ontslaat de klant niet
+                van bestaande betalingsverplichtingen.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                13. Beschikbaarheid, onderhoud en overmacht
+              </h2>
+              <p>
+                Klusvol spant zich in om websites en diensten goed beschikbaar
+                en technisch onderhouden te houden.
+              </p>
+              <p>
+                Een ononderbroken beschikbaarheid van 100% kan niet worden
+                gegarandeerd.
+              </p>
+              <p>
+                Tijdelijke onbeschikbaarheid door onderhoud, technische
+                storingen, internetproviders, hostingbedrijven,
+                softwareleveranciers, advertentieplatforms of andere
+                omstandigheden buiten de redelijke invloed van Klusvol geeft
+                niet automatisch recht op schadevergoeding.
+              </p>
+              <p>
+                Bij overmacht worden verplichtingen van Klusvol opgeschort
+                zolang de overmachtssituatie voortduurt.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                14. Aansprakelijkheid
+              </h2>
+              <p>
+                Klusvol voert haar werkzaamheden naar beste kunnen en met
+                redelijke zorg uit.
+              </p>
+              <p>
+                Klusvol is niet aansprakelijk voor indirecte schade zoals gemiste
+                omzet, gemiste opdrachten, winstderving of gevolgschade, voor
+                zover deze beperking wettelijk is toegestaan.
+              </p>
+              <p>
+                Klusvol is evenmin aansprakelijk voor resultaten die afhankelijk
+                zijn van derden, zoekmachines, advertentieplatforms, wijzigingen
+                in algoritmes of door de klant verstrekte onjuiste of
+                onrechtmatige informatie.
+              </p>
+              <p>
+                Indien Klusvol ondanks het voorgaande aansprakelijk is voor
+                directe schade, is de aansprakelijkheid voor zover wettelijk
+                toegestaan beperkt tot het bedrag dat de klant gedurende de zes
+                maanden voorafgaand aan het schadeveroorzakende voorval voor de
+                betreffende dienst aan Klusvol heeft betaald.
+              </p>
+              <p>
+                Deze beperkingen gelden niet indien schade het gevolg is van
+                opzet of bewuste roekeloosheid van Klusvol en voor zover
+                beperking wettelijk niet is toegestaan.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                15. Privacy
+              </h2>
+              <p>
+                Klusvol verwerkt persoonsgegevens overeenkomstig de
+                privacyverklaring op Klusvol.nl.
+              </p>
+              <p>
+                Wanneer Klusvol in opdracht van de klant persoonsgegevens
+                verwerkt en daarvoor wettelijk een afzonderlijke
+                verwerkersovereenkomst nodig is, kunnen partijen hierover
+                aanvullende afspraken maken.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                16. Wijziging van de dienstverlening
+              </h2>
+              <p>
+                Klusvol mag haar dienstverlening technisch aanpassen of
+                verbeteren, zolang de kern van de overeengekomen dienstverlening
+                daardoor niet wezenlijk wordt verminderd.
+              </p>
+              <p>
+                Prijswijzigingen gedurende de eerste minimale looptijd gelden
+                alleen wanneer dit vooraf is overeengekomen of noodzakelijk is
+                als gevolg van wijzigingen in belastingen of rechtstreeks
+                doorbelaste kosten van derden.
+              </p>
+              <p>
+                Na de minimale looptijd kan Klusvol tarieven aanpassen. De klant
+                wordt daarover vooraf geïnformeerd.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                17. Beëindiging
+              </h2>
+              <p>
+                Na afloop van de minimale contractperiode kan de overeenkomst
+                worden opgezegd met een opzegtermijn van één maand.
+              </p>
+              <p>
+                Klusvol kan de overeenkomst geheel of gedeeltelijk beëindigen of
+                opschorten wanneer de klant ernstig tekortschiet in zijn
+                verplichtingen en, waar herstel mogelijk is, na een redelijke
+                termijn geen herstel plaatsvindt.
+              </p>
+              <p>
+                Openstaande betalingsverplichtingen blijven na beëindiging
+                bestaan.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                18. Toepasselijk recht en geschillen
+              </h2>
+              <p>
+                Op overeenkomsten met Klusvol is Nederlands recht van
                 toepassing.
               </p>
-              <h2 className="text-xl font-bold text-slate-900 pt-2">1. Definities</h2>
-              <p>Klusvol: de gebruiker van deze algemene voorwaarden...</p>
-              <h2 className="text-xl font-bold text-slate-900 pt-2">2. Toepasselijkheid</h2>
-              <p>Deze voorwaarden zijn van toepassing op ieder aanbod...</p>
-              <p>...</p>
+              <p>Partijen proberen een geschil eerst onderling op te lossen.</p>
+              <p>
+                Wanneer dat niet lukt, wordt het geschil voorgelegd aan de
+                bevoegde Nederlandse rechter, voor zover dwingend recht niet
+                anders bepaalt.
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
+                19. Wijzigingen van deze voorwaarden
+              </h2>
+              <p>Klusvol kan deze algemene voorwaarden aanpassen.</p>
+              <p>
+                Voor een reeds lopende minimale contractperiode worden
+                wezenlijke nadeligere wijzigingen niet zonder instemming van de
+                klant toegepast, tenzij een wijziging noodzakelijk is vanwege
+                wetgeving of andere omstandigheden die Klusvol redelijkerwijs
+                niet kan vermijden.
+              </p>
+              <p>De meest actuele versie is beschikbaar via Klusvol.nl.</p>
+              <p className="text-sm text-slate-500 pt-4">
+                Laatste wijziging: 23 september 2026.
+              </p>
             </div>
           }
-          placeholderText="Algemene voorwaarden worden momenteel aangevuld."
           onBack={() => navigateTo("home")}
         />
       ) : activePage === "projecten" ? (

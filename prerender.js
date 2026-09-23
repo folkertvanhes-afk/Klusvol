@@ -2,21 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
+import { getPrerenderRoutes, generateSitemapXml, getSitemapUrls } from './routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const ROUTES = [
-  '/',
-  '/website-schilder',
-  '/website-stukadoor',
-  '/website-hovenier',
-  '/website-klusbedrijf',
-  '/over-klusvol',
-  '/projecten',
-  '/privacyverklaring',
-  '/algemene-voorwaarden',
-];
+const ROUTES = getPrerenderRoutes();
 
 async function prerender() {
   console.log('--- Starting Klusvol Static Prerendering (SSG) ---');
@@ -138,6 +129,12 @@ async function prerender() {
   } catch (err) {
     // Ignore cleanup errors
   }
+
+  // Generate dist/sitemap.xml from central route configuration
+  const sitemapXml = generateSitemapXml();
+  const sitemapPath = path.resolve(distDir, 'sitemap.xml');
+  fs.writeFileSync(sitemapPath, sitemapXml, 'utf-8');
+  console.log(`\nGenerated dist/sitemap.xml with ${getSitemapUrls().length} canonical URLs.`);
 
   console.log('\n=== PRERENDER SUMMARY ===');
   console.table(results);
