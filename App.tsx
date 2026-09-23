@@ -1122,10 +1122,12 @@ const SignupModal = ({
 const LegalPage = ({
   title,
   content,
+  placeholderText,
   onBack,
 }: {
   title: string;
   content: React.ReactNode;
+  placeholderText?: string;
   onBack: () => void;
 }) => {
   useEffect(() => {
@@ -1133,24 +1135,37 @@ const LegalPage = ({
   }, []);
 
   return (
-    <div className="min-h-[100dvh] pt-12 pb-20 px-6 max-w-4xl mx-auto">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-8 group"
-      >
-        <ChevronLeft
-          size={20}
-          className="group-hover:-translate-x-1 transition-transform"
-        />{" "}
-        Terug naar home
-      </button>
-      <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-12">
-        {title}
-      </h1>
-      <div className="prose prose-invert prose-lg text-slate-600 max-w-none">
-        {content}
+    <main className="min-h-screen pt-32 pb-24 relative z-10 font-sans">
+      <div className="max-w-4xl mx-auto px-6">
+        <button
+          onClick={onBack}
+          className="group flex items-center gap-2 text-slate-500 hover:text-brand-orange mb-8 transition-colors cursor-pointer"
+        >
+          <span className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center group-hover:border-brand-orange/30 shadow-sm transition-all duration-300">
+            <ChevronLeft size={16} />
+          </span>
+          <span className="font-medium text-sm">Terug naar home</span>
+        </button>
+
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-8 tracking-tight leading-[1.1]">
+          {title}
+        </h1>
+
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 md:p-12 mb-12">
+          <div className="space-y-6 text-slate-600 text-base md:text-lg leading-relaxed">
+            {content}
+          </div>
+
+          {placeholderText && (
+            <div className="mt-8 pt-8 border-t border-slate-100">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-700 text-base font-medium">
+                {placeholderText}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
@@ -2020,15 +2035,16 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
+  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
 
   let activePage = "home";
   let branchType = "";
-  if (pathname === "/privacyverklaring" || pathname === "/privacy") activePage = "privacyverklaring";
-  else if (pathname === "/algemene-voorwaarden" || pathname === "/terms") activePage = "algemene-voorwaarden";
-  else if (pathname === "/over-klusvol" || pathname === "/about") activePage = "over-klusvol";
-  else if (pathname === "/projecten" || pathname === "/cases") activePage = "projecten";
-  else if (pathname.startsWith("/website-")) {
-    const possibleBranch = pathname.replace("/website-", "");
+  if (normalizedPath === "/privacyverklaring" || normalizedPath === "/privacy") activePage = "privacyverklaring";
+  else if (normalizedPath === "/algemene-voorwaarden" || normalizedPath === "/terms") activePage = "algemene-voorwaarden";
+  else if (normalizedPath === "/over-klusvol" || normalizedPath === "/about") activePage = "over-klusvol";
+  else if (normalizedPath === "/projecten" || normalizedPath === "/cases") activePage = "projecten";
+  else if (normalizedPath.startsWith("/website-")) {
+    const possibleBranch = normalizedPath.replace("/website-", "");
     if (branchData[possibleBranch]) {
       activePage = "branch";
       branchType = possibleBranch;
@@ -3051,7 +3067,7 @@ const handleLoginClick = () => {
                       onClick={() => navigateTo("privacyverklaring")}
                       className="hover:text-brand-orange transition-colors"
                     >
-                      Privacybeleid
+                      Privacyverklaring
                     </button>
                   </li>
                   <li>
@@ -3078,19 +3094,19 @@ const handleLoginClick = () => {
         </>
       ) : activePage === "privacyverklaring" ? (
         <LegalPage
-          title="Privacybeleid"
+          title="Privacyverklaring"
           content={
             <div className="space-y-6">
               <p>
                 Bij Klusvol nemen we jouw privacy serieus. We verwerken
                 persoonsgegevens enkel voor het doel waarvoor ze zijn verstrekt.
               </p>
-              <h3>1. Gegevens die we verzamelen</h3>
+              <h2 className="text-xl font-bold text-slate-900 pt-2">1. Gegevens die we verzamelen</h2>
               <p>
                 We verzamelen naam, e-mailadres, telefoonnummer en
                 bedrijfsgegevens om onze dienst te kunnen leveren.
               </p>
-              <h3>2. Hoe we gegevens gebruiken</h3>
+              <h2 className="text-xl font-bold text-slate-900 pt-2">2. Hoe we gegevens gebruiken</h2>
               <p>
                 Om je account in te richten, facturen te sturen en contact op te
                 nemen voor support.
@@ -3098,6 +3114,7 @@ const handleLoginClick = () => {
               <p>...</p>
             </div>
           }
+          placeholderText="Privacyverklaring wordt momenteel aangevuld."
           onBack={() => navigateTo("home")}
         />
       ) : activePage === "algemene-voorwaarden" ? (
@@ -3109,13 +3126,14 @@ const handleLoginClick = () => {
                 Op alle diensten van Klusvol zijn deze voorwaarden van
                 toepassing.
               </p>
-              <h3>1. Definities</h3>
+              <h2 className="text-xl font-bold text-slate-900 pt-2">1. Definities</h2>
               <p>Klusvol: de gebruiker van deze algemene voorwaarden...</p>
-              <h3>2. Toepasselijkheid</h3>
+              <h2 className="text-xl font-bold text-slate-900 pt-2">2. Toepasselijkheid</h2>
               <p>Deze voorwaarden zijn van toepassing op ieder aanbod...</p>
               <p>...</p>
             </div>
           }
+          placeholderText="Algemene voorwaarden worden momenteel aangevuld."
           onBack={() => navigateTo("home")}
         />
       ) : activePage === "projecten" ? (
