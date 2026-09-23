@@ -210,6 +210,7 @@ const Button = ({
   variant = "primary",
   className = "",
   onClick,
+  to,
   ...props
 }: any) => {
   const baseStyle =
@@ -223,10 +224,20 @@ const Button = ({
       "border border-slate-200 text-slate-700 hover:bg-[#FAF9F6] hover:border-brand-orange/50 hover:text-brand-orange",
     ghost: "bg-transparent text-slate-600 hover:text-slate-900",
   };
+  const classes = `${baseStyle} ${variants[variant as keyof typeof variants]} ${className}`;
+
+  if (to) {
+    return (
+      <Link to={to} onClick={onClick} className={classes} {...props}>
+        {children}
+      </Link>
+    );
+  }
+
   return (
     <button
       onClick={onClick}
-      className={`${baseStyle} ${variants[variant as keyof typeof variants]} ${className}`}
+      className={classes}
       {...props}
     >
       {children}
@@ -236,9 +247,10 @@ const Button = ({
 
 // --- Logo Component ---
 const Logo = ({ onClick }: { onClick?: () => void }) => (
-  <div
+  <Link
+    to="/"
     onClick={onClick}
-    className={`flex items-center gap-2.5 font-bold text-xl tracking-tight group select-none ${onClick ? "cursor-pointer" : ""}`}
+    className="flex items-center gap-2.5 font-bold text-xl tracking-tight group select-none cursor-pointer"
   >
     <img
       decoding="async"
@@ -269,7 +281,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
     <span className="text-slate-900 text-2xl group-hover:text-brand-orange transition-colors duration-300">
       Klusvol
     </span>
-  </div>
+  </Link>
 );
 
 // --- CONTACT MODAL (VIP Strategy Session) ---
@@ -1137,15 +1149,16 @@ const LegalPage = ({
   return (
     <main className="min-h-screen pt-32 pb-24 relative z-10 font-sans">
       <div className="max-w-4xl mx-auto px-6">
-        <button
+        <Link
+          to="/"
           onClick={onBack}
-          className="group flex items-center gap-2 text-slate-500 hover:text-brand-orange mb-8 transition-colors cursor-pointer"
+          className="group inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange mb-8 transition-colors cursor-pointer"
         >
           <span className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center group-hover:border-brand-orange/30 shadow-sm transition-all duration-300">
             <ChevronLeft size={16} />
           </span>
           <span className="font-medium text-sm">Terug naar home</span>
-        </button>
+        </Link>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-8 tracking-tight leading-[1.1]">
           {title}
@@ -1988,43 +2001,91 @@ const SectorSection = () => {
       </p>
       <div className="flex flex-col gap-4 relative mask-gradient-x">
         <div className="flex w-max animate-scroll gap-4 hover:[animation-play-state:paused]">
-          {row1.map((sector, i) => (
-            <div
-              key={i}
-              className="group px-5 py-2.5 rounded-full bg-white border border-slate-200 flex items-center gap-3 cursor-default whitespace-nowrap hover:bg-brand-orange/10 hover:border-brand-orange/50 transition-all duration-300 shadow-sm"
-            >
-              <sector.icon
-                size={16}
-                className="text-slate-600 group-hover:text-brand-orange transition-colors"
-              />
-              <span className="font-medium text-slate-800 text-sm group-hover:text-slate-900 transition-colors">
-                {sector.label}
-              </span>
-            </div>
-          ))}
+          {row1.map((sector, i) => {
+            const hasUrl = Boolean(sector.url);
+
+            return hasUrl ? (
+              <Link
+                key={i}
+                to={sector.url!}
+                className="group px-5 py-2.5 rounded-full bg-white border border-slate-200 flex items-center gap-3 cursor-pointer whitespace-nowrap hover:bg-brand-orange/10 hover:border-brand-orange/50 transition-all duration-300 shadow-sm"
+              >
+                <sector.icon
+                  size={16}
+                  className="text-slate-600 group-hover:text-brand-orange transition-colors"
+                />
+                <span className="font-medium text-slate-800 text-sm group-hover:text-slate-900 transition-colors">
+                  {sector.label}
+                </span>
+              </Link>
+            ) : (
+              <div
+                key={i}
+                className="group px-5 py-2.5 rounded-full bg-white border border-slate-200 flex items-center gap-3 cursor-default whitespace-nowrap hover:bg-brand-orange/10 hover:border-brand-orange/50 transition-all duration-300 shadow-sm"
+              >
+                <sector.icon
+                  size={16}
+                  className="text-slate-600 group-hover:text-brand-orange transition-colors"
+                />
+                <span className="font-medium text-slate-800 text-sm group-hover:text-slate-900 transition-colors">
+                  {sector.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
         <div className="flex w-max animate-scroll-reverse gap-4 hover:[animation-play-state:paused]">
-          {row2.map((sector, i) => (
-            <div
-              key={i}
-              className="group px-5 py-2.5 rounded-full bg-white border border-slate-200 flex items-center gap-3 cursor-default whitespace-nowrap hover:bg-brand-orange/10 hover:border-brand-orange/50 transition-all duration-300 shadow-sm"
-            >
-              <sector.icon
-                size={16}
-                className="text-slate-600 group-hover:text-brand-orange transition-colors"
-              />
-              <span className="font-medium text-slate-800 text-sm group-hover:text-slate-900 transition-colors">
-                {sector.label}
-              </span>
-            </div>
-          ))}
+          {row2.map((sector, i) => {
+            const hasUrl = Boolean(sector.url);
+
+            return hasUrl ? (
+              <Link
+                key={i}
+                to={sector.url!}
+                className="group px-5 py-2.5 rounded-full bg-white border border-slate-200 flex items-center gap-3 cursor-pointer whitespace-nowrap hover:bg-brand-orange/10 hover:border-brand-orange/50 transition-all duration-300 shadow-sm"
+              >
+                <sector.icon
+                  size={16}
+                  className="text-slate-600 group-hover:text-brand-orange transition-colors"
+                />
+                <span className="font-medium text-slate-800 text-sm group-hover:text-slate-900 transition-colors">
+                  {sector.label}
+                </span>
+              </Link>
+            ) : (
+              <div
+                key={i}
+                className="group px-5 py-2.5 rounded-full bg-white border border-slate-200 flex items-center gap-3 cursor-default whitespace-nowrap hover:bg-brand-orange/10 hover:border-brand-orange/50 transition-all duration-300 shadow-sm"
+              >
+                <sector.icon
+                  size={16}
+                  className="text-slate-600 group-hover:text-brand-orange transition-colors"
+                />
+                <span className="font-medium text-slate-800 text-sm group-hover:text-slate-900 transition-colors">
+                  {sector.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </Section>
   );
 };
 
+// --- ScrollToTop Component ---
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
+  return null;
+};
 
 // --- Main App Component ---
 
@@ -2119,6 +2180,7 @@ const handleLoginClick = () => {
 
   return (
     <div className="bg-[#FAF9F6] text-slate-900 font-sans overflow-x-hidden selection:bg-brand-orange/30 min-h-[100dvh]">
+      <ScrollToTop />
       <Helmet>
         <title>
           {activePage === 'branch'
@@ -2149,11 +2211,50 @@ const handleLoginClick = () => {
               : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."
           }
         />
+        {activePage === 'home' && <link rel="canonical" href="https://klusvol.nl/" />}
         {activePage === 'branch' && <link rel="canonical" href={`https://klusvol.nl/website-${branchType}`} />}
         {activePage === 'over-klusvol' && <link rel="canonical" href="https://klusvol.nl/over-klusvol" />}
         {activePage === 'projecten' && <link rel="canonical" href="https://klusvol.nl/projecten" />}
         {activePage === 'privacyverklaring' && <link rel="canonical" href="https://klusvol.nl/privacyverklaring" />}
         {activePage === 'algemene-voorwaarden' && <link rel="canonical" href="https://klusvol.nl/algemene-voorwaarden" />}
+        {activePage === 'home' && (
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://klusvol.nl/#organization",
+                  "name": "Klusvol",
+                  "url": "https://klusvol.nl/",
+                  "logo": "https://klusvol.nl/logo.webp",
+                  "email": "info@klusvol.nl",
+                  "description": "Klusvol bouwt en beheert websites voor vakmensen en kleine vakbedrijven in Nederland.",
+                  "areaServed": "Nederland",
+                  "founder": {
+                    "@type": "Person",
+                    "name": "Folkert van Hes"
+                  },
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Haren",
+                    "addressRegion": "Groningen",
+                    "addressCountry": "NL"
+                  }
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://klusvol.nl/#website",
+                  "name": "Klusvol",
+                  "url": "https://klusvol.nl/",
+                  "publisher": {
+                    "@id": "https://klusvol.nl/#organization"
+                  }
+                }
+              ]
+            })}
+          </script>
+        )}
       </Helmet>
       {/* Background - Warm, Ambachtelijk met Focus op Oranje */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-gradient-to-br from-[#FAF9F6] via-[#F6F4EE] to-[#FFF3E6] flex items-center justify-center">
@@ -2208,12 +2309,12 @@ const handleLoginClick = () => {
                 Prijzen
               </button>
               {/* NEW: Over ons added to desktop menu */}
-              <button
-                onClick={() => navigateTo("over-klusvol")}
+              <Link
+                to="/over-klusvol"
                 className="text-sm font-medium text-slate-600 hover:text-slate-900 hover:text-brand-orange transition-colors duration-300"
               >
                 Over mij
-              </button>
+              </Link>
               <Button
                 onClick={() =>
                   window.open("https://wa.me/31643411427", "_blank")
@@ -2255,12 +2356,13 @@ const handleLoginClick = () => {
                 Prijzen
               </button>
               {/* NEW: Over ons added to mobile menu */}
-              <button
-                onClick={() => navigateTo("over-klusvol")}
+              <Link
+                to="/over-klusvol"
+                onClick={() => setMobileMenuOpen(false)}
                 className="text-slate-800 text-lg font-medium text-left"
               >
                 Over mij
-              </button>
+              </Link>
               <Button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -2400,120 +2502,162 @@ const handleLoginClick = () => {
 
           {/* 3.5 Vakwerk Showcase & Target Audience */}
           <div className="border-t border-slate-100">
-            <Section id="ons-vakwerk" className="!pb-0 md:!pb-0">
-              <div className="max-w-4xl mx-auto text-center mb-16">
-                <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
-                  Ons Vakwerk
-                </span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-slate-900">
-                  Websites die werken voor vakmensen
-                </h2>
-                <p className="text-lg text-slate-600 font-light">
-                  Bekijk websites die ik voor andere vakmensen heb gebouwd.
-                </p>
-              </div>
+            {(() => {
+              const filteredPortfolio = [
+              {
+                media:
+                  "https://assets.cdn.filesafe.space/UMBYqC3d2lb9GmvTCMc4/media/69ce1f3335c728284fc0c22e.mp4",
+                isVideo: true,
+                title: "Hoekstra Sprayworks",
+                subtitle: "Spuiterij, klant sinds maart 2026",
+                link: "https://hoekstrasprayworks.nl",
+                branches: ["schilder", "klusbedrijf"],
+              },
+              {
+                img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=webp&auto=format&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=75&w=800",
+                title: "Stukadoorsbedrijf Hessels",
+                subtitle: "Stukadoorsbedrijf, klant sinds april 2026",
+                link: "https://stukadoorsbedrijfhessels.nl/",
+                branches: ["stukadoor", "klusbedrijf"],
+              },
+              {
+                img: "https://assets.cdn.filesafe.space/v2mZBfrhSs3uFVZENKQy/media/6a394e3928e2dab9ea39174b.webp",
+                title: "Stukadoorsbedrijf Jeffrey Green",
+                subtitle: "Stukadoor, klant sinds augustus 2026",
+                link: "https://stukadoorjeffreygreen.nl",
+                branches: ["stukadoor", "klusbedrijf"],
+              },
+            ].filter(item => activePage !== 'branch' || item.branches.includes(branchType));
 
-              {(() => {
-                const filteredPortfolio = [
-                  {
-                    media:
-                      "https://assets.cdn.filesafe.space/UMBYqC3d2lb9GmvTCMc4/media/69ce1f3335c728284fc0c22e.mp4",
-                    isVideo: true,
-                    title: "Hoekstra Sprayworks",
-                    subtitle: "Spuiterij, klant sinds maart 2026",
-                    link: "https://hoekstrasprayworks.nl",
-                    branches: ["schilder", "klusbedrijf"],
-                  },
-                  {
-                    img: "https://images.unsplash.com/photo-1625585598750-3535fe40efb3?crop=entropy&cs=tinysrgb&fit=max&fm=webp&auto=format&ixid=M3wyNzQ4Mjd8MHwxfHNlYXJjaHwxOHx8bWluaW1hbCUyMGludGVyaW9yfGVufDB8fHx8MTc3MTk1MTM4Mnww&ixlib=rb-4.1.0&q=75&w=800",
-                    title: "Stukadoorsbedrijf Hessels",
-                    subtitle: "Stukadoorsbedrijf, klant sinds april 2026",
-                    link: "https://stukadoorsbedrijfhessels.nl/",
-                    branches: ["stukadoor", "klusbedrijf"],
-                  },
-                  {
-                    img: "https://assets.cdn.filesafe.space/v2mZBfrhSs3uFVZENKQy/media/6a394e3928e2dab9ea39174b.webp",
-                    title: "Stukadoorsbedrijf Jeffrey Green",
-                    subtitle: "Stukadoor, klant sinds augustus 2026",
-                    link: "https://stukadoorjeffreygreen.nl",
-                    branches: ["stukadoor", "klusbedrijf"],
-                  },
-                ].filter(item => activePage !== 'branch' || item.branches.includes(branchType));
+            const isSingleCase = filteredPortfolio.length === 1;
 
-                if (filteredPortfolio.length === 0) {
-                  return (
-                    <div className="max-w-4xl mx-auto text-center mb-16 py-12 bg-white rounded-3xl border border-slate-200 shadow-sm">
-                      <p className="text-xl text-slate-600 font-medium">Binnenkort de eerste {branchNameSingular} case</p>
-                    </div>
-                  );
-                }
-
-                return (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto mb-16">
-                    {filteredPortfolio.map((item, i) => (
-                      <div
-                        key={i}
-                        className="group relative flex flex-col items-center"
-                      >
-                        <a
-                          href={item.link || "#"}
-                          target={item.link ? "_blank" : undefined}
-                          rel="noopener noreferrer"
-                          className="block w-full relative cursor-pointer"
-                        >
-                          <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 aspect-[4/3] border border-slate-200">
-                            {item.isVideo ? (
-                              <video
-                                src={item.media}
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              />
-                            ) : (
-                              <img
-                                src={item.img}
-                                alt={item.title}
-                                loading="lazy"
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-6 md:p-8">
-                              <h3 className="font-bold text-white text-xl md:text-2xl mb-1 drop-shadow-md">
-                                {item.title}
-                              </h3>
-                              {item.subtitle && (
-                                <p className="text-sm text-slate-300 font-medium mb-4 drop-shadow-md">
-                                  {item.subtitle}
-                                </p>
-                              )}
-                              {!item.subtitle && <div className="mb-4"></div>}
-                              <div className="overflow-hidden">
-                                <span className="inline-flex items-center gap-2 text-brand-orange font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                  Bekijk Live Site <ArrowRight size={16} />
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </a>
+            const renderCaseCard = (item: (typeof filteredPortfolio)[0], key?: number | string) => (
+              <div
+                key={key}
+                className="group relative flex flex-col items-center w-full"
+              >
+                <a
+                  href={item.link || "#"}
+                  target={item.link ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="block w-full relative cursor-pointer"
+                >
+                  <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 aspect-[4/3] border border-slate-200">
+                    {item.isVideo ? (
+                      <video
+                        src={item.media}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-6 md:p-8">
+                      <h3 className="font-bold text-white text-xl md:text-2xl mb-1 drop-shadow-md">
+                        {item.title}
+                      </h3>
+                      {item.subtitle && (
+                        <p className="text-sm text-slate-300 font-medium mb-4 drop-shadow-md">
+                          {item.subtitle}
+                        </p>
+                      )}
+                      {!item.subtitle && <div className="mb-4"></div>}
+                      <div className="overflow-hidden">
+                        <span className="inline-flex items-center gap-2 text-brand-orange font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                          Bekijk Live Site <ArrowRight size={16} />
+                        </span>
                       </div>
-                    ))}
+                    </div>
                   </div>
-                );
-              })()}
-              <div className="flex justify-center mt-4 md:-mt-8 mb-12 w-full relative z-10">
-                {activePage === "branch" && (
-                  <Button
-                    onClick={() => navigateTo("home", "ons-vakwerk")}
-                    variant="outline"
-                    className="inline-flex w-auto bg-white/50 backdrop-blur-sm"
-                  >
-                    Bekijk meer klanten uit andere branches
-                  </Button>
-                )}
+                </a>
               </div>
-            </Section>
+            );
+
+            return (
+              <Section id="ons-vakwerk" className="!pb-0 md:!pb-0">
+                  <div className="max-w-4xl mx-auto text-center mb-16">
+                    <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
+                      {isSingleCase ? "ONS VAKWERK" : "Ons Vakwerk"}
+                    </span>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-slate-900">
+                      {isSingleCase
+                        ? "Een website die werkt voor vakmensen"
+                        : "Websites die werken voor vakmensen"}
+                    </h2>
+                    <p className="text-lg text-slate-600 font-light">
+                      {isSingleCase
+                        ? "Bekijk een website die ik voor een vakbedrijf heb gebouwd."
+                        : "Bekijk websites die ik voor andere vakmensen heb gebouwd."}
+                    </p>
+                  </div>
+
+                  {filteredPortfolio.length === 0 ? (
+                    <>
+                      <div className="max-w-4xl mx-auto text-center mb-16 py-12 bg-white rounded-3xl border border-slate-200 shadow-sm">
+                        <p className="text-xl text-slate-600 font-medium">Binnenkort de eerste {branchNameSingular} case</p>
+                      </div>
+                      <div className="flex justify-center mt-4 md:-mt-8 mb-12 w-full relative z-10">
+                        {activePage === "branch" && (
+                          <Button
+                            onClick={() => navigateTo("home", "ons-vakwerk")}
+                            variant="outline"
+                            className="inline-flex w-auto bg-white/50 backdrop-blur-sm"
+                          >
+                            Bekijk meer klanten uit andere branches
+                          </Button>
+                        )}
+                      </div>
+                    </>
+                  ) : isSingleCase ? (
+                    <div className="max-w-xl md:max-w-2xl mx-auto mb-16">
+                      {renderCaseCard(filteredPortfolio[0])}
+                      {activePage === "branch" && (
+                        <div className="flex justify-center mt-10 w-full relative z-10">
+                          <Button
+                            onClick={() => navigateTo("home", "ons-vakwerk")}
+                            variant="outline"
+                            className="inline-flex w-auto bg-white/50 backdrop-blur-sm"
+                          >
+                            Bekijk meer klanten uit andere branches
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <>
+                      <div
+                        className={
+                          filteredPortfolio.length === 2
+                            ? "grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto mb-16"
+                            : "grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto mb-16"
+                        }
+                      >
+                        {filteredPortfolio.map((item, i) => renderCaseCard(item, i))}
+                      </div>
+                      <div className="flex justify-center mt-4 md:-mt-8 mb-12 w-full relative z-10">
+                        {activePage === "branch" && (
+                          <Button
+                            onClick={() => navigateTo("home", "ons-vakwerk")}
+                            variant="outline"
+                            className="inline-flex w-auto bg-white/50 backdrop-blur-sm"
+                          >
+                            Bekijk meer klanten uit andere branches
+                          </Button>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </Section>
+              );
+            })()}
 
             {/* 6. Target Audience */}
             {activePage === "home" && (
@@ -2870,7 +3014,7 @@ const handleLoginClick = () => {
                   </div>
                   <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
                     <Button
-                      onClick={() => navigateTo("over-klusvol")}
+                      to="/over-klusvol"
                       variant="ghost"
                       className="w-full sm:w-auto text-brand-orange hover:bg-brand-orange/10 font-bold"
                     >
@@ -2988,14 +3132,14 @@ const handleLoginClick = () => {
                   Product
                 </h4>
                 <ul className="space-y-4">
-                  {/* <li>
-                    <button
-                      onClick={() => navigateTo("projecten")}
+                  <li>
+                    <Link
+                      to="/projecten"
                       className="hover:text-brand-orange transition-colors"
                     >
                       Klantcases
-                    </button>
-                  </li> */}
+                    </Link>
+                  </li>
                   <li>
                     <button
                       onClick={() => navigateTo("home", "voordelen")}
@@ -3029,12 +3173,12 @@ const handleLoginClick = () => {
                 </h4>
                 <ul className="space-y-4">
                   <li>
-                    <button
-                      onClick={() => navigateTo("over-klusvol")}
+                    <Link
+                      to="/over-klusvol"
                       className="hover:text-brand-orange transition-colors"
                     >
                       Over mij
-                    </button>
+                    </Link>
                   </li>
                   <li>
                     <button
@@ -3063,20 +3207,20 @@ const handleLoginClick = () => {
                 </h4>
                 <ul className="space-y-4">
                   <li>
-                    <button
-                      onClick={() => navigateTo("privacyverklaring")}
+                    <Link
+                      to="/privacyverklaring"
                       className="hover:text-brand-orange transition-colors"
                     >
                       Privacyverklaring
-                    </button>
+                    </Link>
                   </li>
                   <li>
-                    <button
-                      onClick={() => navigateTo("algemene-voorwaarden")}
+                    <Link
+                      to="/algemene-voorwaarden"
                       className="hover:text-brand-orange transition-colors"
                     >
                       Algemene Voorwaarden
-                    </button>
+                    </Link>
                   </li>
                   <li>
                     <span className="opacity-50">KVK: 94035202</span>

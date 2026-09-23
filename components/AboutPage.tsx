@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   ChevronLeft,
   Hammer,
@@ -62,16 +63,17 @@ const AboutPage = ({
       <div className="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none z-0"></div>
 
       {/* Navigation */}
-      <button
+      <Link
+        to="/"
         onClick={onBack}
-        className="relative z-20 flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-white/60 backdrop-blur-md px-5 py-2 rounded-full border border-slate-200"
+        className="relative z-20 inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-white/60 backdrop-blur-md px-5 py-2 rounded-full border border-slate-200"
       >
         <ChevronLeft
           size={20}
           className="group-hover:-translate-x-1 transition-transform"
         />{" "}
         Terug naar home
-      </button>
+      </Link>
 
       {/* Trust & Introduction Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-24 items-center relative">

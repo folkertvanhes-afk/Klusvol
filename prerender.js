@@ -72,14 +72,22 @@ async function prerender() {
         pageHtml = pageHtml.replace(/<link\s+rel=["']canonical["']\s+href=["'][^"']*["']\s*\/?>\n?/, '');
       }
 
-      // 4. Clean hoisted head/SEO tags from App HTML so they are NOT duplicated inside <div id="root">
+      // 4. Update or Add JSON-LD in <head> if present in appHtml (e.g. homepage)
+      const jsonLdMatch = appHtml.match(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+      if (jsonLdMatch && jsonLdMatch[1]) {
+        const jsonLdTag = `<script type="application/ld+json">${jsonLdMatch[1]}</script>`;
+        pageHtml = pageHtml.replace('</head>', `  ${jsonLdTag}\n</head>`);
+      }
+
+      // 5. Clean hoisted head/SEO tags from App HTML so they are NOT duplicated inside <div id="root">
       const cleanRootHtml = appHtml
         .replace(/<title[\s\S]*?<\/title>/gi, '')
         .replace(/<meta\s+name=["']description["'][^>]*\/?>/gi, '')
         .replace(/<link\s+rel=["']canonical["'][^>]*\/?>/gi, '')
-        .replace(/<link\s+rel=["']preload["'][^>]*\/?>/gi, '');
+        .replace(/<link\s+rel=["']preload["'][^>]*\/?>/gi, '')
+        .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/gi, '');
 
-      // 5. Inject prerendered App HTML into <div id="root">
+      // 6. Inject prerendered App HTML into <div id="root">
       pageHtml = pageHtml.replace(
         '<div id="root"></div>',
         `<div id="root">${cleanRootHtml}</div>`

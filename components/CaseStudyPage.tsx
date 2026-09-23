@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ArrowLeft, TrendingUp, Search, Calendar, CheckCircle2, MessageCircle, Star } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -12,15 +13,16 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
       {/* Background decoration */}
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <button
+        <Link
+          to="/"
           onClick={onBack}
-          className="group flex items-center gap-2 text-slate-500 hover:text-brand-orange mb-10 transition-colors"
+          className="group inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange mb-10 transition-colors"
         >
           <span className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center group-hover:border-brand-orange/30 shadow-sm transition-all duration-300">
             <ArrowLeft size={16} />
           </span>
           <span className="font-medium text-sm">Terug naar home</span>
-        </button>
+        </Link>
 
         <div className="mb-12">
           <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
