@@ -371,22 +371,20 @@ const ContactModal = ({
     if (isVisit) return "Kennismaking";
     if (isAannemer) return "Aannemer Pakket";
     if (isGeneralContact) return "Contactgegevens";
-    return "Klusvol Pro";
+    return "Kennismaking";
   };
 
   const getFormTitle = () => {
-    if (isVisit) return "Koffie Afspraak Plannen";
-    if (isAannemer) return "Aannemer Pakket Aanvragen";
     if (isGeneralContact) return "Stuur een bericht";
-    return "Adviesgesprek Aanvragen";
+    if (isAannemer) return "Aannemer Pakket Aanvragen";
+    return "Plan een koffiegesprek";
   };
 
   const getFormDesc = () => {
-    if (isVisit) return "Vul je adres in, dan kom ik bij je langs.";
+    if (isGeneralContact) return "Heb je een vraag? Vul het formulier in.";
     if (isAannemer)
       return "Dit pakket is maatwerk. We bespreken graag je wensen.";
-    if (isGeneralContact) return "Heb je een vraag? Vul het formulier in.";
-    return "We kijken samen of Klusvol Pro bij jouw groeifase past.";
+    return "Vertel kort wat voor bedrijf je hebt en waar je hulp bij zoekt. Dan neem ik contact met je op om kennis te maken.";
   };
 
   return (
@@ -400,15 +398,15 @@ const ContactModal = ({
         {/* Border Glow */}
         <div className="absolute inset-0 border border-brand-orange/10 rounded-3xl md:rounded-[2.5rem] pointer-events-none sticky top-0"></div>
 
-        {/* Left Side: Premium Context OR Contact Details */}
+        {/* Left Side: Context OR Contact Details */}
         <div className="w-full md:w-[45%] bg-white p-6 md:p-12 flex flex-col justify-between relative overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay"></div>
 
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-slate-200 backdrop-blur-md mb-6 md:mb-10">
-              <Crown
+              <Coffee
                 size={14}
-                className="text-brand-orange fill-brand-orange"
+                className="text-brand-orange"
               />
               <span className="text-[10px] md:text-[11px] font-bold text-slate-800 uppercase tracking-widest">
                 {getContextTitle()}
@@ -479,13 +477,10 @@ const ContactModal = ({
             ) : (
               <>
                 <h3 className="text-2xl md:text-5xl font-extrabold text-slate-900 mb-4 md:mb-6 leading-[1.1] tracking-tight">
-                  Geen gereedschap,
-                  <br />
-                  maar een <span className="text-brand-orange">Partner.</span>
+                  Plan een <span className="text-brand-orange">koffiegesprek</span>
                 </h3>
                 <p className="text-slate-600 leading-relaxed font-light text-sm md:text-lg">
-                  Wij werken met vakmensen die willen groeien, zonder dat dit
-                  ten koste gaat van hun vrije tijd.
+                  Vertel kort wat voor bedrijf je hebt en waar je hulp bij zoekt. Dan neem ik contact met je op om kennis te maken.
                 </p>
               </>
             )}
@@ -495,34 +490,34 @@ const ContactModal = ({
             <div className="relative z-10 mt-8 md:mt-12 space-y-6 md:space-y-8 hidden md:block">
               <div className="flex items-start gap-5 group/item">
                 <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
-                  <Rocket
+                  <Coffee
                     size={24}
                     className="text-slate-500 group-hover/item:text-brand-orange transition-colors"
                   />
                 </div>
                 <div>
                   <div className="text-slate-900 font-bold text-base mb-1">
-                    Priority Onboarding
+                    Vrijblijvend kennismaken
                   </div>
                   <div className="text-sm text-slate-600 leading-relaxed">
-                    Wij richten alles in. Jij hoeft nergens naar om te kijken.
+                    Gewoon rustig overleggen wat voor jouw vakbedrijf werkt.
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-5 group/item">
                 <div className="w-12 h-12 rounded-2xl bg-[#FAF9F6] border border-slate-200 flex items-center justify-center shrink-0 group-hover/item:border-brand-orange/30 transition-all duration-300">
-                  <Headphones
+                  <MessageCircle
                     size={24}
                     className="text-slate-500 group-hover/item:text-brand-orange transition-colors"
                   />
                 </div>
                 <div>
                   <div className="text-slate-900 font-bold text-base mb-1">
-                    Directe Lijn
+                    Rechtstreeks contact
                   </div>
                   <div className="text-sm text-slate-600 leading-relaxed">
-                    Je eigen accountmanager op WhatsApp.
+                    Direct schakelen via WhatsApp of telefoon.
                   </div>
                 </div>
               </div>
@@ -548,8 +543,7 @@ const ContactModal = ({
                 Aanvraag Ontvangen
               </h3>
               <p className="text-slate-600 max-w-xs mx-auto mb-10 text-lg">
-                Bedankt {form.name}. Je staat op de lijst. We bellen je binnen 4
-                uur voor de afspraak.
+                Bedankt {form.name}. We hebben je bericht ontvangen en nemen snel contact met je op.
               </p>
               <Button
                 variant="outline"
@@ -604,11 +598,11 @@ const ContactModal = ({
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">
-                    Contact
-                  </label>
-                  <div className="grid grid-cols-2 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 gap-4 md:gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">
+                      E-mailadres
+                    </label>
                     <input
                       required
                       type="email"
@@ -619,6 +613,11 @@ const ContactModal = ({
                       className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-4 py-3 md:px-5 md:py-4 text-slate-900 focus:outline-none focus:border-brand-orange/50 focus:bg-slate-100 transition-all placeholder-blue-300/50 text-sm md:text-base"
                       placeholder="Emailadres"
                     />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">
+                      Telefoonnummer
+                    </label>
                     <input
                       required
                       type="tel"
@@ -695,8 +694,15 @@ const ContactModal = ({
                 )}
               </Button>
 
-              <p className="text-center text-xs text-slate-500 mt-5 flex items-center justify-center gap-1.5">
-                <Lock size={10} /> 100% Vertrouwelijk.
+              <p className="text-center text-xs text-slate-500 mt-4 leading-relaxed">
+                Je gegevens gebruik ik om je aanvraag te behandelen en contact met je op te nemen.{" "}
+                <Link
+                  to="/privacyverklaring"
+                  onClick={onClose}
+                  className="underline hover:text-brand-orange transition-colors"
+                >
+                  Lees de privacyverklaring.
+                </Link>
               </p>
             </form>
           )}
@@ -3292,34 +3298,27 @@ const handleLoginClick = () => {
                 Klusvol verwerkt alleen persoonsgegevens die nodig zijn voor
                 contact, dienstverlening en administratie.
               </p>
-              <p>Het kan bijvoorbeeld gaan om:</p>
+              <p>Het gaat om gegevens die je zelf aan ons verstrekt via:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>naam;</li>
-                <li>bedrijfsnaam;</li>
-                <li>e-mailadres;</li>
-                <li>telefoonnummer;</li>
                 <li>
-                  informatie die je zelf aan ons verstrekt via e-mail of
-                  WhatsApp;
+                  <strong>Het koffiegesprek- en contactformulier:</strong> wanneer je op de website een koffiegesprek of contactverzoek indient, vragen we je naam, eventuele bedrijfsnaam, e-mailadres, telefoonnummer, bij een afspraak op locatie je adres, en eventuele opmerkingen of toelichting die je zelf invult;
                 </li>
                 <li>
-                  gegevens die nodig zijn voor offertes, overeenkomsten en
-                  facturatie.
+                  <strong>Rechtstreeks contact via e-mail of WhatsApp:</strong> je contactgegevens en de informatie die je met ons deelt bij vragen of overleg;
+                </li>
+                <li>
+                  <strong>Offertes, overeenkomsten en facturatie:</strong> gegevens die nodig zijn voor het opstellen van offertes, het uitvoeren van overeenkomsten en het bijhouden van de administratie.
                 </li>
               </ul>
-              <p>
-                Op Klusvol.nl staat op dit moment geen contactformulier. Contact
-                verloopt rechtstreeks via e-mail of WhatsApp.
-              </p>
 
               <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
                 3. Waarom verwerken we deze gegevens?
               </h2>
               <p>Wij gebruiken persoonsgegevens onder andere om:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>vragen te beantwoorden;</li>
-                <li>contact op te nemen over onze dienstverlening;</li>
-                <li>offertes en afspraken te maken;</li>
+                <li>je aanvraag voor een koffiegesprek of contactverzoek te behandelen;</li>
+                <li>contact met je op te nemen om kennis te maken of vragen te beantwoorden;</li>
+                <li>een eventuele kennismaking, advies of offerte voor te bereiden;</li>
                 <li>
                   websites en bijbehorende diensten te leveren en beheren;
                 </li>
@@ -3330,8 +3329,7 @@ const handleLoginClick = () => {
               </ul>
               <p>
                 Voor iedere verwerking moet een geldige grondslag bestaan,
-                bijvoorbeeld omdat de verwerking nodig is voor een overeenkomst,
-                een wettelijke verplichting of een gerechtvaardigd belang.
+                bijvoorbeeld omdat de verwerking nodig is om op jouw verzoek stappen te ondernemen (zoals het plannen van een kennismakingsgesprek of het voorbereiden van een offerte), voor de uitvoering van een overeenkomst, een wettelijke verplichting of een gerechtvaardigd belang.
               </p>
 
               <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
@@ -3353,10 +3351,9 @@ const handleLoginClick = () => {
               <p>Wij verkopen persoonsgegevens niet.</p>
               <p>
                 Gegevens kunnen alleen worden gedeeld met partijen die nodig
-                zijn om onze diensten uit te voeren, bijvoorbeeld voor e-mail,
-                hosting, administratie of andere technische dienstverlening.
+                zijn om onze diensten uit te voeren. Voor de technische verwerking en ontvangst van formulierinzendingen (zoals het koffiegesprek- en contactformulier) maken wij gebruik van een externe CRM- en formulierdienst (GoHighLevel / LeadConnector). Daarnaast maken we gebruik van betrouwbare partijen voor e-mail, hosting en administratie.
               </p>
-              <p>Wij delen niet meer gegevens dan noodzakelijk.</p>
+              <p>Wij delen niet meer gegevens dan noodzakelijk voor het betreffende doel.</p>
 
               <h2 className="text-xl md:text-2xl font-bold text-slate-900 pt-4">
                 6. Bewaartermijnen
@@ -3404,7 +3401,7 @@ const handleLoginClick = () => {
                 dienstverlening of manier van gegevensverwerking verandert.
               </p>
               <p className="text-sm text-slate-500 pt-4">
-                Laatste wijziging: 23 september 2026.
+                Laatste wijziging: 24 september 2026.
               </p>
             </div>
           }

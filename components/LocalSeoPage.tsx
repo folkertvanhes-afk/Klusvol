@@ -17,7 +17,63 @@ import {
   ExternalLink,
   Hammer,
   Star,
+  Clock,
 } from "lucide-react";
+
+export const HoekstraHeroVisual: React.FC = () => (
+  <div className="lg:col-span-6 w-full relative">
+    {/* Achtergrond sfeergloed */}
+    <div className="absolute -inset-4 bg-gradient-to-tr from-brand-orange/20 via-amber-500/10 to-transparent rounded-3xl blur-2xl pointer-events-none" />
+
+    <div className="relative mx-auto max-w-lg lg:max-w-none">
+      {/* Neutraal decoratief dieptevlak achter de browser */}
+      <div className="hidden sm:block absolute -top-3 -left-3 w-full h-full rounded-2xl border border-slate-200/60 bg-slate-100/60 pointer-events-none transform -rotate-1" />
+
+      {/* Primaire grote browser-preview van één echt project */}
+      <div className="relative z-10 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden">
+        {/* Browser balk */}
+        <div className="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+          </div>
+          <div className="bg-slate-800 text-slate-300 text-[11px] px-3.5 py-1 rounded-md font-mono truncate max-w-[220px]">
+            hoekstrasprayworks.nl
+          </div>
+          <div className="w-8" />
+        </div>
+
+        {/* Screenshot van de echte gebouwde website (gecropt op het scherm zodat de laptop-hardware wegvalt) */}
+        <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
+          <img
+            fetchPriority="high"
+            decoding="async"
+            src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de5700b9f75f8b3387eae.png"
+            alt="Hoekstra Sprayworks website gebouwd door Klusvol"
+            className="w-full h-full object-cover scale-[1.38] object-[50%_44%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none" />
+        </div>
+      </div>
+
+      {/* Overlappende decoratieve smartphone-preview met echte mobiele screenshot */}
+      <div className="absolute -bottom-4 -right-2 sm:-right-4 sm:-bottom-5 z-20 w-28 sm:w-32 md:w-36 rounded-[1.25rem] sm:rounded-2xl border-[3px] border-slate-900 bg-slate-900 shadow-xl overflow-hidden aspect-[9/16] pointer-events-none">
+        <div className="w-full h-full relative overflow-hidden bg-slate-950">
+          <img
+            loading="lazy"
+            decoding="async"
+            src="/hero-hoekstra-mobile.webp"
+            alt="Hoekstra Sprayworks mobiele website weergave"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-slate-800 rounded-full z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/15 via-transparent to-transparent pointer-events-none" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 const GOOGLE_REVIEWS = [
   {
@@ -48,6 +104,8 @@ export interface LocalSeoPageRecord {
   slug: string;
   city: string;
   region: string;
+  branch?: string;
+  pageType?: 'location' | 'branch-location';
   seo: {
     title: string;
     description: string;
@@ -105,6 +163,442 @@ export const LocalSeoPage: React.FC<LocalSeoPageProps> = ({
       ? "Hoi Folkert, ik heb een vakbedrijf in de regio Groningen en wil even kijken wat er mogelijk is met een website."
       : `Hallo Folkert, ik heb interesse in een website via Klusvol voor ${record.city}.`);
 
+  // Tak voor specifieke branche + locatie pilotpagina's (bijv. /website-schilder-groningen)
+  if (record.pageType === "branch-location") {
+    return (
+      <main className="min-h-screen pt-28 md:pt-36 pb-24 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* 1. HERO: BRANCH-SPECIFIEK */}
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center mb-20 md:mb-28">
+            {/* Links: Badge, H1, Intro, WhatsApp CTA */}
+            <div className="lg:col-span-6 flex flex-col items-start">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider mb-5">
+                <Paintbrush size={13} className="text-brand-orange" />
+                <span>Websites voor schilders in {record.city}</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black text-slate-900 mb-6 tracking-tight leading-[1.08] text-balance">
+                {record.content.h1}
+              </h1>
+
+              <p className="text-lg md:text-xl text-slate-600 font-light leading-relaxed mb-8 max-w-xl">
+                {record.content.intro}
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+                <a
+                  href={`https://wa.me/31643411427?text=${encodeURIComponent(
+                    whatsappMessage
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-brand-orange text-white px-7 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-all shadow-md active:scale-95 flex items-center justify-center gap-2.5 w-full sm:w-auto sm:whitespace-nowrap shadow-brand-orange/20 hover:shadow-lg hover:shadow-brand-orange/30 hover:-translate-y-0.5 duration-300"
+                >
+                  <MessageCircle size={19} className="shrink-0" />
+                  <span className="whitespace-nowrap">{ctaButtonText}</span>
+                </a>
+
+                {onCta && (
+                  <button
+                    type="button"
+                    onClick={onCta}
+                    className="inline-flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 text-sm font-semibold py-3 px-4 underline underline-offset-4 decoration-slate-300 hover:decoration-brand-orange transition-colors"
+                  >
+                    <Coffee size={16} className="text-brand-orange" />
+                    <span>Plan een koffiegesprek</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Rechts: Herbruikbare coherente Hoekstra Sprayworks desktop + mobiele preview */}
+            <HoekstraHeroVisual />
+          </section>
+
+          {/* 2. SAMENGEVOEGDE SCHILDER-SECTIE: Laat zien wat je als schilder kunt (SPLIT LAYOUT MET ASYMMETRISCHE COLLAGE) */}
+          <section className="mb-20 md:mb-28 pt-8 border-t border-slate-200/80">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              {/* Links: Heading, intro & 3 kernpunten */}
+              <div className="lg:col-span-6">
+                <div className="inline-flex items-center gap-2 text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3">
+                  <Sparkles size={14} />
+                  <span>Vakmanschap in beeld</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+                  Laat zien wat je als schilder kunt
+                </h2>
+                <p className="text-slate-600 text-base md:text-lg leading-relaxed mb-8 font-light">
+                  Voor een potentiële klant telt vooral wat hij kan zien. Laat duidelijk zien welk schilderwerk je uitvoert, toon echte projecten en maak het makkelijk om contact op te nemen.
+                </p>
+
+                <div className="space-y-6 pt-6 border-t border-slate-200/80">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 border border-brand-orange/20 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                      <Paintbrush size={18} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-base mb-1">
+                        Je werkzaamheden
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Binnen- en buitenschilderwerk, spuitwerk, renovatie of andere specialisaties duidelijk zichtbaar maken, zodat bezoekers direct weten wat je doet.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 border border-brand-orange/20 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                      <Sparkles size={18} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-base mb-1">
+                        Je projecten
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Echte foto's van uitgevoerd werk laten zien zodat bezoekers kunnen beoordelen of de stijl en afwerking bij hun klus passen.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 border border-brand-orange/20 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                      <MessageCircle size={18} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-base mb-1">
+                        Contact zonder gedoe
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Duidelijk bellen of WhatsApp aanbieden zonder lange formulieren of ingewikkelde stappen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Rechts: Asymmetrische fotocollage van echt schilder- en spuitwerk */}
+              <div className="lg:col-span-6 relative">
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-4 lg:gap-4 items-center pt-2">
+                  {/* Grote hoofdfoto: Vakman van Hoekstra Sprayworks met airless spuitpistool */}
+                  <div className="sm:col-span-12 lg:col-span-7">
+                    <div className="rounded-2xl lg:rounded-3xl overflow-hidden border border-slate-200/90 shadow-lg bg-slate-100 aspect-[4/3] relative">
+                      <img
+                        loading="lazy"
+                        decoding="async"
+                        src="/schilderwerk/spuitwerk-vakman-hoekstra.webp"
+                        alt="Vakman van Hoekstra Sprayworks aan het werk met airless verfspuitapparatuur"
+                        width={1000}
+                        height={750}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Secundaire detailfoto's: rechts op desktop, 2 kolommen op mobiel */}
+                  <div className="sm:col-span-12 lg:col-span-5 grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 lg:-ml-6 lg:z-10">
+                    {/* Foto rechtsboven: Strak buitenschilderwerk van dakkapel */}
+                    <div className="rounded-xl lg:rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl bg-slate-100 aspect-[4/3] relative">
+                      <img
+                        loading="lazy"
+                        decoding="async"
+                        src="/schilderwerk/buitenschilderwerk-dakkapel.webp"
+                        alt="Strak afgewerkt buitenschilderwerk van dakkapel in hoogglans lak"
+                        width={600}
+                        height={450}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Foto rechtsonder: Karakteristieke woning buitenzijde / erker en daklijsten */}
+                    <div className="rounded-xl lg:rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl bg-slate-100 aspect-[4/3] relative">
+                      <img
+                        loading="lazy"
+                        decoding="async"
+                        src="/schilderwerk/buitenschilderwerk-woning.webp"
+                        alt="Opgeleverd buitenschilderwerk van gevel, erker en kozijnen"
+                        width={600}
+                        height={692}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 3. REFERENTIEPROJECT HOEKSTRA (EDITORIAL KLANTCASE IN DONKER CONTRASTVLAK) */}
+          <section className="mb-20 md:mb-28">
+            <div className="bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-xl overflow-hidden p-8 sm:p-12 lg:p-14">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                {/* Links: Projectinformatie & Context */}
+                <div className="lg:col-span-7 flex flex-col justify-between">
+                  <div>
+                    <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
+                      Referentieproject
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
+                      Gebouwd voor een schilder- en spuitbedrijf
+                    </h2>
+                    <p className="text-slate-300 leading-relaxed text-base md:text-lg max-w-xl font-light mb-6">
+                      Een echte Klusvol-website in de praktijk, ingericht voor professioneel spuit- en schilderwerk. Heldere presentatie van werkzaamheden en direct contact voor serieuze aanvragen.
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-300 mb-8">
+                      <span className="px-3 py-1.5 rounded-lg bg-slate-800 text-brand-orange border border-slate-700">
+                        Hoekstra Sprayworks
+                      </span>
+                      <span className="text-slate-400">
+                        Klant sinds maart 2026
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <a
+                      href="https://hoekstrasprayworks.nl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-bold text-white hover:text-brand-orange transition-colors text-sm group"
+                    >
+                      <span className="underline underline-offset-4 decoration-slate-700 group-hover:decoration-brand-orange">
+                        Bekijk hoekstrasprayworks.nl
+                      </span>
+                      <ExternalLink size={15} className="group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Rechts: Teun Hoekstra Google Review (geïntegreerd in donker vlak) */}
+                <div className="lg:col-span-5">
+                  <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-inner">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex gap-1 text-amber-400">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star key={s} size={16} className="fill-current" />
+                        ))}
+                      </div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 bg-slate-900/60 px-2.5 py-1 rounded-md border border-slate-700/50">
+                        Google Review
+                      </span>
+                    </div>
+
+                    <blockquote className="text-slate-200 text-base sm:text-lg leading-relaxed italic mb-5 font-normal">
+                      "{GOOGLE_REVIEWS[1].text}"
+                    </blockquote>
+
+                    <div className="flex items-center gap-3 pt-4 border-t border-slate-700/70">
+                      <div className="w-10 h-10 rounded-full bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center font-bold text-sm shrink-0">
+                        TH
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-white">
+                          {GOOGLE_REVIEWS[1].name}
+                        </div>
+                        <div className="text-xs text-slate-400">
+                          Hoekstra Sprayworks
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 5. GRONINGEN & PRIJZEN / WERKWIJZE */}
+          <section className="mb-20 md:mb-28 pt-8 border-t border-slate-200/80">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              {/* Links: Heading & Tekst */}
+              <div className="lg:col-span-7">
+                <div className="inline-flex items-center gap-2 text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3">
+                  <span>Vanuit Groningen</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+                  Persoonlijk contact en een duidelijke werkwijze
+                </h2>
+                <div className="text-slate-600 leading-relaxed text-base md:text-lg space-y-4 max-w-2xl font-light">
+                  <p>
+                    {record.content.whyKlusvol}
+                  </p>
+                  <p>
+                    Klusvol werkt vanuit Groningen en helpt schildersbedrijven in de regio en door heel Nederland. Wil je kennismaken? Dat kan online of fysiek op locatie in Groningen en omgeving.
+                  </p>
+                </div>
+              </div>
+
+              {/* Rechts: Prijzen & voorwaarden langs rustige lijn */}
+              <div className="lg:col-span-5 border-l-2 border-orange-200/80 pl-6 sm:pl-8 space-y-6 pt-2 lg:pt-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-xl bg-orange-100/70 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck size={18} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base mb-1">
+                      Duidelijke kosten
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Normale bouw en opstart circa €1.500. Voor geselecteerde referentieprojecten kan de opstart €0 zijn. Daarna €69 per maand.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-xl bg-orange-100/70 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                    <Sparkles size={18} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base mb-1">
+                      Onderhoud & kleine wijzigingen
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Inclusief hosting, technisch onderhoud en kleine wijzigingen zoals nieuwe foto's of een aangepaste dienst.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-xl bg-orange-100/70 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                    <Clock size={18} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base mb-1">
+                      Duidelijke overeenkomst
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Voor nieuwe overeenkomsten geldt een minimale looptijd van 24 maanden.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 6. FAQ (BRANCH-SPECIFIEK) */}
+          {hasFaqs && (
+            <section className="bg-white/80 border border-slate-200/80 rounded-3xl p-6 sm:p-8 lg:p-10 mb-12 shadow-xs">
+              <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
+                Veelgestelde Vragen
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 tracking-tight">
+                Vragen over websites voor schildersbedrijven
+              </h2>
+              <div className="divide-y divide-slate-100">
+                {record.faq!.map((item, idx) => {
+                  const isOpen = openFaqIndex === idx;
+                  return (
+                    <div key={idx} className="py-3.5 sm:py-4">
+                      <button
+                        onClick={() => toggleFaq(idx)}
+                        className="w-full flex items-center justify-between text-left gap-4 font-semibold text-slate-900 hover:text-brand-orange transition-colors"
+                        aria-expanded={isOpen}
+                      >
+                        <span className="text-base sm:text-lg">{item.question}</span>
+                        <ChevronDown
+                          size={20}
+                          className={`text-slate-400 transform transition-transform duration-200 shrink-0 ${
+                            isOpen ? "rotate-180 text-brand-orange" : ""
+                          }`}
+                        />
+                      </button>
+                      {isOpen && (
+                        <p className="mt-2.5 text-slate-600 leading-relaxed text-sm md:text-base pr-4">
+                          {item.answer}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* 7. INTERNE LINKS (CRAWLBAAR NAAR BRANCH & LOCATIE) */}
+          <nav aria-label="Gerelateerde pagina's" className="mb-16 pt-8 border-t border-slate-200/80">
+            <div className="mb-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                Bekijk ook gerelateerde pagina's
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Link
+                to="/website-schilder"
+                className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-brand-orange/40 hover:shadow-xs transition-all duration-300 group flex items-center justify-between"
+              >
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-1">
+                    Branche informatie
+                  </span>
+                  <span className="font-bold text-slate-900 group-hover:text-brand-orange transition-colors">
+                    Meer over Klusvol-websites voor schilders
+                  </span>
+                </div>
+                <ArrowRight size={18} className="text-slate-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all shrink-0 ml-3" />
+              </Link>
+
+              <Link
+                to="/website-laten-maken-groningen"
+                className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-brand-orange/40 hover:shadow-xs transition-all duration-300 group flex items-center justify-between"
+              >
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-orange block mb-1">
+                    Lokale informatie
+                  </span>
+                  <span className="font-bold text-slate-900 group-hover:text-brand-orange transition-colors">
+                    Algemene website laten maken in Groningen
+                  </span>
+                </div>
+                <ArrowRight size={18} className="text-slate-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all shrink-0 ml-3" />
+              </Link>
+            </div>
+          </nav>
+
+          {/* 8. DONKERE CTA */}
+          <section className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 mb-16 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-brand-orange/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 max-w-3xl">
+              <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
+                Direct Contact
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 tracking-tight leading-tight">
+                {record.content.cta}
+              </h2>
+              <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-8 max-w-2xl font-light">
+                Stuur me een WhatsApp en vertel kort wat voor schilderwerk je doet. Dan kijken we samen wat er voor jouw bedrijf mogelijk is.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <a
+                  href={`https://wa.me/31643411427?text=${encodeURIComponent(
+                    whatsappMessage
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-brand-orange text-white px-8 py-4 rounded-full font-bold text-base hover:bg-orange-600 transition-all shadow-md active:scale-95 flex items-center justify-center gap-2.5 w-full sm:w-auto sm:whitespace-nowrap shadow-brand-orange/20 hover:shadow-lg hover:shadow-brand-orange/30 hover:-translate-y-0.5 duration-300"
+                >
+                  <MessageCircle size={19} className="shrink-0" />
+                  <span className="whitespace-nowrap">{ctaButtonText}</span>
+                </a>
+
+                {onCta && (
+                  <button
+                    type="button"
+                    onClick={onCta}
+                    className="bg-white/10 hover:bg-white/15 text-white border border-white/10 px-6 py-4 rounded-full font-semibold text-base transition-all active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto"
+                  >
+                    <Coffee size={18} className="text-brand-orange" />
+                    <span>Plan een koffiegesprek</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    );
+  }
+
+  // Bestaande layout voor standaard locatiepagina's (bijv. /website-laten-maken-groningen)
   return (
     <main className="min-h-screen pt-28 md:pt-36 pb-24 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -151,59 +645,8 @@ export const LocalSeoPage: React.FC<LocalSeoPageProps> = ({
             </div>
           </div>
 
-          {/* Rechts: Eén echte coherente browser-preview van één project (Hoekstra Sprayworks) */}
-          <div className="lg:col-span-6 w-full relative">
-            {/* Achtergrond sfeergloed */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-brand-orange/20 via-amber-500/10 to-transparent rounded-3xl blur-2xl pointer-events-none" />
-
-            <div className="relative mx-auto max-w-lg lg:max-w-none">
-              {/* Neutraal decoratief dieptevlak achter de browser */}
-              <div className="hidden sm:block absolute -top-3 -left-3 w-full h-full rounded-2xl border border-slate-200/60 bg-slate-100/60 pointer-events-none transform -rotate-1" />
-
-              {/* Primaire grote browser-preview van één echt project */}
-              <div className="relative z-10 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden">
-                {/* Browser balk */}
-                <div className="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                  </div>
-                  <div className="bg-slate-800 text-slate-300 text-[11px] px-3.5 py-1 rounded-md font-mono truncate max-w-[220px]">
-                    hoekstrasprayworks.nl
-                  </div>
-                  <div className="w-8" />
-                </div>
-
-                {/* Screenshot van de echte gebouwde website (gecropt op het scherm zodat de laptop-hardware wegvalt) */}
-                <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
-                  <img
-                    fetchPriority="high"
-                    decoding="async"
-                    src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/6a0de5700b9f75f8b3387eae.png"
-                    alt="Hoekstra Sprayworks website gebouwd door Klusvol"
-                    className="w-full h-full object-cover scale-[1.38] object-[50%_44%]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Overlappende decoratieve smartphone-preview met echte mobiele screenshot */}
-              <div className="absolute -bottom-4 -right-2 sm:-right-4 sm:-bottom-5 z-20 w-28 sm:w-32 md:w-36 rounded-[1.25rem] sm:rounded-2xl border-[3px] border-slate-900 bg-slate-900 shadow-xl overflow-hidden aspect-[9/16] pointer-events-none">
-                <div className="w-full h-full relative overflow-hidden bg-slate-950">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="/hero-hoekstra-mobile.webp"
-                    alt="Hoekstra Sprayworks mobiele website weergave"
-                    className="w-full h-full object-cover object-top"
-                  />
-                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-slate-800 rounded-full z-10 pointer-events-none" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/15 via-transparent to-transparent pointer-events-none" />
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Rechts: Herbruikbare coherente Hoekstra Sprayworks desktop + mobiele preview */}
+          <HoekstraHeroVisual />
         </section>
 
         {/* 2. REGIONALE FOCUS: Ruimtelijke editorial sectie (geen zware cards) */}
