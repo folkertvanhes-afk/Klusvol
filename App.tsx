@@ -54,6 +54,8 @@ import InteractivePhoneHero from "./components/InteractivePhoneHero";
 import Chatbot from "./components/Chatbot";
 import AboutPage from "./components/AboutPage";
 import CaseStudyPage from "./components/CaseStudyPage";
+import LocalSeoPage from "./components/LocalSeoPage";
+import { LOCAL_SEO_PAGES } from "./local-seo-data.js";
 import {
   CheckCircle2,
   ArrowRight,
@@ -2112,6 +2114,16 @@ function App() {
     }
   }
 
+  // Toekomstige dynamische lokale SEO landingspagina match
+  const currentLocalSeoPage = Array.isArray(LOCAL_SEO_PAGES)
+    ? LOCAL_SEO_PAGES.find(
+        (page: any) => `/${page.slug.replace(/^\/+|\/+$/g, '')}` === normalizedPath
+      )
+    : null;
+  if (currentLocalSeoPage) {
+    activePage = "local-seo";
+  }
+
   const branchNameSingular = branchType === 'schilder' ? 'schilder' : branchType === 'hovenier' ? 'hovenier' : branchType === 'stukadoor' ? 'stukadoor' : 'klusbedrijf';
   const branchNameCompany = branchType === 'schilder' ? 'schildersbedrijf' : branchType === 'hovenier' ? 'hoveniersbedrijf' : branchType === 'stukadoor' ? 'stukadoorsbedrijf' : 'klusbedrijf';
   const branchNameCompanyPlural = branchType === 'schilder' ? 'schildersbedrijven' : branchType === 'hovenier' ? 'hoveniersbedrijven' : branchType === 'stukadoor' ? 'stukadoorsbedrijven' : 'klusbedrijven';
@@ -2193,6 +2205,8 @@ const handleLoginClick = () => {
             ? "Privacyverklaring | Klusvol"
             : activePage === 'algemene-voorwaarden'
             ? "Algemene Voorwaarden | Klusvol"
+            : activePage === 'local-seo' && currentLocalSeoPage
+            ? currentLocalSeoPage.seo.title
             : "Klusvol | Websites voor vakmensen"}
         </title>
         <meta
@@ -2208,6 +2222,8 @@ const handleLoginClick = () => {
               ? "Privacyverklaring van Klusvol. Lees hoe wij omgaan met persoonsgegevens en de privacy van onze klanten en websitebezoekers waarborgen."
               : activePage === 'algemene-voorwaarden'
               ? "Algemene voorwaarden van Klusvol voor de ontwikkeling, hosting en het onderhoud van websites voor vakmensen."
+              : activePage === 'local-seo' && currentLocalSeoPage
+              ? currentLocalSeoPage.seo.description
               : "Klusvol bouwt websites voor vakmensen (schilders, hoveniers, stukadoors, loodgieters en klusbedrijven). Vanuit Groningen voor heel Nederland."
           }
         />
@@ -2217,6 +2233,14 @@ const handleLoginClick = () => {
         {activePage === 'projecten' && <link rel="canonical" href="https://klusvol.nl/projecten" />}
         {activePage === 'privacyverklaring' && <link rel="canonical" href="https://klusvol.nl/privacyverklaring" />}
         {activePage === 'algemene-voorwaarden' && <link rel="canonical" href="https://klusvol.nl/algemene-voorwaarden" />}
+        {activePage === 'local-seo' && currentLocalSeoPage && (
+          <link rel="canonical" href={currentLocalSeoPage.seo.canonical} />
+        )}
+        {activePage === 'local-seo' && currentLocalSeoPage?.structuredData && (
+          <script type="application/ld+json">
+            {JSON.stringify(currentLocalSeoPage.structuredData)}
+          </script>
+        )}
         {activePage === 'home' && (
           <script type="application/ld+json">
             {JSON.stringify({
@@ -2237,7 +2261,7 @@ const handleLoginClick = () => {
                   },
                   "address": {
                     "@type": "PostalAddress",
-                    "addressLocality": "Haren",
+                    "addressLocality": "Groningen",
                     "addressRegion": "Groningen",
                     "addressCountry": "NL"
                   }
@@ -3862,6 +3886,12 @@ const handleLoginClick = () => {
             </div>
           }
           onBack={() => navigateTo("home")}
+        />
+      ) : activePage === "local-seo" && currentLocalSeoPage ? (
+        <LocalSeoPage
+          record={currentLocalSeoPage}
+          onBack={() => navigateTo("home")}
+          onCta={() => openContact(`Koffie Afspraak - ${currentLocalSeoPage.city}`)}
         />
       ) : activePage === "projecten" ? (
         <CaseStudyPage

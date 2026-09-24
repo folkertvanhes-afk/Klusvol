@@ -7,6 +7,11 @@
  * 3. Toekomstige uitbreiding met dynamische / lokale SEO-pagina's
  */
 
+import { LOCAL_SEO_PAGES, validateLocalSeoPages } from './local-seo-data.js';
+
+// Valideer de databron bij inladen (garandeert dat incomplete/foutieve records direct falen)
+validateLocalSeoPages(LOCAL_SEO_PAGES);
+
 export const BASE_URL = 'https://klusvol.nl';
 
 /**
@@ -26,11 +31,14 @@ export const CORE_PUBLIC_ROUTES = [
 ];
 
 /**
- * Hook voor toekomstige dynamische / lokale SEO-pagina's (bijv. /website-schilder-groningen).
- * Wordt momenteel leeg gehouden totdat het lokale SEO-systeem wordt gebouwd.
+ * Dynamische / lokale SEO-routes afgeleid uit LOCAL_SEO_PAGES.
+ * Momenteel leeg zolang LOCAL_SEO_PAGES leeg is (geen nieuwe URLs).
  */
 export function getLocalSeoRoutes() {
-  return [];
+  return LOCAL_SEO_PAGES.map((page) => ({
+    path: `/${page.slug.replace(/^\/+|\/+$/g, '')}`,
+    type: 'local-seo',
+  }));
 }
 
 /**
