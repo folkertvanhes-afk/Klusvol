@@ -16,10 +16,7 @@ const FloatingBadge: React.FC<FloatingBadgeProps> = ({ data, isActive, onHover, 
   const isLeft = data.position.includes('right-full');
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: isLeft ? 20 : -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: parseFloat(data.animationDelay) }}
+    <div
       className={`
         relative md:absolute z-30 cursor-pointer w-full md:w-auto h-full md:h-auto
         ${data.position}
@@ -83,7 +80,7 @@ const FloatingBadge: React.FC<FloatingBadgeProps> = ({ data, isActive, onHover, 
              <ChevronRight className={`text-brand-orange ${isLeft ? 'rotate-180' : ''}`} size={14} />
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 

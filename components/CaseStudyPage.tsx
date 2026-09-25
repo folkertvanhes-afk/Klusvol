@@ -52,7 +52,7 @@ const CaseStudyPage = ({ onBack, onCta }: { onBack: () => void; onCta: () => voi
                     type="image/webp"
                     srcSet="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=200&q=75 1x, https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=400&q=80 2x"
                   />
-                  <img loading="lazy" decoding="async"
+                  <img decoding="async"
                     src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fm=webp&w=200&q=75"
                     alt="Hoekstra Sprayworks"
                     className="w-full h-full object-cover"

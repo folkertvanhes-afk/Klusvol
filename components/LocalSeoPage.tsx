@@ -61,7 +61,7 @@ export const HoekstraHeroVisual: React.FC = () => (
       <div className="absolute -bottom-4 -right-2 sm:-right-4 sm:-bottom-5 z-20 w-28 sm:w-32 md:w-36 rounded-[1.25rem] sm:rounded-2xl border-[3px] border-slate-900 bg-slate-900 shadow-xl overflow-hidden aspect-[9/16] pointer-events-none">
         <div className="w-full h-full relative overflow-hidden bg-slate-950">
           <img
-            loading="lazy"
+            fetchPriority="high"
             decoding="async"
             src="/hero-hoekstra-mobile.webp"
             alt="Hoekstra Sprayworks mobiele website weergave"

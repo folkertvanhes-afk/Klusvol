@@ -19,8 +19,7 @@ export default defineConfig(({ mode, isSsrBuild }) => {
               manualChunks: {
                 'vendor-react': ['react', 'react-dom'],
                 'vendor-motion': ['motion/react'],
-                'vendor-icons': ['lucide-react'],
-                'vendor-genai': ['@google/genai']
+                'vendor-icons': ['lucide-react']
               }
             }
           }

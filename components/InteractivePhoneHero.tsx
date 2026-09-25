@@ -142,7 +142,7 @@ const InteractivePhoneHero = () => {
       </div>
 
       {/* Mobile Badge Grid (Below Phone) - Enhanced as Indicators */}
-      <div className="md:hidden w-full max-w-[340px] mt-6 px-4 animate-slide-up delay-700 opacity-0 fill-mode-forwards">
+      <div className="md:hidden w-full max-w-[340px] mt-6 px-4">
         <div className="grid grid-cols-4 gap-2">
             {badges.map((badge) => {
                 const isActive = activeScreen === badge.id;

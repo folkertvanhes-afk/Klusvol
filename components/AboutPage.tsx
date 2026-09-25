@@ -120,12 +120,7 @@ const AboutPage = ({
           </div>
           
           {/* Feature Badges below photos */}
-          <motion.div 
-             initial={{ opacity: 0, y: 20 }} 
-             whileInView={{ opacity: 1, y: 0 }} 
-             viewport={{ once: true, margin: "-50px" }}
-             className="flex flex-wrap gap-3 mt-8 md:mt-12 justify-center lg:justify-start"
-          >
+          <div className="flex flex-wrap gap-3 mt-8 md:mt-12 justify-center lg:justify-start">
              <div className="bg-white border border-slate-200 shadow-[0_4px_10px_rgba(0,0,0,0.03)] px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-bold text-slate-700">
                <CheckCircle2 size={18} className="text-brand-orange" /> Heldere taal
              </div>
@@ -135,7 +130,7 @@ const AboutPage = ({
              <div className="bg-white border border-slate-200 shadow-[0_4px_10px_rgba(0,0,0,0.03)] px-5 py-2.5 rounded-full flex items-center gap-2 text-sm font-bold text-slate-700">
                <CheckCircle2 size={18} className="text-brand-orange" /> Jarenlange ervaring
              </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="z-10">
@@ -148,50 +143,28 @@ const AboutPage = ({
           </h1>
           
           <div className="space-y-10 text-lg text-slate-600 leading-relaxed mb-16 max-w-2xl font-light text-left">
-             <motion.p 
-               initial={{ opacity: 0, y: 20 }} 
-               whileInView={{ opacity: 1, y: 0 }} 
-               viewport={{ once: true, margin: "-100px" }}
-             >
+             <p>
                Ik ben Folkert, afgestudeerd in ondernemerschap en retailmanagement, en bouw inmiddels 3 jaar websites voor allerlei bedrijven: webshops, coaches, vakmensen. Bij die laatste groep voelde het meteen goed.
-             </motion.p>
+             </p>
              
-             <motion.p 
-               initial={{ opacity: 0, y: 20 }} 
-               whileInView={{ opacity: 1, y: 0 }} 
-               viewport={{ once: true, margin: "-100px" }}
-             >
+             <p>
                Vakmannen zijn recht voor hun raap. Geen marketingpraatjes, geen omhaal. Ze willen weten wat het kost, wat ze ervoor krijgen en of je doet wat je belooft. Daar werk ik graag mee. En juist deze groep kan mijn hulp goed gebruiken: stikken in het werk, top vakwerk leveren, maar online vaak een rommeltje. Daar zet ik mijn kennis tegenover.
-             </motion.p>
+             </p>
              
-             <motion.p 
-               initial={{ opacity: 0, y: 20 }} 
-               whileInView={{ opacity: 1, y: 0 }} 
-               viewport={{ once: true, margin: "-100px" }}
-               className="font-medium text-slate-800"
-             >
+             <p className="font-medium text-slate-800">
                Daarom begon ik Klusvol. Vanuit Haren bouw ik voor vakmensen in heel Nederland. Heldere afspraken, korte lijnen en een strak resultaat. Ik geloof in een samenwerking voor de lange termijn, niet in snelle handel.
-             </motion.p>
+             </p>
 
-             <motion.p 
-               initial={{ opacity: 0, y: 20 }} 
-               whileInView={{ opacity: 1, y: 0 }} 
-               viewport={{ once: true, margin: "-100px" }}
-             >
+             <p>
                Buiten Klusvol vind je me op het voetbalveld, in de sportschool of met een boek of podcast. Vakmanschap aan beide kanten van het scherm.
-             </motion.p>
+             </p>
           </div>
         </div>
       </div>
 
       {/* Quote and Extra Info (Subtle) */}
       <div className="max-w-4xl pt-4 mb-24 z-10 relative">
-          <motion.div 
-             initial={{ opacity: 0, y: 20 }} 
-             whileInView={{ opacity: 1, y: 0 }} 
-             viewport={{ once: true, margin: "-50px" }}
-             className="border-l-2 border-brand-orange pl-6 md:pl-8 py-2"
-          >
+          <div className="border-l-2 border-brand-orange pl-6 md:pl-8 py-2">
              <p className="text-xl md:text-2xl font-light text-slate-800 italic leading-relaxed mb-4">
                "Sinds de website online staat hebben we al veel complimenten gekregen van klanten over hoe strak het eruitziet."
              </p>
@@ -200,7 +173,7 @@ const AboutPage = ({
                <span className="w-1 h-1 bg-brand-orange rounded-full"></span>
                <span>Hoekstra Sprayworks</span>
              </div>
-          </motion.div>
+          </div>
       </div>
 
       {/* Interactive Values Section */}
@@ -226,10 +199,10 @@ const AboutPage = ({
             ))}
          </div>
          <div className="w-full md:w-3/5 p-8 md:p-14 flex items-center bg-white/50 relative">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
                <motion.div
                  key={activeTab}
-                 initial={{ opacity: 0, x: 10 }}
+                 initial={false}
                  animate={{ opacity: 1, x: 0 }}
                  exit={{ opacity: 0, x: -10 }}
                  transition={{ duration: 0.3 }}

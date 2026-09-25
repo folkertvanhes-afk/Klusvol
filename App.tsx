@@ -152,29 +152,6 @@ const GHL_CONFIG = {
 
 // --- Utility Hooks & Components ---
 
-const useReveal = () => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return ref;
-};
-
 const Section = ({
   children,
   className = "",
@@ -186,7 +163,6 @@ const Section = ({
   id?: string;
   background?: React.ReactNode;
 }) => {
-  const revealRef = useReveal();
   return (
     <section
       id={id}
@@ -197,10 +173,7 @@ const Section = ({
           {background}
         </div>
       )}
-      <div
-        ref={revealRef}
-        className="max-w-7xl mx-auto relative z-10 reveal transition-all duration-1000"
-      >
+      <div className="max-w-7xl mx-auto relative z-10">
         {children}
       </div>
     </section>
@@ -1391,14 +1364,11 @@ const PricingCard = ({
   `}
   >
     {isPopular && (
-      <motion.div
-        initial={{ y: -10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, type: "spring" }}
+      <div
         className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-slate-900 text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-brand-orange/40 z-20 whitespace-nowrap"
       >
         Meest Gekozen
-      </motion.div>
+      </div>
     )}
 
     <div
@@ -1434,11 +1404,7 @@ const PricingCard = ({
 
       <div className="space-y-5 mb-10 flex-1 relative z-10">
         {features.map((feat: string, i: number) => (
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
+          <div
             key={i}
             className="flex items-start gap-3 group"
           >
@@ -1450,7 +1416,7 @@ const PricingCard = ({
             <span className="text-slate-800 text-sm font-medium group-hover:text-slate-900 transition-colors">
               {feat}
             </span>
-          </motion.div>
+          </div>
         ))}
         {missingFeatures.map((feat: string, i: number) => (
           <div key={i} className="flex items-start gap-3 opacity-40">
@@ -2998,12 +2964,7 @@ const handleLoginClick = () => {
             <div className="max-w-6xl mx-auto px-6 relative z-10">
               <div className="grid grid-cols-1 min-[1200px]:grid-cols-2 gap-16 lg:gap-24 items-center">
                 {/* Image side */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="relative group"
-                >
+                <div className="relative group">
                   <div className="absolute inset-0 bg-brand-orange/10 transform translate-x-4 translate-y-4 rounded-[2.5rem] -z-10 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6"></div>
                   <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-slate-200 bg-[#FAF9F6] relative z-10 shadow-xl shadow-brand-orange/5">
                     {/* Foto van Folkert met een vakman werkt beter voor vertrouwen */}
@@ -3019,15 +2980,10 @@ const handleLoginClick = () => {
                       <span className="block text-xs uppercase tracking-widest mt-1">Direct contact, snelle service</span>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Content side */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="max-w-xl"
-                >
+                <div className="max-w-xl">
                   <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
                     Webontwikkelaar
                   </span>
@@ -3051,7 +3007,7 @@ const handleLoginClick = () => {
                       Ontdek meer <ArrowRight className="ml-2 inline" size={18} />
                     </Button>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
           </Section>
