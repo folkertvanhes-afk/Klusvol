@@ -60,13 +60,13 @@ const AboutPage = ({
     <div className="min-h-screen pt-24 pb-20 px-4 md:px-6 max-w-7xl mx-auto animate-fade-in relative z-10 font-sans">
       {/* Background Texture Overlay */}
       <div className="fixed inset-0 pointer-events-none z-[-1]"></div>
-      <div className="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none z-0"></div>
+      <div className="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.02] pointer-events-none z-0"></div>
 
       {/* Navigation */}
       <Link
         to="/"
         onClick={onBack}
-        className="relative z-20 inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-white/60 backdrop-blur-md px-5 py-2 rounded-full border border-slate-200"
+        className="relative z-20 inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange transition-colors mb-12 group font-medium bg-white/95 md:bg-white/60 md:backdrop-blur-md px-5 py-2 rounded-full border border-slate-200"
       >
         <ChevronLeft
           size={20}
@@ -177,7 +177,7 @@ const AboutPage = ({
       </div>
 
       {/* Interactive Values Section */}
-      <div className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row relative z-10">
+      <div className="max-w-5xl mx-auto mb-24 lg:mb-32 bg-white/95 md:bg-white/80 md:backdrop-blur-xl rounded-[2.5rem] border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row relative z-10">
          <div className="w-full md:w-2/5 md:border-r border-slate-200 p-6 flex flex-col gap-2 relative">
             <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/50 to-transparent pointer-events-none"></div>
             <h3 className="uppercase tracking-widest text-[11px] font-bold text-slate-400 mb-4 pl-4 pt-2 block">Onze Waarden</h3>

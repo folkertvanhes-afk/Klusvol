@@ -363,7 +363,7 @@ const ContactModal = ({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-[#FAF9F6]/95 backdrop-blur-2xl transition-opacity duration-500"
+        className="absolute inset-0 bg-[#FAF9F6]/95 md:backdrop-blur-md transition-opacity duration-500"
         onClick={onClose}
       ></div>
 
@@ -373,7 +373,7 @@ const ContactModal = ({
 
         {/* Left Side: Context OR Contact Details */}
         <div className="w-full md:w-[45%] bg-white p-6 md:p-12 flex flex-col justify-between relative overflow-hidden shrink-0">
-          <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-15"></div>
 
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-slate-200 backdrop-blur-md mb-6 md:mb-10">
@@ -696,7 +696,7 @@ const StatusRow = ({
 }) => {
   return (
     <div
-      className={`flex items-center gap-3 transition-all duration-500 ${status === "waiting" ? "opacity-30 blur-[1px]" : "opacity-100"}`}
+      className={`flex items-center gap-3 transition-all duration-500 ${status === "waiting" ? "opacity-30" : "opacity-100"}`}
       style={{ transitionDelay: delay }}
     >
       <div
@@ -857,7 +857,7 @@ const SignupModal = ({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-[#FAF9F6]/95 backdrop-blur-md transition-opacity duration-500"
+        className="absolute inset-0 bg-[#FAF9F6]/95 md:backdrop-blur-md transition-opacity duration-500"
         onClick={onClose}
       ></div>
 
@@ -1000,7 +1000,7 @@ const SignupModal = ({
 
               {/* THE MEMBERSHIP CARD */}
               <div className="relative w-full max-w-sm h-52 bg-[#FAF9F6] border border-slate-200 rounded-2xl overflow-hidden shadow-2xl group flex flex-col p-6 relative">
-                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10"></div>
 
                 <div className="flex justify-between items-start z-10 mb-auto">
                   <div className="flex items-center gap-3">
@@ -1197,7 +1197,7 @@ const BentoCard = ({
       onMouseLeave={() => setIsHovered(false)}
       className={`
         group relative overflow-hidden rounded-[2rem] border border-white/40 
-        bg-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] flex flex-col backdrop-blur-xl
+        bg-white/95 md:bg-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] flex flex-col md:backdrop-blur-xl
         hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300
         ${className}
       `}
@@ -1214,7 +1214,7 @@ const BentoCard = ({
 
       {/* Visual Content */}
       <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center min-h-[140px] z-10">
-        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02]"></div>
         <div className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
           {visual}
         </div>
@@ -1320,7 +1320,7 @@ const VisualPremium = () => (
 
 const VisualGeenGezeur = () => (
   <div className="relative w-full h-full flex items-center justify-center">
-    <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full opacity-40" />
+    <div className="absolute inset-0 rounded-full opacity-40 [background:radial-gradient(circle,rgba(16,185,129,0.25)_0%,transparent_70%)]" />
     <div className="relative z-10 cursor-pointer hover:scale-110 transition-transform duration-300">
       <ShieldCheck
         size={56}
@@ -1486,7 +1486,7 @@ const ComparisonItem = ({
       <div
         className={`
                 flex items-start gap-5 transition-all duration-500
-                ${isHovered ? "opacity-100 translate-y-0" : "opacity-30 translate-y-4 blur-[1px]"}
+                ${isHovered ? "opacity-100 translate-y-0" : "opacity-30 translate-y-4"}
             `}
       >
         <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-red-500/5 border border-red-500/10 text-red-500 shadow-sm">
@@ -1604,7 +1604,7 @@ const InteractiveUSPs = () => {
             }`}
           >
             {/* Background Grain */}
-            <div className={`absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02] mix-blend-overlay ${isActive ? 'block' : 'hidden'}`}></div>
+            <div className={`absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02] ${isActive ? 'block' : 'hidden'}`}></div>
             
             {/* Color Glow */}
 
@@ -1873,7 +1873,6 @@ const InteractiveSteps = ({ branchNameCompany = "klusbedrijf" }: { branchNameCom
               opacity: activeStep === 0 ? 1 : 0,
               scale: activeStep === 0 ? 1 : 0.9,
               y: activeStep === 0 ? 0 : 20,
-              filter: activeStep === 0 ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ duration: 0.5 }}
             className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
@@ -1896,7 +1895,6 @@ const InteractiveSteps = ({ branchNameCompany = "klusbedrijf" }: { branchNameCom
               opacity: activeStep === 1 ? 1 : 0,
               scale: activeStep === 1 ? 1 : 0.9,
               y: activeStep === 1 ? 0 : 20,
-              filter: activeStep === 1 ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ duration: 0.5 }}
             className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
@@ -1906,7 +1904,7 @@ const InteractiveSteps = ({ branchNameCompany = "klusbedrijf" }: { branchNameCom
                 alt="Bouwen"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-orange/80 to-transparent mix-blend-multiply"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-orange/60 to-transparent"></div>
               <div className="absolute inset-0 flex items-end justify-center pb-6">
                 <div className="bg-brand-orange text-white px-6 py-2 rounded-full border border-white/20 font-bold tracking-wide flex items-center gap-2 shadow-[0_0_30px_rgba(249,115,22,0.6)]">
                   <ShieldCheck size={16} /> Wij bouwen je site
@@ -1920,7 +1918,6 @@ const InteractiveSteps = ({ branchNameCompany = "klusbedrijf" }: { branchNameCom
               opacity: activeStep === 2 ? 1 : 0,
               scale: activeStep === 2 ? 1 : 0.9,
               y: activeStep === 2 ? 0 : 20,
-              filter: activeStep === 2 ? "blur(0px)" : "blur(4px)",
             }}
             transition={{ duration: 0.5 }}
             className="absolute flex flex-col items-center gap-6 pointer-events-none w-full h-full p-3 md:p-6"
@@ -2252,33 +2249,17 @@ const handleLoginClick = () => {
           </script>
         )}
       </Helmet>
-      {/* Background - Warm, Ambachtelijk met Focus op Oranje */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-gradient-to-br from-[#FAF9F6] via-[#F6F4EE] to-[#FFF3E6] flex items-center justify-center">
-        {/* Subtle Textural Grid */}
-        
-
-        {/* Warm Orange Glow Top Right (Primary Highlight) */}
-        <div
-          className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-brand-orange blur-[200px] rounded-full pointer-events-none opacity-10"
-        ></div>
-
-        {/* Soft Warm Grey Glow Bottom Left */}
-        <div
-          className="absolute bottom-[-15%] left-[-15%] w-[900px] h-[900px] bg-[#E8E6E1] blur-[150px] rounded-full pointer-events-none opacity-30"
-        ></div>
-
-        {/* Subtle Warm Highlight Center */}
-        <div
-          className="absolute top-[30%] left-[20%] w-[600px] h-[600px] bg-amber-500 blur-[180px] rounded-full pointer-events-none opacity-5"
-        ></div>
-
-        {/* Noise Overlay for texture */}
-        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.06] mix-blend-overlay"></div>
-      </div>
+      {/* Background - Warm, Ambachtelijk met Focus op Oranje via zuivere CSS gradients zonder blur/mix-blend */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+        style={{
+          background: "radial-gradient(circle at 90% 5%, rgba(249, 115, 22, 0.08) 0%, transparent 60%), radial-gradient(circle at 10% 95%, rgba(232, 230, 225, 0.45) 0%, transparent 55%), radial-gradient(circle at 35% 35%, rgba(245, 158, 11, 0.04) 0%, transparent 50%), linear-gradient(135deg, #FAF9F6 0%, #F6F4EE 50%, #FFF3E6 100%)",
+        }}
+      />
 
       {/* Navbar - Intelligent Scroll - VISIBLE ON ALL PAGES */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${scrolled || activePage !== "home" ? "backdrop-blur-xl bg-[#FAF9F6]/80 border-slate-900/[0.05] py-2" : "bg-transparent border-transparent py-6"}`}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${scrolled || activePage !== "home" ? "bg-[#FAF9F6]/95 md:bg-[#FAF9F6]/80 md:backdrop-blur-xl border-slate-900/[0.05] py-2" : "bg-transparent border-transparent py-6"}`}
       >
           <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
             <div className="flex items-center gap-4 group cursor-pointer">
@@ -2332,7 +2313,7 @@ const handleLoginClick = () => {
 
           {/* Mobile Menu Overlay */}
           {mobileMenuOpen && (
-            <div className="lg:hidden absolute top-24 left-0 w-full bg-[#FAF9F6]/95 backdrop-blur-xl border-b border-slate-100 p-6 flex flex-col gap-6 animate-slide-up-fade shadow-2xl z-50">
+            <div className="lg:hidden absolute top-24 left-0 w-full bg-[#FAF9F6] border-b border-slate-200 p-6 flex flex-col gap-6 animate-slide-up-fade shadow-2xl z-50">
               <button
                 onClick={() => navigateTo("home", "voordelen")}
                 className="text-slate-800 text-lg font-medium text-left"
@@ -2798,7 +2779,7 @@ const handleLoginClick = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-stretch mb-10">
                   
                   {/* LEFT CARD (Base) */}
-                  <div className="lg:col-span-2 relative bg-white/60 backdrop-blur-2xl border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-10 overflow-hidden flex flex-col group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.08)]">
+                  <div className="lg:col-span-2 relative bg-white/95 md:bg-white/60 md:backdrop-blur-xl border border-slate-200 shadow-[0_20px_60px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-10 overflow-hidden flex flex-col group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.08)]">
                     
                     {/* Top Section */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -2908,7 +2889,7 @@ const handleLoginClick = () => {
 
                   {/* RIGHT CARD (Groeimodule) */}
                   <div className="lg:col-span-1 bg-[#FAF9F6] border border-brand-orange/20 shadow-[0_4px_20px_rgb(249,115,22,0.06)] rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden flex flex-col group transition-all duration-500 hover:shadow-[0_20px_60px_rgba(249,115,22,0.12)]">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none [background:radial-gradient(circle,rgba(249,115,22,0.12)_0%,transparent_70%)]"></div>
                     
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-xs font-bold uppercase tracking-wider mb-6 self-start shadow-sm relative z-10">
                       <TrendingUp size={14} className="text-brand-orange" /> OPTIONEEL
@@ -3067,7 +3048,7 @@ const handleLoginClick = () => {
             className="py-32 relative overflow-hidden"
             background={
               <>
-                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay border border-slate-100 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] border border-slate-100 pointer-events-none"></div>
                 {/* Dynamic glows */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-orange/30 to-transparent"></div>
               </>

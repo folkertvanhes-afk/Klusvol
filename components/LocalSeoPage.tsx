@@ -23,7 +23,7 @@ import {
 export const HoekstraHeroVisual: React.FC = () => (
   <div className="lg:col-span-6 w-full relative">
     {/* Achtergrond sfeergloed */}
-    <div className="absolute -inset-4 bg-gradient-to-tr from-brand-orange/20 via-amber-500/10 to-transparent rounded-3xl blur-2xl pointer-events-none" />
+    <div className="absolute -inset-4 rounded-3xl pointer-events-none [background:radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.18)_0%,rgba(245,158,11,0.08)_50%,transparent_80%)]" />
 
     <div className="relative mx-auto max-w-lg lg:max-w-none">
       {/* Neutraal decoratief dieptevlak achter de browser */}
@@ -555,7 +555,7 @@ export const LocalSeoPage: React.FC<LocalSeoPageProps> = ({
 
           {/* 8. DONKERE CTA */}
           <section className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 mb-16 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-brand-orange/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none [background:radial-gradient(circle_at_top_right,rgba(249,115,22,0.15)_0%,transparent_70%)]" />
             <div className="relative z-10 max-w-3xl">
               <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
                 Direct Contact
@@ -1073,7 +1073,7 @@ export const LocalSeoPage: React.FC<LocalSeoPageProps> = ({
 
         {/* 6. DONKERE CTA: Krachtige contrastrijke editorial sectie */}
         <section className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 mb-20 md:mb-28 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-brand-orange/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none [background:radial-gradient(circle_at_top_right,rgba(249,115,22,0.15)_0%,transparent_70%)]" />
           <div className="relative z-10 max-w-3xl">
             <span className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3 block">
               Direct Contact

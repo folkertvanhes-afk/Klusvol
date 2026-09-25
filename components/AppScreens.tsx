@@ -335,7 +335,7 @@ export const FilterScreen = () => {
 
              <div className="px-4 flex-1 overflow-hidden flex flex-col">
                  <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 mb-4 relative overflow-hidden flex-1">
-                     <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/10 rounded-full -mr-8 -mt-8 blur-2xl"></div>
+                     <div className="absolute top-0 right-0 w-24 h-24 rounded-full -mr-8 -mt-8 pointer-events-none [background:radial-gradient(circle,rgba(34,197,94,0.15)_0%,transparent_70%)]"></div>
                      
                      <div className="flex items-center gap-4 mb-5 relative z-10">
                          <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-lg font-bold">
